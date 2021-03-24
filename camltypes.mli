@@ -14,13 +14,13 @@ type moves = move_t list
 
 (** The abstract type of values representing the effectiveness of the
     power of one element against another *)
-type effect
+type effect = int
 
 (** The abstract type of values representing the combination of
     elemental forms of both the player and enemies*)
 type element_match
 
-(** The abstract type of values representing camels and wolves*)
+(** The abstract type of values representing camels and enemies*)
 type t
 
 (** Raised when an unknown element type is encountered *)
