@@ -1,4 +1,7 @@
-type move_t = string
+type move_t =
+  | Attack
+  | Defense
+  | Heal
 
 type element_t = string
 
@@ -8,6 +11,7 @@ type moves = move_t list
 
 (* Effect will be represented by an int where 0 represents weak, 1
    represents a normal attack and 2 represents super effective *)
+
 type effect =
   | Weak
   | Normal
@@ -18,9 +22,21 @@ type t = {
   level : int;
   element_t : element_t;
   moves : move_t list;
+  exp : int;
 }
 
 exception UnknownElement of element_t
+
+let exp_update caml =
+  if caml.exp > 100 || caml.exp = 100 then
+    {
+      hp = caml.hp + 10;
+      level = caml.level + 1;
+      element_t = caml.element_t;
+      moves = caml.moves;
+      exp = 0;
+    }
+  else caml
 
 let effect_multi = function
   | Weak -> 0.5
