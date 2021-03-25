@@ -1,4 +1,4 @@
-MODULES=ocat
+MODULES=camltypes opening test ai attack stages
 BYTES=$(MODULES:=.byte)
 OCAMLBUILD=ocamlbuild -use-ocamlfind -plugin-tag 'package(bisect_ppx-ocamlbuild)'
 TEST=sort_test.byte 
