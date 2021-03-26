@@ -43,8 +43,8 @@ let effect_multi = function
   | Normal -> 1.0
   | SuperEffect -> 1.5
 
-let attack_multi (caml : t) (enemy : t) =
-  match (caml.element_t, enemy.element_t) with
+let attack_multi (caml : element_t) (enemy : element_t) =
+  match (caml, enemy) with
   | "air", "air" -> Normal
   | "air", "earth" -> SuperEffect
   | "air", "water" -> Normal

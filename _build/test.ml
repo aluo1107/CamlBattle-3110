@@ -5,8 +5,8 @@ open Attack
 (* The helper test functions*)
 let attack_multi_test
     (name : string)
-    (input_caml : Camltypes.t)
-    (input_wolf : Camltypes.t)
+    (input_caml : string)
+    (input_wolf : string)
     (expected_output : float) : test =
   name >:: fun _ ->
   assert_equal expected_output
@@ -84,7 +84,8 @@ let post_xp_caml =
 
 let camltypes_test =
   [
-    attack_multi_test "Basic match up" example_caml example_wolf 0.5;
+    attack_multi_test "Basic match up" example_caml.element_t
+      example_wolf.element_t 0.5;
     current_hp_test "Basic health" example_caml 10;
     caml_type_test "Basic caml type" example_caml "fire";
     exp_update_test "Basic caml xp updated" max_xp_caml post_xp_caml;

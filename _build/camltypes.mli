@@ -40,7 +40,7 @@ val effect_multi : effect -> float
     attacks are in the form of (element_t * element_t) where the first
     element is attacking. Requires x is a valid tuple containing two
     valid element_t types.*)
-val attack_multi : t -> t -> effect
+val attack_multi : element_t -> element_t -> effect
 
 (** [current_hp t] returns the current hp of the character in battle *)
 val current_hp : t -> hp

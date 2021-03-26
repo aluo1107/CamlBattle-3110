@@ -1,46 +1,46 @@
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Runner: sequential
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Chooser: simple
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Configuration suite_name = "test suite for CamlBattle"
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Configuration cache_filename = "/Users/chelsea/3110/CamlBattle/_build/oUnit-$(suite_name).cache"
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Configuration run_gc_full_major = "true"
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Configuration display = "true"
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Configuration results_style_1_X = "false"
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Configuration testdata_dir = "none"
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Configuration health_check_interval = "1."
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Configuration verbose = "false"
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Configuration chooser = "simple"
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Configuration output_html_dir = "none"
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Configuration processes_kill_period = "5."
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Configuration runner = "sequential"
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Configuration shards = "2"
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Configuration processes_grace_period = "5."
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Configuration log_encoding = "utf-8"
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Configuration output_junit_file = "none"
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Configuration ci = "false"
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Configuration output_file = "/Users/chelsea/3110/CamlBattle/_build/oUnit-$(suite_name)-$(shard_id).log"
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Start test test suite for CamlBattle:0:Basic match up.
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Test test suite for CamlBattle:0:Basic match up is successful.
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: End test test suite for CamlBattle:0:Basic match up.
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Start test test suite for CamlBattle:1:Basic health.
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Test test suite for CamlBattle:1:Basic health is successful.
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: End test test suite for CamlBattle:1:Basic health.
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Start test test suite for CamlBattle:2:Basic caml type.
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Test test suite for CamlBattle:2:Basic caml type is successful.
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: End test test suite for CamlBattle:2:Basic caml type.
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Start test test suite for CamlBattle:3:Basic caml xp updated.
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Test test suite for CamlBattle:3:Basic caml xp updated is successful.
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: End test test suite for CamlBattle:3:Basic caml xp updated.
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: ==============
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Summary:
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Test test suite for CamlBattle:3:Basic caml xp updated is successful.
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Test test suite for CamlBattle:2:Basic caml type is successful.
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Test test suite for CamlBattle:1:Basic health is successful.
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Test test suite for CamlBattle:0:Basic match up is successful.
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Ran: 4 tests in: 0.00 seconds.
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Cases: 4.
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Tried: 4.
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Errors: 0.
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Failures: 0.
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Skip: 0.
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Todo: 0.
-2021-03-25T17:19:30+00:00 chelseas-MacBook-Pro.local#00 I: Timeout: 0.
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Runner: sequential
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Chooser: simple
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Configuration suite_name = "test suite for CamlBattle"
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Configuration cache_filename = "/Users/chelsea/3110/CamlBattle/_build/oUnit-$(suite_name).cache"
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Configuration run_gc_full_major = "true"
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Configuration display = "true"
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Configuration results_style_1_X = "false"
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Configuration testdata_dir = "none"
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Configuration health_check_interval = "1."
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Configuration verbose = "false"
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Configuration chooser = "simple"
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Configuration output_html_dir = "none"
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Configuration processes_kill_period = "5."
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Configuration runner = "sequential"
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Configuration shards = "2"
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Configuration processes_grace_period = "5."
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Configuration log_encoding = "utf-8"
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Configuration output_junit_file = "none"
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Configuration ci = "false"
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Configuration output_file = "/Users/chelsea/3110/CamlBattle/_build/oUnit-$(suite_name)-$(shard_id).log"
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Start test test suite for CamlBattle:0:Basic match up.
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Test test suite for CamlBattle:0:Basic match up is successful.
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: End test test suite for CamlBattle:0:Basic match up.
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Start test test suite for CamlBattle:1:Basic health.
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Test test suite for CamlBattle:1:Basic health is successful.
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: End test test suite for CamlBattle:1:Basic health.
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Start test test suite for CamlBattle:2:Basic caml type.
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Test test suite for CamlBattle:2:Basic caml type is successful.
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: End test test suite for CamlBattle:2:Basic caml type.
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Start test test suite for CamlBattle:3:Basic caml xp updated.
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Test test suite for CamlBattle:3:Basic caml xp updated is successful.
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: End test test suite for CamlBattle:3:Basic caml xp updated.
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: ==============
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Summary:
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Test test suite for CamlBattle:3:Basic caml xp updated is successful.
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Test test suite for CamlBattle:2:Basic caml type is successful.
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Test test suite for CamlBattle:1:Basic health is successful.
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Test test suite for CamlBattle:0:Basic match up is successful.
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Ran: 4 tests in: 0.00 seconds.
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Cases: 4.
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Tried: 4.
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Errors: 0.
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Failures: 0.
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Skip: 0.
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Todo: 0.
+2021-03-26T04:25:45+00:00 chelseas-MacBook-Pro.local#00 I: Timeout: 0.
