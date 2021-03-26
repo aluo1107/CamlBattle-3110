@@ -1,50 +1,25 @@
 open Camltypes
 
-(* Which element is boosted*)
-type boosted = element_t
-
 (* Which terrain it is*)
 type biome = string
 
-exception UnknownElement of element_t
+type element = Camltypes.element_t
 
-type t = {
-  biome : biome;
-  boosted : element_t;
-}
+exception UnknownBiome of biome
 
-type effect =
-  | Weak
-  | Normal
-  | SuperEffect
+type t = { biome_name : biome }
 
-let effect_multiplier = function
-  | Weak -> 0.5
-  | Normal -> 1.0
-  | SuperEffect -> 1.5
+let stage_effect t =
+  match t.biome_name with
+  | "volcano" -> "fire"
+  | "ocean" -> "water"
+  | "jungle" -> "earth"
+  | "cloud kingdom" -> "air"
+  | x -> raise (UnknownBiome x)
 
-let attack_stage_multi caml (stage : t) =
-  match (caml_type caml, stage.boosted) with
-  | "air", "air" -> Normal
-  | "air", "earth" -> SuperEffect
-  | "air", "water" -> Normal
-  | "air", "fire" -> Weak
-  | "earth", "air" -> SuperEffect
-  | "earth", "earth" -> Normal
-  | "earth", "water" -> SuperEffect
-  | "earth", "fire" -> Normal
-  | "water", "air" -> Normal
-  | "water", "earth" -> Weak
-  | "water", "water" -> Normal
-  | "water", "fire" -> SuperEffect
-  | "fire", "air" -> Normal
-  | "fire", "earth" -> Normal
-  | "fire", "water" -> Weak
-  | "fire", "fire" -> Normal
-  | x, y -> raise (UnknownElement x)
+let attack_stage_multi caml stage =
+  attack_multi (caml_type caml) (stage_effect stage)
 
-let stage_biome t = t.biome
+let stage_biome t = t.biome_name
 
-let stage_boost t = t.boosted
-
-let effect_match t t = (t.boosted, t.boosted)
+let stage_boost t = stage_effect t
