@@ -3,7 +3,7 @@ open Camltypes
 (* Which terrain it is*)
 type biome = string
 
-type element = Camltypes.element_t
+type element = element_t
 
 exception UnknownBiome of biome
 
