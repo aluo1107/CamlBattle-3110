@@ -17,6 +17,7 @@ type moves = move_t list
 (** The abstract type of values representing the effectiveness of the
     power of one element against another *)
 type effect
+
 (** The abstract type of values representing camels and enemies*)
 type t = {
   hp : int;
