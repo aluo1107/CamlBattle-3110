@@ -17,6 +17,7 @@ let get_multiplier effect = effect_multi effect
     returns how much damage is done to the victim. Requires: [attacker]
     and [victim] be a valid Camltypes.t, [stage] be a valid Stages.t and
     [move] be a valid type t *)
+
 let attack_move attacker victim stage move =
   let attack_multiplier =
     get_multiplier
@@ -24,8 +25,7 @@ let attack_move attacker victim stage move =
   in
   let attack_damage_type = attack_multiplier *. attack_base in
   let attack_multi_stage =
-    get_multiplier
-      (attack_stage_multi (caml_type attacker) (stage_boost stage))
+    get_multiplier (attack_stage_multi attacker stage)
   in
   attack_damage_type *. attack_multi_stage
 
