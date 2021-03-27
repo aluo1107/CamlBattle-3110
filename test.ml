@@ -1,6 +1,7 @@
 open OUnit2
 open Camltypes
 open Attack
+open Stages
 
 (* The helper test functions*)
 let attack_multi_test

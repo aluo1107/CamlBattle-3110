@@ -11,7 +11,7 @@ type t = { biome_name : biome }
 
 (** [stage effect t] returns the element type that gets boosted by the
     stage.*)
-val stage_effect : t -> Camltypes.element_t
+val stage_effect : t -> string
 
 (** [attack_stage_multi caml stage] returns the attack multiplier of the
     caml according to what stage biome they are in. *)
@@ -22,4 +22,4 @@ val stage_biome : t -> biome
 
 (** [stage_boost t] is a getter function for which element gets boosted
     according to which biome it is*)
-val stage_boost : t -> Camltypes.element_t
+val stage_boost : t -> string
