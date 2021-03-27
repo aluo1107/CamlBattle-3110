@@ -31,6 +31,14 @@ let exp_update_test
     (expected_output : Camltypes.t) : test =
   name >:: fun _ -> assert_equal expected_output (exp_update input_caml)
 
+let updated_hp_test
+    (name : string)
+    (input_cam : Camltypes.t)
+    (damage : int)
+    (expected_output : Camltypes.t) : test =
+  name >:: fun _ ->
+  assert_equal expected_output (updated_hp input_cam damage)
+
 (* Example cases to play with in the test suites.*)
 
 let example_caml_el = "fire"
@@ -81,6 +89,15 @@ let post_xp_caml =
     exp = 0;
   }
 
+let post_damage_caml =
+  {
+    hp = 9;
+    level = 1;
+    element_t = example_caml_el;
+    moves = move_set;
+    exp = 0;
+  }
+
 (* Test suites for each Compilation Unit*)
 
 let camltypes_test =
@@ -90,6 +107,7 @@ let camltypes_test =
     current_hp_test "Basic health" example_caml 10;
     caml_type_test "Basic caml type" example_caml "fire";
     exp_update_test "Basic caml xp updated" max_xp_caml post_xp_caml;
+    updated_hp_test "Basic caml damage" example_caml 1 post_damage_caml;
   ]
 
 let attack_test = []

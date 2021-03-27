@@ -68,3 +68,12 @@ let caml_type t = t.element_t
 let effect_match t t = (t.element_t, t.element_t)
 
 let current_hp t = t.hp
+
+let updated_hp t int =
+  {
+    hp = t.hp - int;
+    level = t.level;
+    element_t = t.element_t;
+    moves = t.moves;
+    exp = t.exp;
+  }
