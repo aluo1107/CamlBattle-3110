@@ -1,7 +1,8 @@
 (** The camel types in CamlBattle*)
 
 (** The abstract value representing move type*)
-type move_t =  | Attack
+type move_t =
+  | Attack
   | Defense
   | Heal
 
@@ -17,11 +18,14 @@ type moves = move_t list
 (** The abstract type of values representing the effectiveness of the
     power of one element against another *)
 type effect
+
 (** The abstract type of values representing camels and enemies*)
 type t = {
   hp : int;
-      level : int; element_t : element_t; moves : move_t list; exp :
-        int; 
+  level : int;
+  element_t : element_t;
+  moves : move_t list;
+  exp : int;
 }
 
 (** Raised when an unknown element type is encountered *)
@@ -51,3 +55,7 @@ val caml_type : t -> element_t
 (** [battle_types t t] returns the elemental type of both the caml
     player and the enemy in a tuple *)
 val effect_match : t -> t -> element_t * element_t
+
+(**[updated_hp t int] returns a caml with the updated hp after having
+   taken damage.*)
+val updated_hp : t -> int -> t
