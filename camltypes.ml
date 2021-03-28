@@ -29,13 +29,7 @@ exception UnknownElement of element_t
 
 let exp_update caml =
   if caml.exp > 100 || caml.exp = 100 then
-    {
-      hp = caml.hp + 10;
-      level = caml.level + 1;
-      element_t = caml.element_t;
-      moves = caml.moves;
-      exp = 0;
-    }
+    { caml with hp = caml.hp + 10; level = caml.level + 1; exp = 0 }
   else caml
 
 let effect_multi = function
@@ -69,11 +63,4 @@ let effect_match t t = (t.element_t, t.element_t)
 
 let current_hp t = t.hp
 
-let updated_hp t int =
-  {
-    hp = t.hp - int;
-    level = t.level;
-    element_t = t.element_t;
-    moves = t.moves;
-    exp = t.exp;
-  }
+let updated_hp t int = { t with hp = t.hp - int }
