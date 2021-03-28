@@ -1,0 +1,4 @@
+# ocaml
+*.cmo
+*.byte
+_build
