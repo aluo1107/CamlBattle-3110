@@ -17,7 +17,10 @@ type moves = move_t list
 
 (** The abstract type of values representing the effectiveness of the
     power of one element against another *)
-type effect
+type effect =
+  | Weak
+  | Normal
+  | SuperEffect
 
 (** The abstract type of values representing camels and enemies*)
 type t = {
@@ -27,6 +30,12 @@ type t = {
   moves : move_t list;
   exp : int;
 }
+
+(** The abstract type of values representing a stage.*)
+type stage = string
+
+(** Raised when an unknown biome type is encountered *)
+exception UnknownStage of stage
 
 (** Raised when an unknown element type is encountered *)
 exception UnknownElement of element_t
@@ -59,3 +68,7 @@ val effect_match : t -> t -> element_t * element_t
 (**[updated_hp t int] returns a caml with the updated hp after having
    taken damage.*)
 val updated_hp : t -> int -> t
+
+(** [attack_stage_multi caml stage] returns the attack multiplier of the
+    caml according to what stage biome they are in. *)
+val attack_stage_multi : t -> stage -> effect
