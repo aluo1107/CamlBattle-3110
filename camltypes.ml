@@ -25,6 +25,10 @@ type t = {
   exp : int;
 }
 
+type stage = string
+
+exception UnknownStage of stage
+
 exception UnknownElement of element_t
 
 let exp_update caml =
@@ -64,3 +68,16 @@ let effect_match t t = (t.element_t, t.element_t)
 let current_hp t = t.hp
 
 let updated_hp t int = { t with hp = t.hp - int }
+
+(* Stuff for stage*)
+
+let stage_effect t =
+  match t with
+  | "volcano" -> "fire"
+  | "ocean" -> "water"
+  | "jungle" -> "earth"
+  | "cloud kingdom" -> "air"
+  | x -> raise (UnknownStage x)
+
+let attack_stage_multi caml stage =
+  attack_multi (caml_type caml) (stage_effect stage)

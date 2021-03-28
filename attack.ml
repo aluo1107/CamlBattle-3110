@@ -1,5 +1,4 @@
 open Camltypes
-open Stages
 
 let attack_base = 10.0
 
