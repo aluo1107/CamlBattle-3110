@@ -1,4 +1,5 @@
 open Camltypes
+open Attack
 
 (* Which terrain it is*)
 type biome = string
