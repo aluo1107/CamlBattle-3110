@@ -17,6 +17,7 @@ type effect =
   | Normal
   | SuperEffect
 
+(* hello *)
 type t = {
   hp : int;
   level : int;
