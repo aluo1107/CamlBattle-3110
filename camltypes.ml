@@ -25,6 +25,7 @@ type t = {
   moves : move_t list;
   exp : int;
   defense : int;
+  current_move : int;
 }
 
 type stage = string
