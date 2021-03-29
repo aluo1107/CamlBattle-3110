@@ -23,6 +23,7 @@ type t = {
   element_t : element_t;
   moves : move_t list;
   exp : int;
+  defense : int;
 }
 
 type stage = string
@@ -68,6 +69,10 @@ let effect_match t t = (t.element_t, t.element_t)
 let current_hp t = t.hp
 
 let updated_hp t int = { t with hp = t.hp - int }
+
+let updated_defense t int = { t with defense = int }
+
+let current_defense t = t.defense
 
 (* Stuff for stage*)
 
