@@ -41,4 +41,5 @@ let caml_init element =
     element_t = play_game ();
     moves = [ Attack; Defense; Heal ];
     exp = 0;
+    defense = 0;
   }

@@ -68,7 +68,7 @@ let effect_match t t = (t.element_t, t.element_t)
 
 let current_hp t = t.hp
 
-let updated_hp t int = { t with hp = t.hp - int }
+let updated_hp t int = { t with hp = t.hp - int; defense = 0 }
 
 let updated_defense t int = { t with defense = int }
 

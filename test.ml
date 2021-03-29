@@ -60,6 +60,7 @@ let example_caml =
     element_t = example_caml_el;
     moves = move_set;
     exp = 0;
+    defense = 0;
   }
 
 let example_wolf =
@@ -69,6 +70,7 @@ let example_wolf =
     element_t = example_enemy_el;
     moves = move_set;
     exp = 0;
+    defense = 0;
   }
 
 let max_xp_caml =
@@ -78,6 +80,7 @@ let max_xp_caml =
     element_t = example_caml_el;
     moves = move_set;
     exp = 100;
+    defense = 0;
   }
 
 let post_xp_caml =
@@ -87,6 +90,7 @@ let post_xp_caml =
     element_t = example_caml_el;
     moves = move_set;
     exp = 0;
+    defense = 0;
   }
 
 let post_damage_caml =
@@ -96,6 +100,7 @@ let post_damage_caml =
     element_t = example_caml_el;
     moves = move_set;
     exp = 0;
+    defense = 0;
   }
 
 (* Test suites for each Compilation Unit*)
