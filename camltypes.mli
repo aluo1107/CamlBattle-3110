@@ -29,6 +29,7 @@ type t = {
   element_t : element_t;
   moves : move_t list;
   exp : int;
+  defense : int;
 }
 
 (** The abstract type of values representing a stage.*)
@@ -68,6 +69,14 @@ val effect_match : t -> t -> element_t * element_t
 (**[updated_hp t int] returns a caml with the updated hp after having
    taken damage.*)
 val updated_hp : t -> int -> t
+
+(** [updated defense t int] returns a caml with the updated hp after
+    calling a defensive move*)
+val updated_defense : t -> int -> t
+
+(** [current_defense t] returns the current defense of the character in
+    battle *)
+val current_defense : t -> int
 
 (** [attack_stage_multi caml stage] returns the attack multiplier of the
     caml according to what stage biome they are in. *)
