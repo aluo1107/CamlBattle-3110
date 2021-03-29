@@ -37,4 +37,3 @@ let move attacker victim stage move =
   | Attack -> updated_hp victim (attack_move attacker victim stage)
   | Defense -> updated_defense attacker (defense_base * attacker.level)
   | Heal -> updated_hp attacker (-(heal_base * attacker.level))
-  | x -> raise (UnknownMove x)
