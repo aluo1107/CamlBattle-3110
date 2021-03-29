@@ -22,7 +22,9 @@ type effect =
   | Normal
   | SuperEffect
 
-(** The abstract type of values representing camels and enemies*)
+(** The abstract type of values representing camels and enemies. current
+    move is denoted by 0,1,2,3. 0 is at the beginning of the game. 1 is
+    attack, 2 is heal, and 3 is defense*)
 type t = {
   hp : int;
   level : int;
@@ -30,6 +32,7 @@ type t = {
   moves : move_t list;
   exp : int;
   defense : int;
+  current_move : int;
 }
 
 (** The abstract type of values representing a stage.*)
