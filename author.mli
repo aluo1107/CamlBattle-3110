@@ -13,9 +13,9 @@
 
    Academic Integrity Statement
 
-   I, the person named in the @author Changhee Lee (cl868), Chelsea Choi, Ada Luo
-   comment above, have fully reviewed the course academic integrity policies.  
-   I have adhered to those policies in solving the assignment.
+   I, the person named in the @author Changhee Lee (cl868), Chelsea Choi (cc2583), 
+   Ada Luo (al2342) comment above, have fully reviewed the course academic 
+   integrity policies. I have adhered to those policies in solving the assignment.
 
    The policies do permit some limited collaboration among students currently
    enrolled in the course. If I did engage in such collaboration, here is the
