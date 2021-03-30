@@ -42,4 +42,5 @@ let caml_init element =
     moves = [ Attack; Defense; Heal ];
     exp = 0;
     defense = 0;
+    current_move = 0;
   }
