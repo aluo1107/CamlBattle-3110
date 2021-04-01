@@ -1,4 +1,5 @@
 MODULES=camltypes test ai attack stages author main state command
+
 OBJECTS=$(MODULES:=.cmo)
 MLS=$(MODULES := .ml)
 MLIS=$(MODULES :=.mli)
