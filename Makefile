@@ -1,4 +1,4 @@
-MODULES=camltypes opening test ai attack stages
+MODULES=camltypes test ai attack stages state main command
 OBJECTS=$(MODULES:=.cmo)
 MLS=$(MODULES := .ml)
 MLIS=$(MODULES :=.mli)

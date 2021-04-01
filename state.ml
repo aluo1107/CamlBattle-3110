@@ -1,5 +1,4 @@
 open Camltypes
-open Opening
 open Command
 
 type t = {
