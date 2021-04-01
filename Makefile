@@ -1,9 +1,11 @@
-MODULES=camltypes test ai attack stages state main command
+MODULES=camltypes test ai attack stages author main state command
+
 OBJECTS=$(MODULES:=.cmo)
 MLS=$(MODULES := .ml)
 MLIS=$(MODULES :=.mli)
 BYTES=$(MODULES:=.byte)
 TEST=test.byte 
+MAIN=main.byte
 OCAMLBUILD=ocamlbuild -use-ocamlfind 
 
 FINISHED_TEST=sort_test_finished.byte
@@ -17,7 +19,8 @@ utop: build
 
 build:
 	$(OCAMLBUILD) $(OBJECTS)
-
+play: 
+	$(OCAMLBUILD) -tag 'debug' $(MAIN) && OCAMLRUNPARAM=B ./$(MAIN)
 test:
 	$(OCAMLBUILD) -tag 'debug' $(TEST) && ./$(TEST) -runner sequential
 
