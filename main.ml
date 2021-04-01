@@ -8,8 +8,6 @@ exception UnknownCommand of string
 
 let turn = true
 
-let change_turn turn = function true -> false | false -> true
-
 (*change specifically for move set choice*)
 let rec valid_input () : string =
   let () = print_string "Select a valid element" in
@@ -20,10 +18,11 @@ let rec valid_input () : string =
   then input2
   else valid_input ()
 
-let choose_attack input = function
-  | "attack" -> "attack"
-  | "heal" -> "heal"
-  | "defense" -> "defense"
+let choose_attack input =
+  match input with
+  | "attack" -> Attack
+  | "heal" -> Heal
+  | "defense" -> Defense
   | _ -> raise (UnknownCommand input)
 
 let get_attack =
@@ -36,16 +35,46 @@ let player_move = choose_attack get_attack
 
 let ai_move = choose_attack get_attack
 
+(* [summary_stats] prints the summary stats of the caml at the end of
+   the game.*)
+let summary_stats caml =
+  print_string ("Your experience gained is" ^ string_of_int caml.exp);
+  print_string ("Your current level is" ^ string_of_int caml.level)
+
+(* [end_game] prints the end of game message and prompts player to play
+   again.*)
+let end_game state =
+  print_string "Game Over. Please select play again to\n   continue.";
+  summary_stats state.player
+
+(* [welcome_game] prints the welcome message. *)
+let welcome_game =
+  let () =
+    print_string
+      "Hello! Welcome to CamlBattles. Please select your element: \
+       fire, water, air, or earth"
+  in
+  let input = read_line () in
+  if
+    input = "water" || input = "fire" || input = "air"
+    || input = "earth"
+  then input
+  else valid_input ()
+
 (* [play_game state] begins the CamlBattle. Takes in the state and
    checks whether hp is below or equal to 0. Will call itself again
    based on what attack returns. *)
 let rec play_game (f : State.t) =
-  let check_hp = current_hp player in
+  let check_hp = current_hp f.player in
   if check_hp <= 0 then end_game f
   else if
     turn (* will perform player attack based on move and changes turn*)
-  then player_move attack_move f.player f.ai f.stage change_turn turn
-  else ai_move f.ai f.player f.stage change_turn turn
+  then
+    let chosen_move = choose_attack get_attack in
+    play_game (Attack.move f f.player f.ai chosen_move turn)
+  else
+    play_game
+      (Attack.move f f.ai f.player (choose_attack get_attack) turn)
 
 (* afterwards will call play_game again with state returned from attack*)
 
@@ -63,7 +92,7 @@ let caml_init element =
   {
     hp = 10;
     level = 1;
-    element_t = welcome_game ();
+    element_t = element;
     moves = [ Attack; Defense; Heal ];
     exp = 0;
     defense = 0;
@@ -81,7 +110,7 @@ let find_ai_element player_element =
 
 (* creates ai caml based on the opposite element of the player*)
 
-let ai_caml find_ai_element element caml_init =
+let ai_caml element caml_init =
   { caml_init with element_t = find_ai_element element }
 
 let rec valid_input () : string =
@@ -91,21 +120,6 @@ let rec valid_input () : string =
     input2 = "water" || input2 = "fire" || input2 = "air"
     || input2 = "earth"
   then input2
-  else valid_input ()
-
-(* [welcome_game] prints the welcome message. *)
-
-let welcome_game () =
-  let () =
-    print_string
-      "Hello! Welcome to CamlBattles. Please select your element: \
-       fire, water, air, or earth"
-  in
-  let input = read_line () in
-  if
-    input = "water" || input = "fire" || input = "air"
-    || input = "earth"
-  then input
   else valid_input ()
 
 let pick_biome =
@@ -127,15 +141,17 @@ let pick_biome =
    player and AI camls. Calls play_game with new constructed state.t
    element from player and AI camls. *)
 let main () =
-  user_name;
-  let player_caml = caml_init in
-  let enemy_caml =
-    ai_caml find_ai_element (welcome_game ()) caml_init
-      (welcome_game ())
-  in
+  let () = user_name in
+  let player_caml = caml_init welcome_game in
+  let enemy_caml = ai_caml welcome_game player_caml in
   let player_stage = pick_biome in
   let game_state =
-    { player = player_caml; ai = enemy_caml; stage = player_stage }
+    {
+      player = player_caml;
+      ai = enemy_caml;
+      stage = player_stage;
+      turn = true;
+    }
   in
   play_game game_state
 
@@ -143,15 +159,3 @@ let hp_update caml =
   print_string ("Your current hp is " ^ string_of_int (current_hp caml))
 
 let () = main ()
-
-(* [summary_stats] prints the summary stats of the caml at the end of
-   the game.*)
-let summary_stats caml =
-  print_string ("Your experience gained is" ^ string_of_int caml.exp);
-  print_string ("Your current level is" ^ string_of_int caml.level)
-
-(* [end_game] prints the end of game message and prompts player to play
-   again.*)
-let end_game state =
-  print_string "Game Over. Please select play again to\n   continue.";
-  summary_stats state.player

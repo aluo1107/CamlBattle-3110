@@ -12,6 +12,9 @@ exception UnknownMove of move_t
 
 type t = move_t
 
+let change_turn (turn : bool) =
+  match turn with true -> false | false -> true
+
 (** [get_multiplier effect] is a helper function that returns the effect
     multiplier. Requires: [effect] be a valid Camltypes.effect*)
 let get_multiplier effect = effect_multi effect
@@ -47,6 +50,7 @@ let move (state : State.t) attacker victim move player_attacker =
               hp = victim.hp - (attack_dam - victim.defense);
               defense = 0;
             };
+          turn = change_turn player_attacker;
         }
       else
         let attack_dam = attack_move attacker victim state in
@@ -58,6 +62,7 @@ let move (state : State.t) attacker victim move player_attacker =
               hp = victim.hp - (attack_dam - victim.defense);
               defense = 0;
             };
+          turn = change_turn player_attacker;
         }
   | Defense ->
       if player_attacker then
@@ -66,12 +71,14 @@ let move (state : State.t) attacker victim move player_attacker =
           player =
             updated_defense attacker (defense_base * attacker.level);
           ai = updated_defense victim 0;
+          turn = change_turn player_attacker;
         }
       else
         {
           state with
           player = updated_defense victim 0;
           ai = updated_defense attacker (defense_base * attacker.level);
+          turn = change_turn player_attacker;
         }
   | Heal ->
       if player_attacker then
@@ -79,10 +86,12 @@ let move (state : State.t) attacker victim move player_attacker =
           state with
           player = updated_hp attacker (-(heal_base * attacker.level));
           ai = updated_defense victim 0;
+          turn = change_turn player_attacker;
         }
       else
         {
           state with
           player = updated_defense victim 0;
           ai = updated_hp attacker (-(heal_base * attacker.level));
+          turn = change_turn player_attacker;
         }
