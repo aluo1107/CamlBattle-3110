@@ -1,4 +1,4 @@
-MODULES=camltypes test ai attack stages author main state command
+MODULES=camltypes test ai attack author main_func state command main
 
 OBJECTS=$(MODULES:=.cmo)
 MLS=$(MODULES := .ml)
@@ -23,6 +23,9 @@ play:
 	$(OCAMLBUILD) -tag 'debug' $(MAIN) && OCAMLRUNPARAM=B ./$(MAIN)
 test:
 	$(OCAMLBUILD) -tag 'debug' $(TEST) && ./$(TEST) -runner sequential
+
+zip:
+	zip camlbattle.zip *.ml* *.mli* * _tags .merlin .ocamlformat .ocamlinit Makefile install.md*
 
 clean:
 	ocamlbuild -clean
