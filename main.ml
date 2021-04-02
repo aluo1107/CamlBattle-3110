@@ -3,11 +3,6 @@ open Camltypes
 (* [play_game] begins the CamlBattle. *)
 let play_game f = failwith "Unimplemented"
 
-let hp_update caml =
-  print_string ("Your current hp is " ^ string_of_int (current_hp caml))
-
-(* [end_game] prints the end of game message and prompts player to play
-   again.*)
 let rec valid_input () : string =
   let () = print_string "Select a valid element" in
   let input2 = read_line () in
@@ -17,8 +12,7 @@ let rec valid_input () : string =
   then input2
   else valid_input ()
 
-(* [play_game] prints the welcome message. *)
-let play_game () =
+let welcome_game () =
   let () =
     print_string
       "Hello! Welcome to CamlBattles. Please select your element: \
@@ -30,6 +24,14 @@ let play_game () =
     || input = "earth"
   then input
   else valid_input ()
+
+let hp_update caml =
+  print_string ("Your current hp is " ^ string_of_int (current_hp caml))
+
+(* [end_game] prints the end of game message and prompts player to play
+   again.*)
+
+(* [welcome_game] prints the welcome message. *)
 
 (* [user_name] prompts for the player to enter their name and prints a
    welcome message. *)
