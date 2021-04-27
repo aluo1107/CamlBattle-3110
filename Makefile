@@ -1,4 +1,5 @@
-MODULES=camltypes test ai attack stages author state command main
+MODULES=camltypes test ai attack author main_func state command main
+
 OBJECTS=$(MODULES:=.cmo)
 MLS=$(MODULES := .ml)
 MLIS=$(MODULES :=.mli)
@@ -18,13 +19,13 @@ utop: build
 
 build:
 	$(OCAMLBUILD) $(OBJECTS)
-
+play: 
+	$(OCAMLBUILD) -tag 'debug' $(MAIN) && OCAMLRUNPARAM=B ./$(MAIN)
 test:
 	$(OCAMLBUILD) -tag 'debug' $(TEST) && ./$(TEST) -runner sequential
 
-play:
-	$(OCAMLBUILD) -tag 'debug' $(MAIN) && OCAMLRUNPARAM=b ./$(MAIN)
-
+zip:
+	zip camlbattle.zip *.ml* *.mli* * _tags .merlin .ocamlformat .ocamlinit Makefile install.md*
 
 clean:
 	ocamlbuild -clean
