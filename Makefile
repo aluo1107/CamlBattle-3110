@@ -6,10 +6,10 @@ MLIS=$(MODULES :=.mli)
 BYTES=$(MODULES:=.byte)
 TEST=test.byte 
 MAIN=main.byte
-OCAMLBUILD=ocamlbuild -use-ocamlfind 
+OCAMLBUILD=ocamlbuild -use-ocamlfind -plugin-tag "package(js_of_ocaml-ocamlbuild)" 
 
 FINISHED_TEST=sort_test_finished.byte
-PKGS=ounit2
+PKGS=ounit2, js_of_ocaml
 
 default: build
 	OCAMLRUNPARAM=b utop
