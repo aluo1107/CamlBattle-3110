@@ -37,7 +37,7 @@ let welcome_game input =
 (*Initialize the caml.*)
 let caml_init element =
   {
-    hp = 10;
+    hp = 20;
     level = 1;
     element_t = element;
     moves = [ Attack; Defense; Heal ];
@@ -52,7 +52,7 @@ let find_ai_element player_element =
   | "fire" -> "water"
   | "water" -> "earth"
   | "air" -> "fire"
-  | "earth" -> "fire"
+  | "earth" -> "air"
   | _ -> raise (UnknownElement player_element)
 
 (* creates ai caml based on the opposite element of the player*)
