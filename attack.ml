@@ -48,7 +48,9 @@ let move (state : State.t) attacker victim move player_attacker =
             {
               victim with
               hp =
-                (let new_hp = victim.hp - attack_dam + victim.defense in
+                (let new_hp =
+                   victim.hp - (attack_dam - victim.defense)
+                 in
                  if new_hp > victim.hp then victim.hp else new_hp);
               defense = 0;
             };
