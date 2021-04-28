@@ -40,9 +40,9 @@ let exp_update caml =
   else caml
 
 let effect_multi = function
-  | Weak -> 0.5
-  | Normal -> 1.0
-  | SuperEffect -> 1.5
+  | Weak -> 1.0
+  | Normal -> 1.5
+  | SuperEffect -> 2.0
 
 let attack_multi (caml : element_t) (enemy : element_t) =
   match (caml, enemy) with
@@ -50,7 +50,7 @@ let attack_multi (caml : element_t) (enemy : element_t) =
   | "air", "earth" -> SuperEffect
   | "air", "water" -> Normal
   | "air", "fire" -> Weak
-  | "earth", "air" -> SuperEffect
+  | "earth", "air" -> Weak
   | "earth", "earth" -> Normal
   | "earth", "water" -> SuperEffect
   | "earth", "fire" -> Normal
@@ -58,7 +58,7 @@ let attack_multi (caml : element_t) (enemy : element_t) =
   | "water", "earth" -> Weak
   | "water", "water" -> Normal
   | "water", "fire" -> SuperEffect
-  | "fire", "air" -> Normal
+  | "fire", "air" -> SuperEffect
   | "fire", "earth" -> Normal
   | "fire", "water" -> Weak
   | "fire", "fire" -> Normal

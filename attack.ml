@@ -1,7 +1,7 @@
 open Camltypes
 open State
 
-let attack_base = 2
+let attack_base = 5
 
 let heal_base = 1
 
