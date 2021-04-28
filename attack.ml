@@ -1,12 +1,12 @@
 open Camltypes
 open State
 
-let attack_base = 10
+let attack_base = 2
 
-let heal_base = 10
+let heal_base = 1
 
 (*Defense base is higher because there is a chance it won't be used*)
-let defense_base = 15
+let defense_base = 2
 
 exception UnknownMove of move_t
 
@@ -47,7 +47,9 @@ let move (state : State.t) attacker victim move player_attacker =
           ai =
             {
               victim with
-              hp = victim.hp - (attack_dam - victim.defense);
+              hp =
+                (let new_hp = victim.hp - attack_dam + victim.defense in
+                 if new_hp > victim.hp then victim.hp else new_hp);
               defense = 0;
             };
           turn = change_turn player_attacker;
@@ -59,7 +61,11 @@ let move (state : State.t) attacker victim move player_attacker =
           player =
             {
               victim with
-              hp = victim.hp - (attack_dam - victim.defense);
+              hp =
+                (let new_hp =
+                   victim.hp - (attack_dam - victim.defense)
+                 in
+                 if new_hp > victim.hp then victim.hp else new_hp);
               defense = 0;
             };
           turn = change_turn player_attacker;
@@ -84,7 +90,12 @@ let move (state : State.t) attacker victim move player_attacker =
       if player_attacker then
         {
           state with
-          player = updated_hp attacker (-(heal_base * attacker.level));
+          player =
+            (let new_hp = attacker.hp + (heal_base * attacker.level) in
+             if new_hp > attacker.level * 10 then
+               updated_hp attacker
+                 (-((attacker.level * 10) - attacker.hp))
+             else updated_hp attacker (-(heal_base * attacker.level)));
           ai = updated_defense victim 0;
           turn = change_turn player_attacker;
         }
@@ -92,6 +103,11 @@ let move (state : State.t) attacker victim move player_attacker =
         {
           state with
           player = updated_defense victim 0;
-          ai = updated_hp attacker (-(heal_base * attacker.level));
+          ai =
+            (let new_hp = attacker.hp + (heal_base * attacker.level) in
+             if new_hp > attacker.level * 10 then
+               updated_hp attacker
+                 (-((attacker.level * 10) - attacker.hp))
+             else updated_hp attacker (-(heal_base * attacker.level)));
           turn = change_turn player_attacker;
         }

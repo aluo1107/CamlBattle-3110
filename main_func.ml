@@ -1,6 +1,7 @@
 open Camltypes
 open State
 open Attack
+open Ai
 
 exception UnknownElement of string
 
@@ -94,11 +95,19 @@ let rec play_game (f : State.t) =
     f.turn
     (* will perform player attack based on move and changes turn*)
   then begin
-    print_string " Select a move: attack, heal, defense ";
+    print_string " Your current hp is: ";
+    print_endline (string_of_int check_hp);
+    print_string " The opponent's hp is: ";
+    print_endline (string_of_int f.ai.hp);
+    print_string " AI Defense: ";
+    print_endline (string_of_int f.ai.defense);
+    print_endline " Select a move: attack, heal, defense ";
     let input1 = read_line () in
     play_game
       (Attack.move f f.player f.ai (choose_attack input1) f.turn)
   end
-  else print_string " Select a move: attack, heal, defense for enemy ";
-  let input2 = read_line () in
-  play_game (Attack.move f f.ai f.player (choose_attack input2) f.turn)
+  else play_game (Ai.health_check f)
+
+(* print_string " Select a move: attack, heal, defense for enemy "; let
+   input2 = read_line () in play_game (Attack.move f f.ai f.player
+   (choose_attack input2) f.turn) *)
