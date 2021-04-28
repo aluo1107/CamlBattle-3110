@@ -1,8 +1,9 @@
 open Camltypes
+open Js_of_ocaml
 open Sprite
-module Html = Dom_html
+open Dom_html
 
-let document = Html.document
+let document = Dom_html.document
 
 let jstr = Js.string
 

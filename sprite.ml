@@ -1,4 +1,5 @@
 open Actors
+open Js_of_ocaml
 
 type xy = float * float
 
