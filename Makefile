@@ -9,7 +9,7 @@ MAIN=main.byte
 OCAMLBUILD=ocamlbuild -use-ocamlfind 
 
 FINISHED_TEST=sort_test_finished.byte
-PKGS=ounit2, js_of_ocaml, js_of_ocaml-ppx
+PKGS=ounit2, graphics
 
 default: build
 	OCAMLRUNPARAM=b utop
