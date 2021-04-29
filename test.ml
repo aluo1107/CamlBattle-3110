@@ -1,6 +1,7 @@
 open OUnit2
 open Camltypes
 open Attack
+open State
 
 (* The helper test functions*)
 let attack_multi_test
@@ -74,6 +75,14 @@ let example_wolf =
     current_move = 0;
   }
 
+let example_state =
+  {
+    player = example_caml;
+    ai = example_wolf;
+    stage = "volcano";
+    turn = true;
+  }
+
 let max_xp_caml =
   {
     hp = 10;
@@ -120,6 +129,8 @@ let camltypes_test =
   ]
 
 let attack_test = []
+
+let gui_test = []
 
 let tests =
   "test suite for CamlBattle" >::: List.flatten [ camltypes_test ]

@@ -2,6 +2,7 @@ open Camltypes
 open State
 open Attack
 open Main_func
+open Draw
 
 let turn = true
 
