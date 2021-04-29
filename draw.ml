@@ -73,13 +73,16 @@ let user_board color (state : State.t) =
   Graphics.fill_rect 250 170 60 90;
   Graphics.moveto 250 225;
   Graphics.set_color Graphics.black;
-  Graphics.draw_string "Exp: 10";
+  Graphics.draw_string
+    ("Exp: " ^ string_of_int (Camltypes.current_hp state.player));
   Graphics.moveto 250 200;
   Graphics.set_color Graphics.black;
-  Graphics.draw_string "Lv: 10";
+  Graphics.draw_string
+    ("Lv: " ^ string_of_int (Camltypes.current_hp state.player));
   Graphics.moveto 250 185;
   Graphics.set_color Graphics.black;
-  Graphics.draw_string "HP: 10"
+  Graphics.draw_string
+    ("HP: " ^ string_of_int (Camltypes.current_hp state.ai))
 
 let enemy_board color (state : State.t) =
   Graphics.set_color color;
@@ -88,15 +91,15 @@ let enemy_board color (state : State.t) =
   Graphics.moveto 350 460;
   Graphics.set_color Graphics.black;
   Graphics.draw_string
-    ("Exp: " ^ string_of_int (Camltypes.current_hp state.player));
+    ("Exp: " ^ string_of_int (Camltypes.current_hp state.ai));
   Graphics.moveto 350 430;
   Graphics.set_color Graphics.black;
   Graphics.draw_string
-    ("Lv: " ^ string_of_int (Camltypes.current_hp state.player));
+    ("Lv: " ^ string_of_int (Camltypes.current_hp state.ai));
   Graphics.moveto 350 400;
   Graphics.set_color Graphics.black;
   Graphics.draw_string
-    ("HP: " ^ string_of_int (Camltypes.current_hp state.player))
+    ("HP: " ^ string_of_int (Camltypes.current_hp state.ai))
 
 let move_update state =
   ANSITerminal.print_string [ on_default ] " Your current hp is: ";
