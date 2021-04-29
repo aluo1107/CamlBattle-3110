@@ -89,14 +89,15 @@ let choose_move input = choose_attack input
    checks whether hp is below or equal to 0. Will call itself again
    based on what attack returns. *)
 let rec play_game (f : State.t) =
-  let check_hp = current_hp f.player in
-  if check_hp <= 0 then end_game f
+  let check_player_hp = current_hp f.player in
+  let check_ai_hp = Camltypes.current_hp f.ai in
+  if check_player_hp <= 0 || check_ai_hp <= 0 then end_game f
   else if
     f.turn
     (* will perform player attack based on move and changes turn*)
   then begin
     print_string " Your current hp is: ";
-    print_endline (string_of_int check_hp);
+    print_endline (string_of_int check_player_hp);
     print_string " The opponent's hp is: ";
     print_endline (string_of_int f.ai.hp);
     print_string " AI Defense: ";

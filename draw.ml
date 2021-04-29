@@ -1,33 +1,21 @@
 open Camltypes
 open Graphics
-
-let () = Graphics.open_graph " 400x500"
-
-(*Camel size in the environment*)
-
-let caml_size = 20
-
-(*Camel color in the environment*)
-
-let caml_color = Graphics.black
-
-let x = Graphics.draw_circle 50 50 20
+open State
+open Attack
+open Main_func
+open Ai
+open ANSITerminal
 
 let white = rgb 255 255 255
 
 let blue = rgb 30 25 255
 
-(* no function for converting color back to rgb in Graphics *)
-let color_to_rgb color =
-  let r = (color land 0xFF0000) asr 0x10
-  and g = (color land 0x00FF00) asr 0x8
-  and b = color land 0x0000FF in
-  (r, g, b)
-
+(*creates the window that the graphics take place in*)
 let open_window =
   open_graph " 640x480";
   set_window_title "CamlBattle"
 
+(*sets the background color of the window*)
 let clear_window color =
   let fg = foreground in
   set_color color;
@@ -43,11 +31,13 @@ let gradient arr w h =
     done
   done
 
+(* draws the gradient*)
 let draw_gradient x y w h =
   let arr = Array.make_matrix h w white in
   gradient arr w h;
   draw_image (make_image arr) 0 0
 
+(*matches the color of the window with the stage*)
 let match_environment stage =
   match stage with
   | "volcano" -> rgb 255 0 0
@@ -56,6 +46,7 @@ let match_environment stage =
   | "cloud kingdom" -> rgb 255 255 0
   | _ -> failwith "Not valid"
 
+(*matches the camel color with the camel element*)
 let camel_type caml =
   match caml with
   | "water" -> rgb 115 255 246
@@ -64,74 +55,125 @@ let camel_type caml =
   | "earth" -> rgb 120 255 179
   | _ -> failwith "Not valid"
 
-(* let draw_background = *)
+(*draws the camel onto the screen*)
+let draw_user_caml color =
+  Graphics.set_color color;
+  Graphics.draw_circle 100 120 50;
+  Graphics.fill_circle 100 120 50
 
-(* let input_name () = while key_pressed () do let name = read_key () in
-   () done *)
+let draw_enemy_caml color =
+  Graphics.set_color color;
+  Graphics.draw_circle 500 400 50;
+  Graphics.fill_circle 500 400 50
+
+(*draws the current stats of the player*)
+let user_board color (state : State.t) =
+  Graphics.set_color color;
+  Graphics.draw_rect 250 170 60 90;
+  Graphics.fill_rect 250 170 60 90;
+  Graphics.moveto 250 225;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_string "Exp: 10";
+  Graphics.moveto 250 200;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_string "Lv: 10";
+  Graphics.moveto 250 185;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_string "HP: 10"
+
+let enemy_board color (state : State.t) =
+  Graphics.set_color color;
+  Graphics.draw_rect 350 400 60 90;
+  Graphics.fill_rect 350 400 60 90;
+  Graphics.moveto 350 460;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_string
+    ("Exp: " ^ string_of_int (Camltypes.current_hp state.player));
+  Graphics.moveto 350 430;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_string
+    ("Lv: " ^ string_of_int (Camltypes.current_hp state.player));
+  Graphics.moveto 350 400;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_string
+    ("HP: " ^ string_of_int (Camltypes.current_hp state.player))
+
+let move_update state =
+  ANSITerminal.print_string [ on_default ] " Your current hp is: ";
+  print_endline (string_of_int (Camltypes.current_hp state.player));
+  ANSITerminal.print_string [ on_default ] " The opponent's hp is: ";
+  print_endline (string_of_int state.ai.hp);
+  ANSITerminal.print_string [ on_default ] " AI Defense: ";
+  print_endline (string_of_int state.ai.defense)
+
+let drawing_menu state =
+  Graphics.set_color Graphics.white;
+  Graphics.draw_rect 250 300 150 80;
+  Graphics.fill_rect 250 300 150 80;
+  Graphics.moveto 270 360;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_string "Press a to attack";
+  Graphics.moveto 270 330;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_string "Press s for heal";
+  Graphics.moveto 270 300;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_string "Press d for defend"
+
+(*keeps track of the moves and player health*)
+let moves_state state =
+  drawing_menu state;
+  let check_player_hp = Camltypes.current_hp state.player in
+  let check_ai_hp = Camltypes.current_hp state.ai in
+  if check_player_hp <= 0 || check_ai_hp <= 0 then
+    let () = Graphics.close_graph () in
+    Main_func.end_game state
+  else move_update state;
+  let event = wait_next_event [ Key_pressed ] in
+  match event.key with
+  | 's' ->
+      Attack.move state state.player state.ai Heal true
+      |> Ai.health_check
+  | 'a' ->
+      Attack.move state state.player state.ai Attack true
+      |> Ai.health_check
+  | 'd' ->
+      Attack.move state state.player state.ai Defense true
+      |> Ai.health_check
+  | _ -> failwith "not right key"
 
 (* let render_name = Graphics.set_color Graphics.black;
    Graphics.draw_string "Please enter your name."; input_name () *)
 
-let f x = x + 1
+let rec render_welcome (state : State.t) =
+  Graphics.clear_graph ();
+  Graphics.moveto 200 200;
+  Graphics.set_color Graphics.black;
+  Graphics.set_text_size 100;
+  Graphics.draw_string "Welcome to CamlBattles! Press s to start";
+  let event = wait_next_event [ Key_pressed ] in
+  if event.key == 's' then () else render_welcome state
 
-(* let rec event_loop = for i = 0 to 200 do plot i (f i) done *)
+(*colors caml and renders on page*)
 
-let render_welcome () =
+let rec render_game (state : State.t) : unit =
   Graphics.clear_graph ();
   Graphics.set_color Graphics.black;
-  Graphics.lineto 100 100
-
-(* Graphics.moveto 100 100; Graphics.fill_rect 100 100 20 20 *)
+  clear_window (match_environment state.stage);
+  user_board white state;
+  enemy_board white state;
+  draw_user_caml (camel_type state.player.element_t);
+  draw_enemy_caml (camel_type state.ai.element_t);
+  let new_state = moves_state state in
+  render_game new_state
 
 (* Graphics.set_text_size 30; Graphics.draw_string "Welcome to
    CamlBattles! Please select from fire, water, air, or \ earth.";
    input_name () *)
-let render_background state =
-  open_window;
-  (* clear_window match_environment state *)
-  render_welcome ()
+let render_background (state : State.t) =
+  let () = open_window in
+  let () = render_welcome state in
+  render_game state
 
 (* let r, g, b = color_to_rgb background in Printf.printf "Background
    color: %d %d %d\n" r g b *)
-
-(* let render_stats caml = *)
-
-(* let document = Dom_html.document
-
-   let jstr = Js.string
-
-   let get_context canvas = canvas##getContext Dom_html._2d_
-
-   let render_box caml (posx,posy) = let context = caml.context in let
-   (bbox, bboy) = caml.params.bbox_offset in let(bbsx, bbsy) =
-   caml.params.bbox_size in context##strokeStyle <- Js.string "#FF0000";
-   context##strokeRect(posx+.bbox,posy+.bboy,bbsx, bbsy)
-
-   let render caml (posx,posy) = let context = caml.context in let (sx,
-   sy) = caml.params.src_offset in let (sw, sh) = caml.params.frame_size
-   in let (dx, dy) = (posx,posy) in let (dw, dh) =
-   caml.params.frame_size in let sx = sx +. (float_of_int !(caml.frame))
-   *. sw in context##drawImage_full(caml.img, sx, sy, sw, sh, dx, dy,
-   dw, dh)
-
-   let hud canvas exp hp levels = let exp_string = string_of_int exp in
-   let hp_string = string_of_int hp in let levels_string = string_of_int
-   levels in let context = canvas##getContext (Dom_html._2d_) in ignore
-   context##font <- (Js.string ("10px 'Press Start 2P'")); ignore
-   context##fillText (Js.string ("exp: "^exp_string), (float_of_int
-   canvas##width) -. 140., 18.); ignore context##fillText (Js.string
-   ("hp: "^hp_string), 120., 18.) ignore context##fillText (Js.string
-   ("levels: "^levels_string), 120., 18.)
-
-   let game_win ctx = ctx##rect (0.,0.,512.,512.); ctx##fillStyle <-
-   (Js.string "black"); ctx##fill (); ctx##fillStyle <- (Js.string
-   "white"); ctx##font <- (Js.string "20px 'Press Start 2P'");
-   ctx##fillText (Js.string ("You win!"), 180., 128.); failwith "Game
-   over."
-
-   (*game_loss displays a black screen stating a loss to finish that
-   level play.*) let game_loss ctx = ctx##rect (0.,0.,512.,512.);
-   ctx##fillStyle <- (Js.string "black"); ctx##fill (); ctx##fillStyle
-   <- (Js.string "white"); ctx##font <- (Js.string "20px 'Press Start
-   2P'"); ctx##fillText (Js.string ("GAME OVER. You lose!"), 60., 128.);
-   failwith "Game over." *)
