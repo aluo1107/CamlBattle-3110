@@ -53,13 +53,48 @@ let match_environment stage =
   | "volcano" -> rgb 255 0 0
   | "ocean" -> rgb 0 206 209
   | "jungle" -> rgb 46 139 87
-  | "cloud kingdom" -> rgb 224 255 255
+  | "cloud kingdom" -> rgb 255 255 0
   | _ -> failwith "Not valid"
 
-let () =
+let camel_type caml =
+  match caml with
+  | "water" -> rgb 115 255 246
+  | "air" -> rgb 255 255 232
+  | "fire" -> rgb 245 139 139
+  | "earth" -> rgb 120 255 179
+  | _ -> failwith "Not valid"
+
+(* let draw_background = *)
+
+(* let input_name () = while key_pressed () do let name = read_key () in
+   () done *)
+
+(* let render_name = Graphics.set_color Graphics.black;
+   Graphics.draw_string "Please enter your name."; input_name () *)
+
+let f x = x + 1
+
+(* let rec event_loop = for i = 0 to 200 do plot i (f i) done *)
+
+let render_welcome () =
+  Graphics.clear_graph ();
+  Graphics.set_color Graphics.black;
+  Graphics.lineto 100 100
+
+(* Graphics.moveto 100 100; Graphics.fill_rect 100 100 20 20 *)
+
+(* Graphics.set_text_size 30; Graphics.draw_string "Welcome to
+   CamlBattles! Please select from fire, water, air, or \ earth.";
+   input_name () *)
+let render_background state =
   open_window;
-  let r, g, b = color_to_rgb background in
-  Printf.printf "Background color: %d %d %d\n" r g b
+  (* clear_window match_environment state *)
+  render_welcome ()
+
+(* let r, g, b = color_to_rgb background in Printf.printf "Background
+   color: %d %d %d\n" r g b *)
+
+(* let render_stats caml = *)
 
 (* let document = Dom_html.document
 
