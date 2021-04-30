@@ -149,18 +149,21 @@ let moves_state state =
 
 let rec render_game (state : State.t) : unit =
   Graphics.clear_graph ();
+  Graphics.set_color Graphics.black;
+  clear_window (match_environment state.stage);
   let check_player_hp = Camltypes.current_hp state.player in
   let check_ai_hp = Camltypes.current_hp state.ai in
-  if check_player_hp <= 0 then ()
-  else if check_ai_hp <= 0 then ()
-  else Graphics.set_color Graphics.black;
-  clear_window (match_environment state.stage);
-  user_board white state;
-  enemy_board white state;
-  draw_user_caml (camel_type state.player.element_t);
-  draw_enemy_caml (camel_type state.ai.element_t);
-  let new_state = moves_state state in
-  render_game new_state
+  if check_player_hp <= 0 then
+    ANSITerminal.print_string [ on_default ] "hp is less than 0 player"
+  else if check_ai_hp <= 0 then
+    ANSITerminal.print_string [ on_default ] "hp is less than 0 AI"
+  else (
+    user_board white state;
+    enemy_board white state;
+    draw_user_caml (camel_type state.player.element_t);
+    draw_enemy_caml (camel_type state.ai.element_t);
+    let new_state = moves_state state in
+    render_game new_state)
 
 let updated_state (state : State.t) =
   { state with player = Camltypes.exp_update state.player }
@@ -169,7 +172,7 @@ let rec render_closing (state : State.t) =
   Graphics.clear_graph ();
   let check_player_hp = Camltypes.current_hp state.player in
   let check_ai_hp = Camltypes.current_hp state.ai in
-  if check_player_hp <= 0 then Graphics.moveto 100 200;
+  if check_player_hp <= 0 then Graphics.moveto 50 200;
   Graphics.set_color Graphics.black;
   Graphics.set_text_size 100;
   Graphics.draw_string
@@ -178,12 +181,12 @@ let rec render_closing (state : State.t) =
   if event.key == 's' then render_game (updated_state state)
   else if event.key == 'q' then close_graph ()
   else render_closing state;
-  if check_ai_hp <= 0 then Graphics.moveto 100 200;
+  if check_ai_hp <= 0 then Graphics.moveto 50 200;
   Graphics.set_color Graphics.black;
   Graphics.set_text_size 100;
   Graphics.draw_string
     "You won! Press s to to start another game. Press q to quit";
-  Graphics.moveto 200 200;
+  Graphics.moveto 50 200;
   Graphics.set_color Graphics.black;
   Graphics.set_text_size 100;
   let event = wait_next_event [ Key_pressed ] in
