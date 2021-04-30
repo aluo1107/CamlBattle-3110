@@ -73,16 +73,14 @@ let user_board color (state : State.t) =
   Graphics.fill_rect 250 170 60 90;
   Graphics.moveto 250 225;
   Graphics.set_color Graphics.black;
-  Graphics.draw_string
-    ("Exp: " ^ string_of_int (Camltypes.current_hp state.player));
+  Graphics.draw_string ("Exp: " ^ string_of_int state.player.exp);
   Graphics.moveto 250 200;
   Graphics.set_color Graphics.black;
-  Graphics.draw_string
-    ("Lv: " ^ string_of_int (Camltypes.current_hp state.player));
+  Graphics.draw_string ("Lv: " ^ string_of_int state.player.level);
   Graphics.moveto 250 185;
   Graphics.set_color Graphics.black;
   Graphics.draw_string
-    ("HP: " ^ string_of_int (Camltypes.current_hp state.ai))
+    ("HP: " ^ string_of_int (Camltypes.current_hp state.player))
 
 let enemy_board color (state : State.t) =
   Graphics.set_color color;
@@ -90,12 +88,10 @@ let enemy_board color (state : State.t) =
   Graphics.fill_rect 350 400 60 90;
   Graphics.moveto 350 460;
   Graphics.set_color Graphics.black;
-  Graphics.draw_string
-    ("Exp: " ^ string_of_int (Camltypes.current_hp state.ai));
+  Graphics.draw_string ("Exp: " ^ string_of_int state.ai.exp);
   Graphics.moveto 350 430;
   Graphics.set_color Graphics.black;
-  Graphics.draw_string
-    ("Lv: " ^ string_of_int (Camltypes.current_hp state.ai));
+  Graphics.draw_string ("Lv: " ^ string_of_int state.ai.level);
   Graphics.moveto 350 400;
   Graphics.set_color Graphics.black;
   Graphics.draw_string
@@ -156,6 +152,18 @@ let rec render_welcome (state : State.t) =
   Graphics.draw_string "Welcome to CamlBattles! Press s to start";
   let event = wait_next_event [ Key_pressed ] in
   if event.key == 's' then () else render_welcome state
+
+let rec render_closing (state : State.t) =
+  Graphics.clear_graph ();
+  Graphics.moveto 200 200;
+  Graphics.set_color Graphics.black;
+  Graphics.set_text_size 100;
+  let check_player_hp = Camltypes.current_hp state.player in
+  let check_ai_hp = Camltypes.current_hp state.ai in
+  if check_player_hp <= 0 then
+    Graphics.draw_string "Game Over. Press s to play again."
+  else if check_ai_hp <= 0 then
+    Graphics.draw_string "You won! Press s to to play again."
 
 (*colors caml and renders on page*)
 
