@@ -34,16 +34,19 @@ exception UnknownStage of stage
 
 exception UnknownElement of element_t
 
+(*[exp_update caml] updates the camel level based on exp*)
 let exp_update caml =
   if caml.exp > 100 || caml.exp = 100 then
     { caml with hp = caml.hp + 10; level = caml.level + 1; exp = 0 }
   else caml
 
+(*[effect_multi effect] matches effect and returns the multiplier*)
 let effect_multi = function
   | Weak -> 1.0
   | Normal -> 1.5
   | SuperEffect -> 2.0
 
+(*returns the type effect on the camel*)
 let attack_multi (caml : element_t) (enemy : element_t) =
   match (caml, enemy) with
   | "air", "air" -> Normal
@@ -77,7 +80,7 @@ let updated_defense t int = { t with defense = int }
 let current_defense t = t.defense
 
 (* Stuff for stage*)
-
+(* matches the stage to the element*)
 let stage_effect t =
   match t with
   | "volcano" -> "fire"
