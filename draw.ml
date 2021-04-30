@@ -175,8 +175,11 @@ let rec render_closing (state : State.t) =
   if check_player_hp <= 0 then Graphics.moveto 50 200;
   Graphics.set_color Graphics.black;
   Graphics.set_text_size 100;
-  Graphics.draw_string
-    "Game Over. Press s to start another game. Press q to quit";
+  Graphics.draw_string "Game Over. Press s to start another game";
+  Graphics.moveto 50 150;
+  Graphics.set_color Graphics.black;
+  Graphics.set_text_size 100;
+  Graphics.draw_string "Press q to quit";
   let event = wait_next_event [ Key_pressed ] in
   if event.key == 's' then render_game (updated_state state)
   else if event.key == 'q' then close_graph ()
@@ -184,11 +187,14 @@ let rec render_closing (state : State.t) =
   if check_ai_hp <= 0 then Graphics.moveto 50 200;
   Graphics.set_color Graphics.black;
   Graphics.set_text_size 100;
-  Graphics.draw_string
-    "You won! Press s to to start another game. Press q to quit";
+  Graphics.draw_string "You won! Press s to to start another game";
   Graphics.moveto 50 200;
   Graphics.set_color Graphics.black;
   Graphics.set_text_size 100;
+  Graphics.moveto 50 150;
+  Graphics.set_color Graphics.black;
+  Graphics.set_text_size 100;
+  Graphics.draw_string "Press q to quit";
   let event = wait_next_event [ Key_pressed ] in
   if event.key == 's' then render_game (updated_state state)
   else if event.key == 'q' then close_graph ()
