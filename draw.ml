@@ -97,6 +97,7 @@ let enemy_board color (state : State.t) =
   Graphics.draw_string
     ("HP: " ^ string_of_int (Camltypes.current_hp state.ai))
 
+(* updates the move in terminal*)
 let move_update state =
   ANSITerminal.print_string [ on_default ] " Your current hp is: ";
   print_endline (string_of_int (Camltypes.current_hp state.player));
