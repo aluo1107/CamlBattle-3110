@@ -19,7 +19,8 @@ let health_check state =
   let x = Random.float 10.0 in
   print_float x;
   match
-    float_of_int state.ai.hp /. float_of_int (state.ai.level * 10) > 0.4
+    float_of_int state.ai.hp /. float_of_int ((state.ai.level * 10) + 10)
+    > 0.4
   with
   | true -> (
       match x < 7.5 with
