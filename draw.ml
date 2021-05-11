@@ -37,17 +37,42 @@ let draw_gradient x y w h =
   gradient arr w h;
   draw_image (make_image arr) 0 0
 
-(* let volcano_background = clear_window (rgb 255 0 0);
-   Graphics.set_color (rgb 82 39 2); Graphics.moveto 400 140;
-   Graphics.curveto (400, 140) (350, 124) (200, 0) *)
+let volcano_background () =
+  clear_window (rgb 255 0 0);
+  Graphics.set_color (rgb 82 39 2);
+  Graphics.moveto 420 140;
+  Graphics.set_line_width 2;
+  Graphics.curveto (420, 140) (370, 124) (270, 0);
+  Graphics.moveto 530 140;
+  Graphics.curveto (530, 140) (580, 124) (680, 0);
+  Graphics.moveto 480 140;
+  Graphics.set_line_width 1;
+  Graphics.draw_ellipse 475 140 51 10;
+  Graphics.moveto 480 190;
+  Graphics.set_color (rgb 169 169 169);
+  Graphics.draw_circle 480 190 18;
+  Graphics.fill_circle 480 190 18;
+  Graphics.moveto 490 190;
+  Graphics.draw_circle 490 215 18;
+  Graphics.fill_circle 490 215 18;
+  Graphics.draw_circle 505 225 18;
+  Graphics.fill_circle 505 225 18;
+  Graphics.draw_circle 505 200 18;
+  Graphics.fill_circle 505 200 18
+
+let ocean_background () = clear_window (rgb 0 206 209)
+
+let jungle_background () = clear_window (rgb 46 139 87)
+
+let cloud_kingdom_background () = clear_window (rgb 255 255 0)
 
 (*matches the color of the window with the stage*)
 let match_environment stage =
   match stage with
-  | "volcano" -> rgb 250 0 0
-  | "ocean" -> rgb 0 206 209
-  | "jungle" -> rgb 46 139 87
-  | "cloud kingdom" -> rgb 255 255 0
+  | "volcano" -> volcano_background ()
+  | "ocean" -> ocean_background ()
+  | "jungle" -> jungle_background ()
+  | "cloud kingdom" -> cloud_kingdom_background ()
   | _ -> failwith "Not valid"
 
 (*matches the camel color with the camel element*)
@@ -110,15 +135,15 @@ let draw_enemy_caml color =
 (*draws the current stats of the player*)
 let user_board color (state : State.t) =
   Graphics.set_color color;
-  Graphics.draw_rect 250 170 60 90;
-  Graphics.fill_rect 250 170 60 90;
-  Graphics.moveto 260 210;
+  Graphics.draw_rect 230 170 60 90;
+  Graphics.fill_rect 230 170 60 90;
+  Graphics.moveto 240 240;
   Graphics.set_color Graphics.black;
   Graphics.draw_string ("Exp: " ^ string_of_int state.player.exp);
-  Graphics.moveto 260 235;
+  Graphics.moveto 240 210;
   Graphics.set_color Graphics.black;
   Graphics.draw_string ("Lv: " ^ string_of_int state.player.level);
-  Graphics.moveto 260 250;
+  Graphics.moveto 240 180;
   Graphics.set_color Graphics.black;
   Graphics.draw_string
     ("HP: " ^ string_of_int (Camltypes.current_hp state.player))
@@ -204,7 +229,7 @@ let rec render_welcome (state : State.t) =
 let rec render_game (state : State.t) : unit =
   Graphics.clear_graph ();
   Graphics.set_color Graphics.black;
-  clear_window (match_environment state.stage);
+  match_environment state.stage;
   let check_player_hp = Camltypes.current_hp state.player in
   let check_ai_hp = Camltypes.current_hp state.ai in
   if check_player_hp <= 0 then
