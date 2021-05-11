@@ -3,5 +3,5 @@ PKG ounit2
 PKG ANSITerminal
 PKG ocamlbuild
 PKG graphics
-PKG js_of_ocaml
-PKG js_of_ocaml-ppx
+PKG camlimages.png
+PKG camlimages.graphics

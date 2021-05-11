@@ -1,4 +1,3 @@
-
 #require "ounit2";;
 #require "ANSITerminal";;
 #require "graphics";;
@@ -8,4 +7,3 @@
 #load "attack.cmo";;
 #load "ai.cmo";;
 #load "main_func.cmo";;
-

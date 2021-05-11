@@ -1,4 +1,4 @@
-MODULES=camltypes test ai attack author main_func state command main sprite draw actors
+MODULES=camltypes test ai attack author main_func state command main sprite draw actors 
 
 OBJECTS=$(MODULES:=.cmo)
 MLS=$(MODULES := .ml)
