@@ -37,10 +37,14 @@ let draw_gradient x y w h =
   gradient arr w h;
   draw_image (make_image arr) 0 0
 
+(* let volcano_background = clear_window (rgb 255 0 0);
+   Graphics.set_color (rgb 82 39 2); Graphics.moveto 400 140;
+   Graphics.curveto (400, 140) (350, 124) (200, 0) *)
+
 (*matches the color of the window with the stage*)
 let match_environment stage =
   match stage with
-  | "volcano" -> rgb 255 0 0
+  | "volcano" -> rgb 250 0 0
   | "ocean" -> rgb 0 206 209
   | "jungle" -> rgb 46 139 87
   | "cloud kingdom" -> rgb 255 255 0
@@ -58,8 +62,45 @@ let camel_type caml =
 (*draws the camel onto the screen*)
 let draw_user_caml color =
   Graphics.set_color color;
-  Graphics.draw_circle 100 120 50;
-  Graphics.fill_circle 100 120 50
+  Graphics.draw_ellipse 150 100 40 60;
+  Graphics.fill_ellipse 150 100 40 60;
+  Graphics.draw_ellipse 100 100 40 60;
+  Graphics.fill_ellipse 100 100 40 60;
+  Graphics.moveto 180 120;
+  Graphics.set_line_width 20;
+  Graphics.curveto (180, 120) (220, 60) (260, 120);
+  Graphics.moveto 260 120;
+  Graphics.draw_circle 280 120 15;
+  Graphics.fill_circle 280 120 15;
+  Graphics.set_line_width 1;
+  Graphics.moveto 283 124;
+  Graphics.set_color (rgb 0 0 0);
+  Graphics.draw_circle 283 124 5;
+  Graphics.fill_circle 283 124 5;
+  Graphics.set_color (rgb 250 75 75);
+  Graphics.moveto 290 107;
+  Graphics.draw_ellipse 290 107 7 2;
+  Graphics.fill_ellipse 290 107 7 2;
+  Graphics.set_color color;
+  Graphics.set_line_width 5;
+  (*Back legs*)
+  Graphics.moveto 87 55;
+  Graphics.lineto 74 10;
+  Graphics.moveto 101 40;
+  Graphics.lineto 92 10;
+  (*Front legs*)
+  Graphics.moveto 161 55;
+  Graphics.lineto 170 10;
+  Graphics.moveto 172 55;
+  Graphics.lineto 190 10;
+  Graphics.moveto 110 65;
+  Graphics.draw_circle 70 60 10;
+  Graphics.fill_circle 70 60 10
+
+(* Graphics.moveto 170 120; Graphics.curveto (170, 90) (220, 30) (270,
+   90) *)
+
+(* Graphics.draw_circle 100 120 50; Graphics.fill_circle 100 120 50 *)
 
 let draw_enemy_caml color =
   Graphics.set_color color;
@@ -71,13 +112,13 @@ let user_board color (state : State.t) =
   Graphics.set_color color;
   Graphics.draw_rect 250 170 60 90;
   Graphics.fill_rect 250 170 60 90;
-  Graphics.moveto 250 225;
+  Graphics.moveto 260 210;
   Graphics.set_color Graphics.black;
   Graphics.draw_string ("Exp: " ^ string_of_int state.player.exp);
-  Graphics.moveto 250 200;
+  Graphics.moveto 260 235;
   Graphics.set_color Graphics.black;
   Graphics.draw_string ("Lv: " ^ string_of_int state.player.level);
-  Graphics.moveto 250 185;
+  Graphics.moveto 260 250;
   Graphics.set_color Graphics.black;
   Graphics.draw_string
     ("HP: " ^ string_of_int (Camltypes.current_hp state.player))
