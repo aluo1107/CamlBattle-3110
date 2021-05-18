@@ -376,10 +376,14 @@ let rec render_choose_type (state : State.t) =
   Graphics.moveto 200 180;
   Graphics.draw_string "Press R for Air!";
   let event = wait_next_event [ Key_pressed ] in
-  if event.key == 'q' then ()
-  else if event.key == 'w' then ()
-  else if event.key == 'e' then ()
-  else if event.key == 'r' then ()
+  if event.key == 'q' then
+    { state with player = { state.player with element_t = "fire" } }
+  else if event.key == 'w' then
+    { state with player = { state.player with element_t = "water" } }
+  else if event.key == 'e' then
+    { state with player = { state.player with element_t = "earth" } }
+  else if event.key == 'r' then
+    { state with player = { state.player with element_t = "air" } }
   else render_choose_type state
 
 let rec render_choose_biome (state : State.t) =
@@ -398,11 +402,11 @@ let rec render_choose_biome (state : State.t) =
   Graphics.moveto 200 180;
   Graphics.draw_string "Press R for Cloud Kingdom!";
   let event = wait_next_event [ Key_pressed ] in
-  if event.key == 'q' then ()
-  else if event.key == 'w' then ()
-  else if event.key == 'e' then ()
-  else if event.key == 'r' then ()
-  else render_choose_type state
+  if event.key == 'q' then { state with stage = "volcano" }
+  else if event.key == 'w' then { state with stage = "ocean" }
+  else if event.key == 'e' then { state with stage = "jungle" }
+  else if event.key == 'r' then { state with stage = "cloud kingdom" }
+  else render_choose_biome state
 
 (*colors caml and renders on page*)
 
@@ -469,7 +473,9 @@ let rec render_closing (state : State.t) =
 let render_background (state : State.t) =
   let () = open_window in
   let () = render_welcome state in
-  let () = render_game state in
+  let type_state = render_choose_type state in
+  let chosen_state = render_choose_biome type_state in
+  let () = render_game chosen_state in
   render_closing state
 
 (* let r, g, b = color_to_rgb background in Printf.printf "Background

@@ -2,6 +2,37 @@ open Attack
 open Camltypes
 open State
 
+(** This is a helper function for health_check that handles when the
+    user's health is greater than 0.4*)
+let big_health x state =
+  match x < 7.5 with
+  | true ->
+      print_endline " ai attacking";
+      Attack.move state state.ai state.player Attack state.turn
+  | false -> (
+      match x < 8.75 with
+      | true ->
+          print_endline " ai healing";
+          Attack.move state state.ai state.player Heal state.turn
+      | false ->
+          print_endline " ai defense";
+          Attack.move state state.ai state.player Defense state.turn)
+
+(** This is a helper function for health_check that handles when the
+    user's health is less than 0.4*)
+let small_health x state =
+  match x < 2.5 with
+  | true ->
+      print_endline " ai attacking";
+      Attack.move state state.ai state.player Attack state.turn
+  | false -> (
+      match x < 6.25 with
+      | true ->
+          print_endline " ai healing";
+          Attack.move state state.ai state.player Heal state.turn
+      | false ->
+          print_endline " ai defense";
+          Attack.move state state.ai state.player Defense state.turn)
 (*[health_check state] is the function for the ai to choose what move to
   do next. Based on the health of the ai, there are different
   probabilities for the different moves. If the AI’s health is less than
@@ -21,31 +52,5 @@ let health_check x state =
     float_of_int state.ai.hp /. float_of_int ((state.ai.level * 10) + 10)
     > 0.4
   with
-  | true -> (
-      match x < 7.5 with
-      | true ->
-          print_endline " ai attacking";
-          Attack.move state state.ai state.player Attack state.turn
-      | false -> (
-          match x < 8.75 with
-          | true ->
-              print_endline " ai healing";
-              Attack.move state state.ai state.player Heal state.turn
-          | false ->
-              print_endline " ai defense";
-              Attack.move state state.ai state.player Defense state.turn
-          ))
-  | false -> (
-      match x < 2.5 with
-      | true ->
-          print_endline " ai attacking";
-          Attack.move state state.ai state.player Attack state.turn
-      | false -> (
-          match x < 6.25 with
-          | true ->
-              print_endline " ai healing";
-              Attack.move state state.ai state.player Heal state.turn
-          | false ->
-              print_endline " ai defense";
-              Attack.move state state.ai state.player Defense state.turn
-          ))
+  | true -> big_health x state
+  | false -> small_health x state
