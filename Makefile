@@ -19,6 +19,15 @@ utop: build
 
 build:
 	$(OCAMLBUILD) $(OBJECTS)
+play: 
+	$(OCAMLBUILD) -tag 'debug' $(MAIN) && OCAMLRUNPARAM=B ./$(MAIN)
+test:
+	$(OCAMLBUILD) -tag 'debug' $(TEST) && ./$(TEST) -runner sequential
+
+
+zip:
+	zip camlbattle.zip *.ml* *.mli* * _tags .merlin .ocamlformat .ocamlinit Makefile install.md*
+
 docs: docs-public docs-private
 
 docs-public: build
@@ -31,15 +40,6 @@ docs-private: build
 	ocamlfind ocamldoc -I _build -package $(PKGS) \
 		-html -stars -d _doc.private \
 		-inv-merge-ml-mli -m A -hide-warnings $(MLIS) $(MLS)
-play: 
-	$(OCAMLBUILD) -tag 'debug' $(MAIN) && OCAMLRUNPARAM=B ./$(MAIN)
-test:
-	$(OCAMLBUILD) -tag 'debug' $(TEST) && ./$(TEST) -runner sequential
-
-
-zip:
-	zip camlbattle.zip *.ml* *.mli* * _tags .merlin .ocamlformat .ocamlinit Makefile install.md*
-
 clean:
 	ocamlbuild -clean
 	rm -rf _coverage 

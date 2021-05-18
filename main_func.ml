@@ -34,7 +34,7 @@ let welcome_game input =
 (* [user_name] prompts for the player to enter their name and prints a
    welcome message. *)
 
-(*Initialize the caml.*)
+(*[caml_init] initializes the caml.*)
 let caml_init element =
   {
     hp = 10;
@@ -46,7 +46,7 @@ let caml_init element =
     current_move = 0;
   }
 
-(* add end of file*)
+(* [find_ai_element] returns the opposite of the player element*)
 let find_ai_element player_element =
   match player_element with
   | "fire" -> "water"
@@ -55,7 +55,7 @@ let find_ai_element player_element =
   | "earth" -> "air"
   | _ -> raise (UnknownElement player_element)
 
-(* creates ai caml based on the opposite element of the player*)
+(* [ai_caml] creates the ai based on the opposite element of the player*)
 let ai_caml caml_init =
   { caml_init with element_t = find_ai_element caml_init.element_t }
 

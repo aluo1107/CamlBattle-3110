@@ -17,7 +17,7 @@ type effect =
   | Normal
   | SuperEffect
 
-(* hello *)
+(* The type for both camls and enemies *)
 type t = {
   hp : int;
   level : int;
@@ -82,7 +82,7 @@ let updated_defense t int = { t with defense = int }
 
 let current_defense t = t.defense
 
-(* Stuff for stage*)
+(* Stage*)
 (* matches the stage to the element*)
 let stage_effect t =
   match t with
@@ -92,6 +92,7 @@ let stage_effect t =
   | "cloud kingdom" -> "air"
   | x -> raise (UnknownStage x)
 
+(*Returns the effect of element match ups*)
 let attack_stage_multi caml stage =
   let biome_effec = stage_effect stage in
   match (caml, biome_effec) with

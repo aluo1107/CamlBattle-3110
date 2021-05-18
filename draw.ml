@@ -17,12 +17,12 @@ let open_window =
   open_graph " 640x480";
   set_window_title "CamlBattle"
 
-(*Sets the background color of the window*)
-let clear_window color =
-  let fg = foreground in
-  set_color color;
-  fill_rect 0 0 (size_x ()) (size_y ());
-  set_color fg
+(*Sets the background color of the window by drawing a rectangle the
+  size of the window*)
+let color_background color =
+  let () = Graphics.set_color color in
+  let () = Graphics.fill_rect 0 0 640 480 in
+  Graphics.set_color foreground
 
 (*Draws the volcano ashes*)
 let volcano_ashes () =
@@ -42,7 +42,7 @@ let volcano_ashes () =
 
 (* Draws the background of the volcano biome *)
 let volcano_background () =
-  clear_window (rgb 255 70 36);
+  color_background (rgb 255 70 36);
   Graphics.set_color (rgb 82 39 2);
   Graphics.moveto 420 140;
   Graphics.set_line_width 2;
@@ -97,7 +97,7 @@ let ocean_squiggle_two () =
 
 (* Draws the background of the ocean biome *)
 let ocean_background () =
-  clear_window (rgb 0 206 209);
+  color_background (rgb 0 206 209);
   Graphics.set_color (rgb 0 0 139);
   Graphics.set_line_width 2;
   Graphics.moveto 0 50;
@@ -119,7 +119,7 @@ let ocean_background () =
 
 (* Draws the background of the jungle biome *)
 let jungle_background () =
-  clear_window (rgb 46 139 87);
+  color_background (rgb 46 139 87);
   Graphics.set_color (rgb 120 48 48);
   Graphics.set_line_width 2;
   Graphics.moveto 448 0;
@@ -176,7 +176,7 @@ let second_cloud () =
 
 (* Draws the background of the cloud_kingdom biome *)
 let cloud_kingdom_background () =
-  clear_window (rgb 255 255 0);
+  color_background (rgb 255 255 0);
   Graphics.set_color (rgb 0 247 255);
   Graphics.moveto 420 220;
   Graphics.draw_circle 425 220 18;
@@ -312,7 +312,7 @@ let enemy_board color (state : State.t) =
   Graphics.draw_string
     ("HP: " ^ string_of_int (Camltypes.current_hp state.ai))
 
-(* Updates the moves in terminal*)
+(* [moves_update] updates the moves in terminal*)
 let move_update state =
   ANSITerminal.print_string [ on_default ] " Your current hp is: ";
   print_endline (string_of_int (Camltypes.current_hp state.player));
@@ -321,7 +321,7 @@ let move_update state =
   ANSITerminal.print_string [ on_default ] " AI Defense: ";
   print_endline (string_of_int state.ai.defense)
 
-(* Draws the menu for choosing the moves*)
+(* [drawing_menu] draws the menu for choosing the moves*)
 let drawing_menu state =
   Graphics.set_color Graphics.white;
   Graphics.draw_rect 50 370 150 80;
@@ -336,7 +336,7 @@ let drawing_menu state =
   Graphics.set_color Graphics.black;
   Graphics.draw_string "Press d for defend"
 
-(* Draws the welcome message on the screen *)
+(* [render_welcome] draws the welcome message on the screen *)
 let rec render_welcome () =
   Graphics.clear_graph ();
   Graphics.moveto 200 200;
@@ -346,7 +346,8 @@ let rec render_welcome () =
   let event = wait_next_event [ Key_pressed ] in
   if event.key == 's' then () else render_welcome ()
 
-(*Keeps track of the moves and the player health*)
+(*[moves_state] takes in and keeps track of the moves and the player
+  health*)
 let moves_state state =
   drawing_menu state;
   move_update state;
@@ -363,7 +364,7 @@ let moves_state state =
       |> Ai.health_check (Random.float 10.0)
   | _ -> failwith "not right key"
 
-(*Displays the messages for choosing the cameltypes*)
+(*[render_choose_type] displays the messages for choosing the cameltypes*)
 let rec render_choose_type (state : State.t) =
   Graphics.clear_graph ();
   Graphics.moveto 200 300;
@@ -390,7 +391,7 @@ let rec render_choose_type (state : State.t) =
     { state with player = { state.player with element_t = "air" } }
   else render_choose_type state
 
-(* Displays the messages for choosing the biome*)
+(* [render_choose_biome] displays the messages for choosing the biome*)
 let rec render_choose_biome (state : State.t) =
   Graphics.clear_graph ();
   Graphics.moveto 200 300;
@@ -413,6 +414,7 @@ let rec render_choose_biome (state : State.t) =
   else if event.key == 'r' then "cloud kingdom"
   else render_choose_biome state
 
+(* [update_lost_state] returns the state when the user has lost*)
 let update_lost_state state =
   {
     state with
@@ -420,6 +422,7 @@ let update_lost_state state =
     ai = caml_init state.ai.element_t;
   }
 
+(* [update_won_state] returns the state when the user has won*)
 let update_won_state state =
   {
     state with
@@ -427,23 +430,7 @@ let update_won_state state =
     ai = Camltypes.exp_update state.ai;
   }
 
-(* let player_lost state = Graphics.moveto 300 200; Graphics.set_color
-   Graphics.black; Graphics.set_text_size 100; Graphics.draw_string
-   "Game Over. Press s to start another game"; Graphics.moveto 150 50;
-   Graphics.set_color Graphics.black; Graphics.set_text_size 100;
-   Graphics.draw_string "Press q to quit"; let event = wait_next_event [
-   Key_pressed ] in if event.key == 's' then render_game
-   (update_lost_state state) else if event.key == 'q' then close_graph
-   ()
-
-   let ai_lost state = Graphics.moveto 50 200; Graphics.set_color
-   Graphics.black; Graphics.set_text_size 100; Graphics.draw_string "You
-   won! Press s to to start another game"; Graphics.moveto 150 50;
-   Graphics.set_color Graphics.black; Graphics.set_text_size 100;
-   Graphics.draw_string "Press q to quit"; let event = wait_next_event [
-   Key_pressed ] in if event.key == 's' then update_won_state state else
-   if event.key == 'q' then close_graph () *)
-
+(* [true_close] draws the final closing screen of the game*)
 let rec true_close final_state =
   Graphics.clear_graph ();
   Graphics.moveto 175 300;
@@ -461,6 +448,7 @@ let rec true_close final_state =
   let event = wait_next_event [ Key_pressed ] in
   if event.key == 'q' then close_graph () else true_close final_state
 
+(* [player_lost]Draws the screen in the case that the player has lost*)
 let player_lost () =
   Graphics.clear_graph ();
   Graphics.moveto 100 200;
@@ -469,6 +457,7 @@ let player_lost () =
   Graphics.draw_string
     "Game Over. Press s to start another game. Press q to quit."
 
+(* [player_won] Draws the screen in the case that the player has won*)
 let player_won () =
   Graphics.clear_graph ();
   Graphics.moveto 100 200;
@@ -477,9 +466,7 @@ let player_won () =
   Graphics.draw_string
     "You won! Press s to to start another game. Press q to quit"
 
-(* ANSITerminal.print_string [ on_default ] "hp is less than 0 player";
-   ANSITerminal.print_string [ on_default ] "hp is less than 0 AI";*)
-(*colors caml and renders on page*)
+(*[render_game]colors caml and renders on page*)
 let rec render_game (state : State.t) : State.t =
   Graphics.clear_graph ();
   Graphics.set_color Graphics.black;
@@ -508,6 +495,9 @@ let rec render_game (state : State.t) : State.t =
     let new_state = moves_state state in
     render_game new_state)
 
+(*[render_inter] renders the screen when the player or the ai's HP has
+  reached 0 and the player must decide if they want to quit or play
+  again*)
 let rec render_inter state : State.t =
   Graphics.clear_graph ();
   let check_player_hp = Camltypes.current_hp state.player in
@@ -525,18 +515,3 @@ let rec render_inter state : State.t =
     else if event.key == 'q' then state
     else render_inter state
   else render_inter state
-
-(* let render_name = Graphics.set_color Graphics.black;
-   Graphics.draw_string "Please enter your name."; input_name () *)
-
-(* Graphics.set_text_size 30; Graphics.draw_string "Welcome to
-   CamlBattles! Please select from fire, water, air, or \ earth.";
-   input_name () *)
-
-(*let render_background (state : State.t) = let () = open_window in let
-  () = render_welcome state in let type_state = render_choose_type state
-  in let chosen_state = render_choose_biome type_state in let () =
-  render_game chosen_state in render_closing state*)
-
-(* let r, g, b = color_to_rgb background in Printf.printf "Background
-   color: %d %d %d\n" r g b *)
