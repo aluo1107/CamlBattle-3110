@@ -64,6 +64,7 @@ let open_window =
    element from player and AI camls. *)
 let main () =
   let () = open_window in
+  let () = render_welcome () in
   let chosen_type = render_choose_type () in
   let chosen_biome = render_choose_biome () in
   let player_caml = caml_init chosen_type in
@@ -76,9 +77,8 @@ let main () =
       turn = true;
     }
   in
-  let () = render_welcome game_state in
-  let () = render_game game_state in
-  render_closing game_state
+  let final_state = render_game game_state in
+  true_close final_state
 
 (* print_string " Please enter your name "; let name = read_line () in
    if String.length name <= 0 then print_string "Name has to be more

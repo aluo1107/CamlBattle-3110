@@ -4,13 +4,11 @@
 
 (*[choose_attack input] takes in the user's input as a string and then
   returns the attack that the user wants to use *)
-val choose_attack : string -> Camltypes.move_t
 
 (*[get_attack] gets the user attack by prompting the user to enter the
   move they would like to make. val get_attack : string -> string *)
 
 (*[player_move] gets the user's move choice*)
-val choose_move : string -> Camltypes.move_t
 
 (*[summary_stats camltypes.t] takes in a caml and returns the summary
   stats during the course of the game*)
@@ -37,9 +35,7 @@ val ai_caml : Camltypes.t -> Camltypes.t
 
 (*[pick_biome] prompts the user to pick the biome that they would like
   the game to take place in.*)
-val pick_biome : string -> string
 
 (*[play_game State.t] takes care of the actual game when the player is
   playing. It takes in the initial game state with the player's choices
   and updates the game based on the moves that the user chooses.*)
-val play_game : State.t -> unit

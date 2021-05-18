@@ -36,9 +36,12 @@ exception UnknownElement of element_t
 
 (*[exp_update caml] updates the camel level based on exp*)
 let exp_update caml =
-  if caml.exp > 100 || caml.exp = 100 then
-    { caml with hp = caml.hp + 10; level = caml.level + 1; exp = 0 }
-  else caml
+  {
+    caml with
+    hp = (caml.level + 1) * 10;
+    level = caml.level + 1;
+    exp = 0;
+  }
 
 (*[effect_multi effect] matches effect and returns the multiplier*)
 let effect_multi = function

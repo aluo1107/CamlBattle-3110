@@ -52,7 +52,7 @@ val enemy_board : Graphics.color -> State.t -> unit
 val drawing_menu : State.t -> unit
 
 (*[render_welcome state] draws the welcome sign on the window *)
-val render_welcome : State.t -> unit
+val render_welcome : unit -> unit
 
 (*[moves_state state] will take in the user's chosen move which will
   then call moves in attack to take care of the effects of the player's
@@ -67,17 +67,26 @@ val render_choose_type : State.t -> State.t
   biome that will be used in the game*)
 val render_choose_biome : State.t -> string
 
+(*[true_close state] gives the user an ending messages and prompts the
+  user again to quit*)
+val true_close : State.t -> unit
+
 (*[render_game state] renders the game itself and takes care of the main
   loop of the game by calling all of the helper functions. The closing
   window is called when the ai or user's hp is zero or below*)
-val render_game : State.t -> unit
+val render_game : State.t -> State.t
 
-(*[updated_state state] returns the updated state based on whether the
-  player won the game or the AI won the game*)
-val updated_state : State.t -> State.t
+(*[update_lost_state state] returns the game state with the user's hp
+  and ai reset to full. This function is only called after the user
+  loses the game and chooses to restart the game*)
+val update_lost_state : State.t -> State.t
+
+(*[update_won_state state] returns the game state with the user and AI's
+  hp increased by 10 with their levels also increased by 1*)
+val update_won_state : State.t -> State.t
 
 (*[render_closing state] renders the closing screen on the window. It
   gives the user the choice of clicking 'q' to quit the game or 's' to
   start the game again. If the user won, the ai and the user's levels
   and experience increase. *)
-val render_closing : State.t -> unit
+val render_inter : State.t -> State.t

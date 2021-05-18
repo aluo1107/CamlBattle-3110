@@ -337,14 +337,14 @@ let drawing_menu state =
   Graphics.draw_string "Press d for defend"
 
 (* Draws the welcome message on the screen *)
-let rec render_welcome (state : State.t) =
+let rec render_welcome () =
   Graphics.clear_graph ();
   Graphics.moveto 200 200;
   Graphics.set_color Graphics.black;
   Graphics.set_text_size 100;
   Graphics.draw_string "Welcome to CamlBattles! Press s to start";
   let event = wait_next_event [ Key_pressed ] in
-  if event.key == 's' then () else render_welcome state
+  if event.key == 's' then () else render_welcome ()
 
 (*Keeps track of the moves and the player health*)
 let moves_state state =
@@ -413,18 +413,93 @@ let rec render_choose_biome (state : State.t) =
   else if event.key == 'r' then "cloud kingdom"
   else render_choose_biome state
 
-(*colors caml and renders on page*)
+let update_lost_state state =
+  {
+    state with
+    player = caml_init state.player.element_t;
+    ai = caml_init state.ai.element_t;
+  }
 
-let rec render_game (state : State.t) : unit =
+let update_won_state state =
+  {
+    state with
+    player = Camltypes.exp_update state.player;
+    ai = Camltypes.exp_update state.ai;
+  }
+
+(* let player_lost state = Graphics.moveto 300 200; Graphics.set_color
+   Graphics.black; Graphics.set_text_size 100; Graphics.draw_string
+   "Game Over. Press s to start another game"; Graphics.moveto 150 50;
+   Graphics.set_color Graphics.black; Graphics.set_text_size 100;
+   Graphics.draw_string "Press q to quit"; let event = wait_next_event [
+   Key_pressed ] in if event.key == 's' then render_game
+   (update_lost_state state) else if event.key == 'q' then close_graph
+   ()
+
+   let ai_lost state = Graphics.moveto 50 200; Graphics.set_color
+   Graphics.black; Graphics.set_text_size 100; Graphics.draw_string "You
+   won! Press s to to start another game"; Graphics.moveto 150 50;
+   Graphics.set_color Graphics.black; Graphics.set_text_size 100;
+   Graphics.draw_string "Press q to quit"; let event = wait_next_event [
+   Key_pressed ] in if event.key == 's' then update_won_state state else
+   if event.key == 'q' then close_graph () *)
+
+let rec true_close final_state =
+  Graphics.clear_graph ();
+  Graphics.moveto 175 300;
+  Graphics.set_color Graphics.black;
+  Graphics.set_text_size 100;
+  Graphics.draw_string
+    ("Thanks for playing! You got to level: "
+    ^ string_of_int final_state.player.level
+    ^ " Nice Job!");
+  Graphics.moveto 250 200;
+  Graphics.set_color Graphics.black;
+  Graphics.set_text_size 100;
+  Graphics.draw_string "Press q again to exit";
+
+  let event = wait_next_event [ Key_pressed ] in
+  if event.key == 'q' then close_graph () else true_close final_state
+
+let player_lost () =
+  Graphics.clear_graph ();
+  Graphics.moveto 100 200;
+  Graphics.set_color Graphics.black;
+  Graphics.set_text_size 100;
+  Graphics.draw_string
+    "Game Over. Press s to start another game. Press q to quit."
+
+let player_won () =
+  Graphics.clear_graph ();
+  Graphics.moveto 100 200;
+  Graphics.set_color Graphics.black;
+  Graphics.set_text_size 100;
+  Graphics.draw_string
+    "You won! Press s to to start another game. Press q to quit"
+
+(* ANSITerminal.print_string [ on_default ] "hp is less than 0 player";
+   ANSITerminal.print_string [ on_default ] "hp is less than 0 AI";*)
+(*colors caml and renders on page*)
+let rec render_game (state : State.t) : State.t =
   Graphics.clear_graph ();
   Graphics.set_color Graphics.black;
   match_environment state.stage;
   let check_player_hp = Camltypes.current_hp state.player in
   let check_ai_hp = Camltypes.current_hp state.ai in
   if check_player_hp <= 0 then
-    ANSITerminal.print_string [ on_default ] "hp is less than 0 player"
+    let () = player_lost () in
+    let event = wait_next_event [ Key_pressed ] in
+    if event.key == 's' then render_game (update_lost_state state)
+    else if event.key == 'q' then
+      { state with player = { state.player with hp = 0 } }
+    else render_game state
   else if check_ai_hp <= 0 then
-    ANSITerminal.print_string [ on_default ] "hp is less than 0 AI"
+    let () = player_won () in
+    let event = wait_next_event [ Key_pressed ] in
+    if event.key == 's' then render_game (update_won_state state)
+    else if event.key == 'q' then
+      { state with ai = { state.ai with hp = 0 } }
+    else render_game state
   else (
     user_board white state;
     enemy_board white state;
@@ -433,40 +508,23 @@ let rec render_game (state : State.t) : unit =
     let new_state = moves_state state in
     render_game new_state)
 
-let updated_state (state : State.t) =
-  { state with player = Camltypes.exp_update state.player }
-
-let rec render_closing (state : State.t) =
+let rec render_inter state : State.t =
   Graphics.clear_graph ();
   let check_player_hp = Camltypes.current_hp state.player in
-  let check_ai_hp = Camltypes.current_hp state.ai in
-  if check_player_hp <= 0 then Graphics.moveto 50 200;
-  Graphics.set_color Graphics.black;
-  Graphics.set_text_size 100;
-  Graphics.draw_string "Game Over. Press s to start another game";
-  Graphics.moveto 50 150;
-  Graphics.set_color Graphics.black;
-  Graphics.set_text_size 100;
-  Graphics.draw_string "Press q to quit";
-  let event = wait_next_event [ Key_pressed ] in
-  if event.key == 's' then render_game (updated_state state)
-  else if event.key == 'q' then close_graph ()
-  else render_closing state;
-  if check_ai_hp <= 0 then Graphics.moveto 50 200;
-  Graphics.set_color Graphics.black;
-  Graphics.set_text_size 100;
-  Graphics.draw_string "You won! Press s to to start another game";
-  Graphics.moveto 50 200;
-  Graphics.set_color Graphics.black;
-  Graphics.set_text_size 100;
-  Graphics.moveto 50 150;
-  Graphics.set_color Graphics.black;
-  Graphics.set_text_size 100;
-  Graphics.draw_string "Press q to quit";
-  let event = wait_next_event [ Key_pressed ] in
-  if event.key == 's' then render_game (updated_state state)
-  else if event.key == 'q' then close_graph ()
-  else render_closing state
+  let check_ai_hp = Camltypes.current_hp state.player in
+  if check_player_hp <= 0 then
+    let () = player_won () in
+    let event = wait_next_event [ Key_pressed ] in
+    if event.key == 's' then render_game (update_lost_state state)
+    else if event.key == 'q' then state
+    else render_inter state
+  else if check_ai_hp <= 0 then
+    let () = player_lost () in
+    let event = wait_next_event [ Key_pressed ] in
+    if event.key == 's' then render_game (update_won_state state)
+    else if event.key == 'q' then state
+    else render_inter state
+  else render_inter state
 
 (* let render_name = Graphics.set_color Graphics.black;
    Graphics.draw_string "Please enter your name."; input_name () *)
