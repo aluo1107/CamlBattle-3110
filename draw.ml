@@ -322,13 +322,13 @@ let moves_state state =
   match event.key with
   | 's' ->
       Attack.move state state.player state.ai Heal true
-      |> Ai.health_check
+      |> Ai.health_check (Random.float 10.0)
   | 'a' ->
       Attack.move state state.player state.ai Attack true
-      |> Ai.health_check
+      |> Ai.health_check (Random.float 10.0)
   | 'd' ->
       Attack.move state state.player state.ai Defense true
-      |> Ai.health_check
+      |> Ai.health_check (Random.float 10.0)
   | _ -> failwith "not right key"
 
 (* let render_name = Graphics.set_color Graphics.black;

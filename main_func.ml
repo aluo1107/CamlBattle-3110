@@ -107,7 +107,7 @@ let rec play_game (f : State.t) =
     play_game
       (Attack.move f f.player f.ai (choose_attack input1) f.turn)
   end
-  else play_game (Ai.health_check f)
+  else play_game (Ai.health_check (Random.float 10.0) f)
 
 (* print_string " Select a move: attack, heal, defense for enemy "; let
    input2 = read_line () in play_game (Attack.move f f.ai f.player
