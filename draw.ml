@@ -46,25 +46,144 @@ let volcano_background () =
   Graphics.moveto 530 140;
   Graphics.curveto (530, 140) (580, 124) (680, 0);
   Graphics.moveto 480 140;
-  Graphics.set_line_width 1;
+  Graphics.set_line_width 2;
   Graphics.draw_ellipse 475 140 51 10;
   Graphics.moveto 480 190;
   Graphics.set_color (rgb 169 169 169);
   Graphics.draw_circle 480 190 18;
   Graphics.fill_circle 480 190 18;
   Graphics.moveto 490 190;
-  Graphics.draw_circle 490 215 18;
-  Graphics.fill_circle 490 215 18;
-  Graphics.draw_circle 505 225 18;
-  Graphics.fill_circle 505 225 18;
-  Graphics.draw_circle 505 200 18;
-  Graphics.fill_circle 505 200 18
+  Graphics.draw_circle 495 215 18;
+  Graphics.fill_circle 495 215 18;
+  Graphics.draw_circle 520 211 12;
+  Graphics.fill_circle 520 211 12;
+  Graphics.draw_circle 528 226 8;
+  Graphics.fill_circle 528 226 8;
+  Graphics.draw_circle 503 190 17;
+  Graphics.fill_circle 503 190 17;
+  Graphics.draw_circle 520 233 12;
+  Graphics.fill_circle 520 233 12;
+  Graphics.draw_circle 535 243 10;
+  Graphics.fill_circle 535 243 10
 
-let ocean_background () = clear_window (rgb 0 206 209)
+let ocean_background () =
+  clear_window (rgb 0 206 209);
+  Graphics.set_color (rgb 0 0 139);
+  Graphics.set_line_width 2;
+  Graphics.moveto 0 50;
+  Graphics.curveto (0, 50) (15, 70) (30, 50);
+  Graphics.moveto 30 50;
+  Graphics.curveto (30, 50) (45, 70) (60, 50);
+  Graphics.moveto 178 50;
+  Graphics.curveto (178, 50) (193, 70) (208, 50);
+  Graphics.moveto 208 50;
+  Graphics.curveto (208, 50) (223, 70) (238, 50);
+  Graphics.moveto 238 50;
+  Graphics.curveto (238, 50) (253, 70) (268, 50);
+  Graphics.moveto 268 50;
+  Graphics.curveto (268, 50) (283, 70) (298, 50);
+  Graphics.moveto 298 50;
+  Graphics.curveto (298, 50) (313, 70) (328, 50);
+  Graphics.moveto 328 50;
+  Graphics.curveto (328, 50) (343, 70) (358, 50);
+  Graphics.moveto 358 50;
+  Graphics.curveto (358, 50) (373, 70) (388, 50);
+  Graphics.moveto 388 50;
+  Graphics.curveto (388, 50) (403, 70) (418, 50);
+  Graphics.moveto 418 50;
+  Graphics.curveto (418, 50) (433, 70) (448, 50);
+  Graphics.moveto 448 50;
+  Graphics.curveto (448, 50) (463, 70) (478, 50);
+  Graphics.moveto 478 50;
+  Graphics.curveto (478, 50) (493, 70) (508, 50);
+  Graphics.moveto 508 50;
+  Graphics.curveto (508, 50) (523, 70) (538, 50);
+  Graphics.moveto 538 50;
+  Graphics.curveto (538, 50) (553, 70) (568, 50);
+  Graphics.moveto 568 50;
+  Graphics.curveto (568, 50) (583, 70) (598, 50);
+  Graphics.moveto 598 50;
+  Graphics.curveto (598, 50) (613, 70) (628, 50);
+  Graphics.moveto 628 50;
+  Graphics.curveto (628, 50) (643, 70) (658, 50);
+  Graphics.set_color (rgb 105 105 105);
+  Graphics.moveto 448 250;
+  Graphics.curveto (448, 250) (460, 270) (474, 258);
+  Graphics.moveto 474 258;
+  Graphics.curveto (474, 258) (486, 278) (498, 268);
+  Graphics.moveto 520 200;
+  Graphics.curveto (520, 200) (532, 220) (544, 208);
+  Graphics.moveto 544 208;
+  Graphics.curveto (544, 208) (556, 228) (568, 218)
 
-let jungle_background () = clear_window (rgb 46 139 87)
+let jungle_background () =
+  clear_window (rgb 46 139 87);
+  Graphics.set_color (rgb 120 48 48);
+  Graphics.set_line_width 2;
+  Graphics.moveto 448 0;
+  Graphics.curveto (448, 0) (480, 110) (448, 220);
+  Graphics.moveto 580 0;
+  Graphics.curveto (580, 0) (548, 110) (580, 220);
+  Graphics.set_color (rgb 40 168 77);
+  Graphics.moveto 445 200;
+  Graphics.curveto (445, 200) (415, 225) (445, 250);
+  Graphics.moveto 445 250;
+  Graphics.curveto (445, 250) (450, 300) (490, 280);
+  Graphics.moveto 490 280;
+  Graphics.curveto (490, 280) (530, 330) (550, 280);
+  Graphics.moveto 550 280;
+  Graphics.curveto (550, 280) (590, 300) (580, 260);
+  Graphics.moveto 580 260;
+  Graphics.curveto (580, 260) (625, 230) (580, 195)
 
-let cloud_kingdom_background () = clear_window (rgb 255 255 0)
+let cloud_kingdom_background () =
+  clear_window (rgb 255 255 0);
+  Graphics.set_color (rgb 0 247 255);
+  Graphics.moveto 420 220;
+  Graphics.draw_circle 425 220 18;
+  Graphics.fill_circle 425 220 18;
+  Graphics.draw_circle 435 242 18;
+  Graphics.fill_circle 435 242 18;
+  Graphics.draw_circle 460 250 19;
+  Graphics.fill_circle 460 250 19;
+  Graphics.draw_circle 480 240 18;
+  Graphics.fill_circle 480 240 18;
+  Graphics.draw_circle 485 215 17;
+  Graphics.fill_circle 485 215 17;
+  Graphics.draw_circle 453 207 22;
+  Graphics.fill_circle 453 207 22;
+  Graphics.draw_circle 453 225 17;
+  Graphics.fill_circle 453 225 17;
+  Graphics.moveto 350 60;
+  Graphics.draw_circle 355 60 18;
+  Graphics.fill_circle 355 60 18;
+  Graphics.draw_circle 365 82 18;
+  Graphics.fill_circle 365 82 18;
+  Graphics.draw_circle 390 90 19;
+  Graphics.fill_circle 390 90 19;
+  Graphics.draw_circle 410 80 18;
+  Graphics.fill_circle 410 80 18;
+  Graphics.draw_circle 415 55 17;
+  Graphics.fill_circle 415 55 17;
+  Graphics.draw_circle 383 47 22;
+  Graphics.fill_circle 383 47 22;
+  Graphics.draw_circle 383 65 17;
+  Graphics.fill_circle 383 65 17;
+  Graphics.moveto 520 60;
+  Graphics.draw_circle 528 60 15;
+  Graphics.fill_circle 528 60 15;
+  Graphics.draw_circle 540 82 16;
+  Graphics.fill_circle 540 82 16;
+  Graphics.draw_circle 560 90 16;
+  Graphics.fill_circle 560 90 16;
+  Graphics.draw_circle 580 80 15;
+  Graphics.fill_circle 580 80 15;
+  Graphics.draw_circle 580 55 14;
+  Graphics.fill_circle 580 55 14;
+  Graphics.draw_circle 553 47 22;
+  Graphics.fill_circle 553 47 22;
+  Graphics.draw_circle 560 65 14;
+  Graphics.fill_circle 560 65 14
 
 (*matches the color of the window with the stage*)
 let match_environment stage =
@@ -150,15 +269,15 @@ let user_board color (state : State.t) =
 
 let enemy_board color (state : State.t) =
   Graphics.set_color color;
-  Graphics.draw_rect 350 400 60 90;
-  Graphics.fill_rect 350 400 60 90;
-  Graphics.moveto 350 460;
+  Graphics.draw_rect 350 370 60 90;
+  Graphics.fill_rect 350 370 60 90;
+  Graphics.moveto 360 440;
   Graphics.set_color Graphics.black;
   Graphics.draw_string ("Exp: " ^ string_of_int state.ai.exp);
-  Graphics.moveto 350 430;
+  Graphics.moveto 360 410;
   Graphics.set_color Graphics.black;
   Graphics.draw_string ("Lv: " ^ string_of_int state.ai.level);
-  Graphics.moveto 350 400;
+  Graphics.moveto 360 380;
   Graphics.set_color Graphics.black;
   Graphics.draw_string
     ("HP: " ^ string_of_int (Camltypes.current_hp state.ai))
@@ -174,15 +293,15 @@ let move_update state =
 
 let drawing_menu state =
   Graphics.set_color Graphics.white;
-  Graphics.draw_rect 250 300 150 80;
-  Graphics.fill_rect 250 300 150 80;
-  Graphics.moveto 270 360;
+  Graphics.draw_rect 50 370 150 80;
+  Graphics.fill_rect 50 370 150 80;
+  Graphics.moveto 70 430;
   Graphics.set_color Graphics.black;
   Graphics.draw_string "Press a to attack";
-  Graphics.moveto 270 330;
+  Graphics.moveto 70 405;
   Graphics.set_color Graphics.black;
   Graphics.draw_string "Press s for heal";
-  Graphics.moveto 270 300;
+  Graphics.moveto 70 380;
   Graphics.set_color Graphics.black;
   Graphics.draw_string "Press d for defend"
 
