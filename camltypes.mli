@@ -83,4 +83,4 @@ val current_defense : t -> int
 
 (** [attack_stage_multi caml stage] returns the attack multiplier of the
     caml according to what stage biome they are in. *)
-val attack_stage_multi : t -> stage -> effect
+val attack_stage_multi : element_t -> stage -> effect

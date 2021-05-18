@@ -1,7 +1,7 @@
 open Camltypes
 open State
 
-let attack_base = 5
+let attack_base = 3
 
 let heal_base = 1
 
@@ -32,45 +32,34 @@ let attack_move attacker victim state =
     int_of_float attack_multiplier * attack_base
   in
   let attack_multi_stage =
-    get_multiplier (attack_stage_multi attacker state.stage)
+    get_multiplier (attack_stage_multi attacker.element_t state.stage)
   in
   (attack_damage_type * int_of_float attack_multi_stage)
   - current_defense victim
 
-let player_attack (state : State.t) attacker victim player_attacker =
-  let attack_dam = attack_move attacker victim state in
+let change_victim_hp victim player_attacker attack_dam =
   {
-    state with
-    ai =
-      {
-        victim with
-        hp =
-          (let new_hp = victim.hp - (attack_dam - victim.defense) in
-           if new_hp > victim.hp then victim.hp else new_hp);
-        defense = 0;
-      };
-    turn = change_turn player_attacker;
-  }
-
-let ai_attack (state : State.t) attacker victim player_attacker =
-  let attack_dam = attack_move attacker victim state in
-  {
-    state with
-    player =
-      {
-        victim with
-        hp =
-          (let new_hp = victim.hp - (attack_dam - victim.defense) in
-           if new_hp > victim.hp then victim.hp else new_hp);
-        defense = 0;
-      };
-    turn = change_turn player_attacker;
+    victim with
+    hp =
+      (let new_hp = victim.hp - (attack_dam - victim.defense) in
+       if new_hp > victim.hp then victim.hp else new_hp);
+    defense = 0;
   }
 
 let attacking_move state attacker victim player_attacker =
+  let attack_dam = attack_move attacker victim state in
   if player_attacker then
-    player_attack state attacker victim player_attacker
-  else ai_attack state attacker victim player_attacker
+    {
+      state with
+      ai = change_victim_hp victim player_attacker attack_dam;
+      turn = change_turn player_attacker;
+    }
+  else
+    {
+      state with
+      player = change_victim_hp victim player_attacker attack_dam;
+      turn = change_turn player_attacker;
+    }
 
 let defense_move state attacker victim player_attacker =
   if player_attacker then

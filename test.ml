@@ -128,11 +128,26 @@ let camltypes_test =
     updated_hp_test "Basic caml damage" example_caml 1 post_damage_caml;
   ]
 
-let attack_test = []
+let attack_move_test
+    (name : string)
+    (input_caml : Camltypes.t)
+    (input_wolf : Camltypes.t)
+    (state : State.t)
+    (expected_output : int) : test =
+  name >:: fun _ ->
+  assert_equal expected_output
+    (move state input_caml input_wolf Attack true).ai.hp
+
+let attack_test =
+  [
+    attack_move_test "player attack ai" example_caml example_wolf
+      example_state 4;
+  ]
 
 let gui_test = []
 
 let tests =
-  "test suite for CamlBattle" >::: List.flatten [ camltypes_test ]
+  "test suite for CamlBattle"
+  >::: List.flatten [ camltypes_test; attack_test ]
 
 let _ = run_test_tt_main tests

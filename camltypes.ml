@@ -90,4 +90,22 @@ let stage_effect t =
   | x -> raise (UnknownStage x)
 
 let attack_stage_multi caml stage =
-  attack_multi (caml_type caml) (stage_effect stage)
+  let biome_effec = stage_effect stage in
+  match (caml, biome_effec) with
+  | "air", "air" -> SuperEffect
+  | "air", "earth" -> Normal
+  | "air", "water" -> Normal
+  | "air", "fire" -> Weak
+  | "earth", "air" -> Weak
+  | "earth", "earth" -> SuperEffect
+  | "earth", "water" -> Normal
+  | "earth", "fire" -> Normal
+  | "water", "air" -> Normal
+  | "water", "earth" -> Weak
+  | "water", "water" -> SuperEffect
+  | "water", "fire" -> Normal
+  | "fire", "air" -> Normal
+  | "fire", "earth" -> Normal
+  | "fire", "water" -> Weak
+  | "fire", "fire" -> SuperEffect
+  | x, y -> raise (UnknownElement x)
