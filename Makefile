@@ -1,8 +1,8 @@
-MODULES=camltypes test ai attack author main_func state main draw 
+MODULES=camltypes ai attack author main_func state main draw 
 
 OBJECTS=$(MODULES:=.cmo)
-MLS=$(MODULES := .ml)
-MLIS=$(MODULES :=.mli)
+MLS=$(MODULES:=.ml)
+MLIS=$(MODULES:=.mli)
 BYTES=$(MODULES:=.byte)
 TEST=test.byte 
 MAIN=main.byte

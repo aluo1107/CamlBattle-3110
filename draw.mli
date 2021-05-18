@@ -1,7 +1,7 @@
 (** This file details all of the functions that will be used to draw the
     graphics of the game *)
 
-(** [color_background] color] takes in an rgb color and colors the
+(** [color_background color] takes in an rgb color and colors the
     background based on that color*)
 val color_background : Graphics.color -> unit
 
