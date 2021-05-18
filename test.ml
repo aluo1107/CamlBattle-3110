@@ -138,10 +138,56 @@ let attack_move_test
   assert_equal expected_output
     (move state input_caml input_wolf Attack true).ai.hp
 
+let volcano_water_fire =
+  (* Volcano biome, water player, fire ai*)
+  { example_state with player = example_wolf; ai = example_caml }
+
+let volcano_air_earth =
+  (* Volcano biome, air player, earth ai*)
+  {
+    example_state with
+    player = { example_caml with element_t = "air" };
+    ai = { example_wolf with element_t = "earth" };
+  }
+
+let volcano_earth_air =
+  (* Volcano biome, earth player, air ai*)
+  {
+    volcano_air_earth with
+    player = volcano_air_earth.ai;
+    ai = volcano_air_earth.player;
+  }
+
+let cloud_fire_water = { example_state with stage = "cloud kingdom" }
+
+let cloud_water_fire =
+  { volcano_water_fire with stage = "cloud kingdom" }
+
+let cloud_air_earth = { volcano_air_earth with stage = "cloud kingdom" }
+
+let cloud_earth_air = { volcano_earth_air with stage = "cloud kingdom" }
+
+let ocean_fire_water = { cloud_fire_water with stage = "ocean" }
+
+let ocean_water_fire = { cloud_water_fire with stage = "ocean" }
+
+let ocean_air_earth = { cloud_air_earth with stage = "ocean" }
+
+let ocean_earth_air = { cloud_earth_air with stage = "ocean" }
+
+let jungle_fire_water = { cloud_fire_water with stage = "jungle" }
+
+let jungle_water_fire = { cloud_water_fire with stage = "jungle" }
+
+let jungle_air_earth = { cloud_air_earth with stage = "jungle" }
+
+let jungle_earth_air = { cloud_earth_air with stage = "jungle" }
+
 let attack_test =
   [
-    attack_move_test "player attack ai" example_caml example_wolf
-      example_state 4;
+    attack_move_test
+      "player attack ai fire vs water in volcano no defense"
+      example_caml example_wolf example_state 4;
   ]
 
 let gui_test = []

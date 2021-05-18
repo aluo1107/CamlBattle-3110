@@ -37,7 +37,7 @@ let attack_move attacker victim state =
   (attack_damage_type * int_of_float attack_multi_stage)
   - current_defense victim
 
-let change_victim_hp victim player_attacker attack_dam =
+let change_victim_hp victim attack_dam =
   {
     victim with
     hp =
@@ -51,13 +51,13 @@ let attacking_move state attacker victim player_attacker =
   if player_attacker then
     {
       state with
-      ai = change_victim_hp victim player_attacker attack_dam;
+      ai = change_victim_hp victim attack_dam;
       turn = change_turn player_attacker;
     }
   else
     {
       state with
-      player = change_victim_hp victim player_attacker attack_dam;
+      player = change_victim_hp victim attack_dam;
       turn = change_turn player_attacker;
     }
 
@@ -83,9 +83,8 @@ let heal_move state attacker victim player_attacker =
       state with
       player =
         (let new_hp = attacker.hp + (heal_base * attacker.level) in
-         if new_hp > (attacker.level * 10) + 10 then
-           updated_hp attacker
-             (-((attacker.level * 10) + 10 - attacker.hp))
+         if new_hp > attacker.level * 10 then
+           updated_hp attacker (-((attacker.level * 10) - attacker.hp))
          else updated_hp attacker (-(heal_base * attacker.level)));
       ai = updated_defense victim 0;
       turn = change_turn player_attacker;
@@ -96,9 +95,8 @@ let heal_move state attacker victim player_attacker =
       player = updated_defense victim 0;
       ai =
         (let new_hp = attacker.hp + (heal_base * attacker.level) in
-         if new_hp > (attacker.level * 10) + 10 then
-           updated_hp attacker
-             (-((attacker.level * 10) + 10 - attacker.hp))
+         if new_hp > attacker.level * 10 then
+           updated_hp attacker (-((attacker.level * 10) - attacker.hp))
          else updated_hp attacker (-(heal_base * attacker.level)));
       turn = change_turn player_attacker;
     }
