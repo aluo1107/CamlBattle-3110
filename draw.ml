@@ -343,6 +343,50 @@ let rec render_welcome (state : State.t) =
   let event = wait_next_event [ Key_pressed ] in
   if event.key == 's' then () else render_welcome state
 
+let rec render_choose_type (state : State.t) =
+  Graphics.clear_graph ();
+  Graphics.moveto 200 300;
+  Graphics.set_color Graphics.black;
+  Graphics.set_text_size 150;
+  Graphics.draw_string "Please choose your CamlType!";
+  Graphics.set_text_size 100;
+  Graphics.moveto 200 270;
+  Graphics.draw_string "Press Q for Fire!";
+  Graphics.moveto 200 240;
+  Graphics.draw_string "Press W for Water!";
+  Graphics.moveto 200 210;
+  Graphics.draw_string "Press E for Earth!";
+  Graphics.moveto 200 180;
+  Graphics.draw_string "Press R for Air!";
+  let event = wait_next_event [ Key_pressed ] in
+  if event.key == 'q' then ()
+  else if event.key == 'w' then ()
+  else if event.key == 'e' then ()
+  else if event.key == 'r' then ()
+  else render_choose_type state
+
+let rec render_choose_biome (state : State.t) =
+  Graphics.clear_graph ();
+  Graphics.moveto 200 300;
+  Graphics.set_color Graphics.black;
+  Graphics.set_text_size 150;
+  Graphics.draw_string "Please choose your Biome!";
+  Graphics.set_text_size 100;
+  Graphics.moveto 200 270;
+  Graphics.draw_string "Press Q for Volcano!";
+  Graphics.moveto 200 240;
+  Graphics.draw_string "Press W for Ocean!";
+  Graphics.moveto 200 210;
+  Graphics.draw_string "Press E for Jungle!";
+  Graphics.moveto 200 180;
+  Graphics.draw_string "Press R for Cloud Kingdom!";
+  let event = wait_next_event [ Key_pressed ] in
+  if event.key == 'q' then ()
+  else if event.key == 'w' then ()
+  else if event.key == 'e' then ()
+  else if event.key == 'r' then ()
+  else render_choose_type state
+
 (*colors caml and renders on page*)
 
 let rec render_game (state : State.t) : unit =
