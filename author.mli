@@ -1,11 +1,4 @@
-(************************************************************ 
-   Copyright (C) 2021 Cornell University.
-   Created by Michael Clarkson (mrc26@cornell.edu) and CS 3110 course staff.
-   You may not redistribute this assignment, distribute any derivatives,
-   or use it for commercial purposes.
- ************************************************************)
-
-(** CS 3110 Spring 2021 Assignment A2 Adventure
+(** CS 3110 Spring 2021 Final Project Assignment
 
     @author Changhee Lee (cl868) Chelsea Choi (cc2583) Ada Luo (al2342)*)
 

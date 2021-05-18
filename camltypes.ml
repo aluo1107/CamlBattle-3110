@@ -17,7 +17,7 @@ type effect =
   | Normal
   | SuperEffect
 
-(* hello *)
+(* The type for both camls and enemies *)
 type t = {
   hp : int;
   level : int;
@@ -36,9 +36,12 @@ exception UnknownElement of element_t
 
 (*[exp_update caml] updates the camel level based on exp*)
 let exp_update caml =
-  if caml.exp > 100 || caml.exp = 100 then
-    { caml with hp = caml.hp + 10; level = caml.level + 1; exp = 0 }
-  else caml
+  {
+    caml with
+    hp = (caml.level + 1) * 10;
+    level = caml.level + 1;
+    exp = 0;
+  }
 
 (*[effect_multi effect] matches effect and returns the multiplier*)
 let effect_multi = function
@@ -79,7 +82,7 @@ let updated_defense t int = { t with defense = int }
 
 let current_defense t = t.defense
 
-(* Stuff for stage*)
+(* Stage*)
 (* matches the stage to the element*)
 let stage_effect t =
   match t with
@@ -89,6 +92,7 @@ let stage_effect t =
   | "cloud kingdom" -> "air"
   | x -> raise (UnknownStage x)
 
+(*Returns the effect of element match ups*)
 let attack_stage_multi caml stage =
   let biome_effec = stage_effect stage in
   match (caml, biome_effec) with

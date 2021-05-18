@@ -34,10 +34,10 @@ let welcome_game input =
 (* [user_name] prompts for the player to enter their name and prints a
    welcome message. *)
 
-(*Initialize the caml.*)
+(*[caml_init] initializes the caml.*)
 let caml_init element =
   {
-    hp = 20;
+    hp = 10;
     level = 1;
     element_t = element;
     moves = [ Attack; Defense; Heal ];
@@ -46,7 +46,7 @@ let caml_init element =
     current_move = 0;
   }
 
-(* add end of file*)
+(* [find_ai_element] returns the opposite of the player element*)
 let find_ai_element player_element =
   match player_element with
   | "fire" -> "water"
@@ -55,7 +55,7 @@ let find_ai_element player_element =
   | "earth" -> "air"
   | _ -> raise (UnknownElement player_element)
 
-(* creates ai caml based on the opposite element of the player*)
+(* [ai_caml] creates the ai based on the opposite element of the player*)
 let ai_caml caml_init =
   { caml_init with element_t = find_ai_element caml_init.element_t }
 
@@ -63,51 +63,34 @@ let ai_caml caml_init =
   valid element" in let input2 = read_line () in if input2 = "water" ||
   input2 = "fire" || input2 = "air" || input2 = "earth" then input2 else
   valid_input ()*)
-
-let pick_biome input =
-  if
-    input = "volcano" || input = "ocean" || input = "jungle"
-    || input = "cloud kingdom"
-  then input
-  else raise (UnknownCommand input)
+(* let pick_biome input = if input = "volcano" || input = "ocean" ||
+   input = "jungle" || input = "cloud kingdom" then input else raise
+   (UnknownCommand input) *)
 
 (*change specifically for move set choice*)
-(*let rec valid_input input : string = match input with | "water" |
-  "fire" | "air" | "earth" | _ -> valid_input input *)
-let choose_attack input =
-  match input with
-  | "attack" -> Attack
-  | "heal" -> Heal
-  | "defense" -> Defense
-  | _ -> raise (UnknownCommand input)
+(*let rec valid_input input : string = match input with | "water" | (*
+  "fire" | "air" | "earth" | _ -> valid_input input *) let choose_attack
+  input = match input with | "attack" -> Attack | "heal" -> Heal |
+  "defense" -> Defense | _ -> raise (UnknownCommand input) *)
 
 (*let get_attack input = if input = "attack" || input = "heal" || input
   = "defense" then input else raise (UnknownCommand input) *)
-let choose_move input = choose_attack input
+(* let choose_move input = choose_attack input *)
 
 (* [play_game state] begins the CamlBattle. Takes in the state and
    checks whether hp is below or equal to 0. Will call itself again
    based on what attack returns. *)
-let rec play_game (f : State.t) =
-  let check_player_hp = current_hp f.player in
-  let check_ai_hp = Camltypes.current_hp f.ai in
-  if check_player_hp <= 0 || check_ai_hp <= 0 then end_game f
-  else if
-    f.turn
-    (* will perform player attack based on move and changes turn*)
-  then begin
-    print_string " Your current hp is: ";
-    print_endline (string_of_int check_player_hp);
-    print_string " The opponent's hp is: ";
-    print_endline (string_of_int f.ai.hp);
-    print_string " AI Defense: ";
-    print_endline (string_of_int f.ai.defense);
-    print_endline " Select a move: attack, heal, defense ";
-    let input1 = read_line () in
-    play_game
-      (Attack.move f f.player f.ai (choose_attack input1) f.turn)
-  end
-  else play_game (Ai.health_check (Random.float 10.0) f)
+(* let rec play_game (f : State.t) = let check_player_hp = current_hp
+   f.player in let check_ai_hp = Camltypes.current_hp f.ai in if
+   check_player_hp <= 0 || check_ai_hp <= 0 then end_game f else if
+   f.turn (* will perform player attack based on move and changes turn*)
+   then begin print_string " Your current hp is: "; print_endline
+   (string_of_int check_player_hp); print_string " The opponent's hp is:
+   "; print_endline (string_of_int f.ai.hp); print_string " AI Defense:
+   "; print_endline (string_of_int f.ai.defense); print_endline " Select
+   a move: attack, heal, defense "; let input1 = read_line () in
+   play_game (Attack.move f f.player f.ai (choose_attack input1) f.turn)
+   end else play_game (Ai.health_check (Random.float 10.0) f) *)
 
 (* print_string " Select a move: attack, heal, defense for enemy "; let
    input2 = read_line () in play_game (Attack.move f f.ai f.player

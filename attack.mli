@@ -1,6 +1,6 @@
 open Camltypes
 
-(* keeping track of attacks in the game*)
+(** keeping track of attacks in the game *)
 
 exception UnknownMove of move_t
 
