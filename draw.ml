@@ -6,37 +6,25 @@ open Main_func
 open Ai
 open ANSITerminal
 
+(* The rgb color for white*)
 let white = rgb 255 255 255
 
+(*The rgb color for blue*)
 let blue = rgb 30 25 255
 
-(*creates the window that the graphics take place in*)
+(*Creates the window that the graphics take place in*)
 let open_window =
   open_graph " 640x480";
   set_window_title "CamlBattle"
 
-(*sets the background color of the window*)
+(*Sets the background color of the window. Citation: *)
 let clear_window color =
   let fg = foreground in
   set_color color;
   fill_rect 0 0 (size_x ()) (size_y ());
   set_color fg
 
-(* create a gradient of colors from black at 0,0 to white at w-1,h-1 *)
-let gradient arr w h =
-  for y = 0 to h - 1 do
-    for x = 0 to w - 1 do
-      let s = 255 * (x + y) / (w + h - 2) in
-      arr.(y).(x) <- rgb s s s
-    done
-  done
-
-(* draws the gradient*)
-let draw_gradient x y w h =
-  let arr = Array.make_matrix h w white in
-  gradient arr w h;
-  draw_image (make_image arr) 0 0
-
+(*Draws the volcano ashes*)
 let volcano_ashes () =
   Graphics.moveto 490 190;
   Graphics.draw_circle 495 215 18;
@@ -52,8 +40,9 @@ let volcano_ashes () =
   Graphics.draw_circle 535 243 10;
   Graphics.fill_circle 535 243 10
 
+(* Draws the background of the volcano biome *)
 let volcano_background () =
-  clear_window (rgb 255 0 0);
+  clear_window (rgb 255 70 36);
   Graphics.set_color (rgb 82 39 2);
   Graphics.moveto 420 140;
   Graphics.set_line_width 2;
@@ -69,6 +58,7 @@ let volcano_background () =
   Graphics.fill_circle 480 190 18;
   volcano_ashes ()
 
+(* Draws the first half of the ocean ripple. *)
 let ocean_squiggle_one () =
   Graphics.moveto 328 50;
   Graphics.curveto (328, 50) (343, 70) (358, 50);
@@ -91,6 +81,7 @@ let ocean_squiggle_one () =
   Graphics.moveto 598 50;
   Graphics.curveto (598, 50) (613, 70) (628, 50)
 
+(* Draws the second half of the ocean ripple. *)
 let ocean_squiggle_two () =
   Graphics.moveto 628 50;
   Graphics.curveto (628, 50) (643, 70) (658, 50);
@@ -104,6 +95,7 @@ let ocean_squiggle_two () =
   Graphics.moveto 544 208;
   Graphics.curveto (544, 208) (556, 228) (568, 218)
 
+(* Draws the background of the ocean biome *)
 let ocean_background () =
   clear_window (rgb 0 206 209);
   Graphics.set_color (rgb 0 0 139);
@@ -125,6 +117,7 @@ let ocean_background () =
   ocean_squiggle_one ();
   ocean_squiggle_two ()
 
+(* Draws the background of the jungle biome *)
 let jungle_background () =
   clear_window (rgb 46 139 87);
   Graphics.set_color (rgb 120 48 48);
@@ -145,6 +138,7 @@ let jungle_background () =
   Graphics.moveto 580 260;
   Graphics.curveto (580, 260) (625, 230) (580, 195)
 
+(* Draws the first cloud in the cloud_kingdom biome*)
 let first_cloud () =
   Graphics.moveto 350 60;
   Graphics.draw_circle 355 60 18;
@@ -162,6 +156,7 @@ let first_cloud () =
   Graphics.draw_circle 383 65 17;
   Graphics.fill_circle 383 65 17
 
+(* Draws the second cloud in the cloud_kingdom biome*)
 let second_cloud () =
   Graphics.moveto 520 60;
   Graphics.draw_circle 528 60 15;
@@ -179,6 +174,7 @@ let second_cloud () =
   Graphics.draw_circle 560 65 14;
   Graphics.fill_circle 560 65 14
 
+(* Draws the background of the cloud_kingdom biome *)
 let cloud_kingdom_background () =
   clear_window (rgb 255 255 0);
   Graphics.set_color (rgb 0 247 255);
@@ -200,7 +196,7 @@ let cloud_kingdom_background () =
   first_cloud ();
   second_cloud ()
 
-(*matches the color of the window with the stage*)
+(*Matches the background with the corresponding stage biome*)
 let match_environment stage =
   match stage with
   | "volcano" -> volcano_background ()
@@ -209,7 +205,7 @@ let match_environment stage =
   | "cloud kingdom" -> cloud_kingdom_background ()
   | _ -> failwith "Not valid"
 
-(*matches the camel color with the camel element*)
+(*Matches the camel color with the camel element*)
 let camel_type caml =
   match caml with
   | "water" -> rgb 115 255 246
@@ -218,12 +214,14 @@ let camel_type caml =
   | "earth" -> rgb 120 255 179
   | _ -> failwith "Not valid"
 
+(*Draws the back_leg of the camel*)
 let back_leg () =
   Graphics.moveto 87 55;
   Graphics.lineto 74 10;
   Graphics.moveto 101 40;
   Graphics.lineto 92 10
 
+(*Draws the front leg of the camel*)
 let front_leg () =
   Graphics.moveto 161 55;
   Graphics.lineto 170 10;
@@ -233,6 +231,7 @@ let front_leg () =
   Graphics.draw_circle 70 60 10;
   Graphics.fill_circle 70 60 10
 
+(*Draws the caml body*)
 let caml_body color =
   Graphics.moveto 283 124;
   Graphics.set_color (rgb 0 0 0);
@@ -245,7 +244,7 @@ let caml_body color =
   Graphics.set_color color;
   Graphics.set_line_width 5
 
-(*draws the camel onto the screen*)
+(*Draws the camel onto the screen*)
 let draw_user_caml color =
   Graphics.set_color color;
   Graphics.draw_ellipse 150 100 40 60;
@@ -263,12 +262,25 @@ let draw_user_caml color =
   back_leg ();
   front_leg ()
 
-let draw_enemy_caml color =
+(* Draws the enemy element*)
+let draw_enemy color =
   Graphics.set_color color;
   Graphics.draw_circle 500 400 50;
-  Graphics.fill_circle 500 400 50
+  Graphics.fill_circle 500 400 50;
+  Graphics.set_line_width 2;
+  Graphics.set_color (rgb 0 0 0);
+  Graphics.moveto 465 420;
+  Graphics.lineto 488 400;
+  Graphics.moveto 530 420;
+  Graphics.lineto 507 400;
+  Graphics.draw_circle 485 398 4;
+  Graphics.fill_circle 485 398 4;
+  Graphics.draw_circle 510 398 4;
+  Graphics.fill_circle 510 398 4;
+  Graphics.moveto 480 370;
+  Graphics.curveto (480, 370) (495, 388) (514, 370)
 
-(*draws the current stats of the player*)
+(*Draws the current stats of the user*)
 let user_board color (state : State.t) =
   Graphics.set_color color;
   Graphics.draw_rect 230 170 60 90;
@@ -284,6 +296,7 @@ let user_board color (state : State.t) =
   Graphics.draw_string
     ("HP: " ^ string_of_int (Camltypes.current_hp state.player))
 
+(*Draws the current stats of the enemy*)
 let enemy_board color (state : State.t) =
   Graphics.set_color color;
   Graphics.draw_rect 350 370 60 90;
@@ -299,7 +312,7 @@ let enemy_board color (state : State.t) =
   Graphics.draw_string
     ("HP: " ^ string_of_int (Camltypes.current_hp state.ai))
 
-(* updates the move in terminal*)
+(* Updates the moves in terminal*)
 let move_update state =
   ANSITerminal.print_string [ on_default ] " Your current hp is: ";
   print_endline (string_of_int (Camltypes.current_hp state.player));
@@ -308,6 +321,7 @@ let move_update state =
   ANSITerminal.print_string [ on_default ] " AI Defense: ";
   print_endline (string_of_int state.ai.defense)
 
+(* Draws the menu for choosing the moves*)
 let drawing_menu state =
   Graphics.set_color Graphics.white;
   Graphics.draw_rect 50 370 150 80;
@@ -322,6 +336,7 @@ let drawing_menu state =
   Graphics.set_color Graphics.black;
   Graphics.draw_string "Press d for defend"
 
+(* Draws the welcome message on the screen *)
 let rec render_welcome (state : State.t) =
   Graphics.clear_graph ();
   Graphics.moveto 200 200;
@@ -331,7 +346,7 @@ let rec render_welcome (state : State.t) =
   let event = wait_next_event [ Key_pressed ] in
   if event.key == 's' then () else render_welcome state
 
-(*keeps track of the moves and player health*)
+(*Keeps track of the moves and the player health*)
 let moves_state state =
   drawing_menu state;
   move_update state;
@@ -348,18 +363,7 @@ let moves_state state =
       |> Ai.health_check (Random.float 10.0)
   | _ -> failwith "not right key"
 
-(* let render_name = Graphics.set_color Graphics.black;
-   Graphics.draw_string "Please enter your name."; input_name () *)
-
-let rec render_welcome (state : State.t) =
-  Graphics.clear_graph ();
-  Graphics.moveto 200 200;
-  Graphics.set_color Graphics.black;
-  Graphics.set_text_size 100;
-  Graphics.draw_string "Welcome to CamlBattles! Press s to start";
-  let event = wait_next_event [ Key_pressed ] in
-  if event.key == 's' then () else render_welcome state
-
+(*Displays the messages for choosing the cameltypes*)
 let rec render_choose_type (state : State.t) =
   Graphics.clear_graph ();
   Graphics.moveto 200 300;
@@ -386,6 +390,7 @@ let rec render_choose_type (state : State.t) =
     { state with player = { state.player with element_t = "air" } }
   else render_choose_type state
 
+(* Displays the messages for choosing the biome*)
 let rec render_choose_biome (state : State.t) =
   Graphics.clear_graph ();
   Graphics.moveto 200 300;
@@ -424,7 +429,7 @@ let rec render_game (state : State.t) : unit =
     user_board white state;
     enemy_board white state;
     draw_user_caml (camel_type state.player.element_t);
-    draw_enemy_caml (camel_type state.ai.element_t);
+    draw_enemy (camel_type state.ai.element_t);
     let new_state = moves_state state in
     render_game new_state)
 
