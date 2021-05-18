@@ -62,11 +62,11 @@ val moves_state : State.t -> State.t
 
 (** [render_choose_type state] asks and takes in the user's choice of
     element that will be used in the game*)
-val render_choose_type : State.t -> State.t
+val render_choose_type : unit -> string
 
 (** [render_choose_biome state] asks and takes in the user's choice of
     biome that will be used in the game*)
-val render_choose_biome : State.t -> string
+val render_choose_biome : unit -> string
 
 (** [true_close state] gives the user an ending messages and prompts the
     user again to quit*)
@@ -85,9 +85,3 @@ val update_lost_state : State.t -> State.t
 (** [update_won_state state] returns the game state with the user and
     AI's hp increased by 10 with their levels also increased by 1*)
 val update_won_state : State.t -> State.t
-
-(** [render_closing state] renders the closing screen on the window. It
-    gives the user the choice of clicking 'q' to quit the game or 's' to
-    start the game again. If the user won, the ai and the user's levels
-    and experience increase. *)
-val render_inter : State.t -> State.t
