@@ -79,7 +79,7 @@ let example_state =
   {
     player = example_caml;
     ai = example_wolf;
-    stage = "cloud kingdom";
+    stage = "volcano";
     turn = true;
   }
 

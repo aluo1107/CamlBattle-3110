@@ -37,6 +37,21 @@ let draw_gradient x y w h =
   gradient arr w h;
   draw_image (make_image arr) 0 0
 
+let volcano_ashes () =
+  Graphics.moveto 490 190;
+  Graphics.draw_circle 495 215 18;
+  Graphics.fill_circle 495 215 18;
+  Graphics.draw_circle 520 211 12;
+  Graphics.fill_circle 520 211 12;
+  Graphics.draw_circle 528 226 8;
+  Graphics.fill_circle 528 226 8;
+  Graphics.draw_circle 503 190 17;
+  Graphics.fill_circle 503 190 17;
+  Graphics.draw_circle 520 233 12;
+  Graphics.fill_circle 520 233 12;
+  Graphics.draw_circle 535 243 10;
+  Graphics.fill_circle 535 243 10
+
 let volcano_background () =
   clear_window (rgb 255 0 0);
   Graphics.set_color (rgb 82 39 2);
@@ -52,38 +67,9 @@ let volcano_background () =
   Graphics.set_color (rgb 169 169 169);
   Graphics.draw_circle 480 190 18;
   Graphics.fill_circle 480 190 18;
-  Graphics.moveto 490 190;
-  Graphics.draw_circle 495 215 18;
-  Graphics.fill_circle 495 215 18;
-  Graphics.draw_circle 520 211 12;
-  Graphics.fill_circle 520 211 12;
-  Graphics.draw_circle 528 226 8;
-  Graphics.fill_circle 528 226 8;
-  Graphics.draw_circle 503 190 17;
-  Graphics.fill_circle 503 190 17;
-  Graphics.draw_circle 520 233 12;
-  Graphics.fill_circle 520 233 12;
-  Graphics.draw_circle 535 243 10;
-  Graphics.fill_circle 535 243 10
+  volcano_ashes ()
 
-let ocean_background () =
-  clear_window (rgb 0 206 209);
-  Graphics.set_color (rgb 0 0 139);
-  Graphics.set_line_width 2;
-  Graphics.moveto 0 50;
-  Graphics.curveto (0, 50) (15, 70) (30, 50);
-  Graphics.moveto 30 50;
-  Graphics.curveto (30, 50) (45, 70) (60, 50);
-  Graphics.moveto 178 50;
-  Graphics.curveto (178, 50) (193, 70) (208, 50);
-  Graphics.moveto 208 50;
-  Graphics.curveto (208, 50) (223, 70) (238, 50);
-  Graphics.moveto 238 50;
-  Graphics.curveto (238, 50) (253, 70) (268, 50);
-  Graphics.moveto 268 50;
-  Graphics.curveto (268, 50) (283, 70) (298, 50);
-  Graphics.moveto 298 50;
-  Graphics.curveto (298, 50) (313, 70) (328, 50);
+let ocean_squiggle_one () =
   Graphics.moveto 328 50;
   Graphics.curveto (328, 50) (343, 70) (358, 50);
   Graphics.moveto 358 50;
@@ -103,7 +89,9 @@ let ocean_background () =
   Graphics.moveto 568 50;
   Graphics.curveto (568, 50) (583, 70) (598, 50);
   Graphics.moveto 598 50;
-  Graphics.curveto (598, 50) (613, 70) (628, 50);
+  Graphics.curveto (598, 50) (613, 70) (628, 50)
+
+let ocean_squiggle_two () =
   Graphics.moveto 628 50;
   Graphics.curveto (628, 50) (643, 70) (658, 50);
   Graphics.set_color (rgb 105 105 105);
@@ -115,6 +103,27 @@ let ocean_background () =
   Graphics.curveto (520, 200) (532, 220) (544, 208);
   Graphics.moveto 544 208;
   Graphics.curveto (544, 208) (556, 228) (568, 218)
+
+let ocean_background () =
+  clear_window (rgb 0 206 209);
+  Graphics.set_color (rgb 0 0 139);
+  Graphics.set_line_width 2;
+  Graphics.moveto 0 50;
+  Graphics.curveto (0, 50) (15, 70) (30, 50);
+  Graphics.moveto 30 50;
+  Graphics.curveto (30, 50) (45, 70) (60, 50);
+  Graphics.moveto 178 50;
+  Graphics.curveto (178, 50) (193, 70) (208, 50);
+  Graphics.moveto 208 50;
+  Graphics.curveto (208, 50) (223, 70) (238, 50);
+  Graphics.moveto 238 50;
+  Graphics.curveto (238, 50) (253, 70) (268, 50);
+  Graphics.moveto 268 50;
+  Graphics.curveto (268, 50) (283, 70) (298, 50);
+  Graphics.moveto 298 50;
+  Graphics.curveto (298, 50) (313, 70) (328, 50);
+  ocean_squiggle_one ();
+  ocean_squiggle_two ()
 
 let jungle_background () =
   clear_window (rgb 46 139 87);
@@ -136,6 +145,40 @@ let jungle_background () =
   Graphics.moveto 580 260;
   Graphics.curveto (580, 260) (625, 230) (580, 195)
 
+let first_cloud () =
+  Graphics.moveto 350 60;
+  Graphics.draw_circle 355 60 18;
+  Graphics.fill_circle 355 60 18;
+  Graphics.draw_circle 365 82 18;
+  Graphics.fill_circle 365 82 18;
+  Graphics.draw_circle 390 90 19;
+  Graphics.fill_circle 390 90 19;
+  Graphics.draw_circle 410 80 18;
+  Graphics.fill_circle 410 80 18;
+  Graphics.draw_circle 415 55 17;
+  Graphics.fill_circle 415 55 17;
+  Graphics.draw_circle 383 47 22;
+  Graphics.fill_circle 383 47 22;
+  Graphics.draw_circle 383 65 17;
+  Graphics.fill_circle 383 65 17
+
+let second_cloud () =
+  Graphics.moveto 520 60;
+  Graphics.draw_circle 528 60 15;
+  Graphics.fill_circle 528 60 15;
+  Graphics.draw_circle 540 82 16;
+  Graphics.fill_circle 540 82 16;
+  Graphics.draw_circle 560 90 16;
+  Graphics.fill_circle 560 90 16;
+  Graphics.draw_circle 580 80 15;
+  Graphics.fill_circle 580 80 15;
+  Graphics.draw_circle 580 55 14;
+  Graphics.fill_circle 580 55 14;
+  Graphics.draw_circle 553 47 22;
+  Graphics.fill_circle 553 47 22;
+  Graphics.draw_circle 560 65 14;
+  Graphics.fill_circle 560 65 14
+
 let cloud_kingdom_background () =
   clear_window (rgb 255 255 0);
   Graphics.set_color (rgb 0 247 255);
@@ -154,36 +197,8 @@ let cloud_kingdom_background () =
   Graphics.fill_circle 453 207 22;
   Graphics.draw_circle 453 225 17;
   Graphics.fill_circle 453 225 17;
-  Graphics.moveto 350 60;
-  Graphics.draw_circle 355 60 18;
-  Graphics.fill_circle 355 60 18;
-  Graphics.draw_circle 365 82 18;
-  Graphics.fill_circle 365 82 18;
-  Graphics.draw_circle 390 90 19;
-  Graphics.fill_circle 390 90 19;
-  Graphics.draw_circle 410 80 18;
-  Graphics.fill_circle 410 80 18;
-  Graphics.draw_circle 415 55 17;
-  Graphics.fill_circle 415 55 17;
-  Graphics.draw_circle 383 47 22;
-  Graphics.fill_circle 383 47 22;
-  Graphics.draw_circle 383 65 17;
-  Graphics.fill_circle 383 65 17;
-  Graphics.moveto 520 60;
-  Graphics.draw_circle 528 60 15;
-  Graphics.fill_circle 528 60 15;
-  Graphics.draw_circle 540 82 16;
-  Graphics.fill_circle 540 82 16;
-  Graphics.draw_circle 560 90 16;
-  Graphics.fill_circle 560 90 16;
-  Graphics.draw_circle 580 80 15;
-  Graphics.fill_circle 580 80 15;
-  Graphics.draw_circle 580 55 14;
-  Graphics.fill_circle 580 55 14;
-  Graphics.draw_circle 553 47 22;
-  Graphics.fill_circle 553 47 22;
-  Graphics.draw_circle 560 65 14;
-  Graphics.fill_circle 560 65 14
+  first_cloud ();
+  second_cloud ()
 
 (*matches the color of the window with the stage*)
 let match_environment stage =
@@ -203,6 +218,33 @@ let camel_type caml =
   | "earth" -> rgb 120 255 179
   | _ -> failwith "Not valid"
 
+let back_leg () =
+  Graphics.moveto 87 55;
+  Graphics.lineto 74 10;
+  Graphics.moveto 101 40;
+  Graphics.lineto 92 10
+
+let front_leg () =
+  Graphics.moveto 161 55;
+  Graphics.lineto 170 10;
+  Graphics.moveto 172 55;
+  Graphics.lineto 190 10;
+  Graphics.moveto 110 65;
+  Graphics.draw_circle 70 60 10;
+  Graphics.fill_circle 70 60 10
+
+let caml_body color =
+  Graphics.moveto 283 124;
+  Graphics.set_color (rgb 0 0 0);
+  Graphics.draw_circle 283 124 5;
+  Graphics.fill_circle 283 124 5;
+  Graphics.set_color (rgb 250 75 75);
+  Graphics.moveto 290 107;
+  Graphics.draw_ellipse 290 107 7 2;
+  Graphics.fill_ellipse 290 107 7 2;
+  Graphics.set_color color;
+  Graphics.set_line_width 5
+
 (*draws the camel onto the screen*)
 let draw_user_caml color =
   Graphics.set_color color;
@@ -217,34 +259,9 @@ let draw_user_caml color =
   Graphics.draw_circle 280 120 15;
   Graphics.fill_circle 280 120 15;
   Graphics.set_line_width 1;
-  Graphics.moveto 283 124;
-  Graphics.set_color (rgb 0 0 0);
-  Graphics.draw_circle 283 124 5;
-  Graphics.fill_circle 283 124 5;
-  Graphics.set_color (rgb 250 75 75);
-  Graphics.moveto 290 107;
-  Graphics.draw_ellipse 290 107 7 2;
-  Graphics.fill_ellipse 290 107 7 2;
-  Graphics.set_color color;
-  Graphics.set_line_width 5;
-  (*Back legs*)
-  Graphics.moveto 87 55;
-  Graphics.lineto 74 10;
-  Graphics.moveto 101 40;
-  Graphics.lineto 92 10;
-  (*Front legs*)
-  Graphics.moveto 161 55;
-  Graphics.lineto 170 10;
-  Graphics.moveto 172 55;
-  Graphics.lineto 190 10;
-  Graphics.moveto 110 65;
-  Graphics.draw_circle 70 60 10;
-  Graphics.fill_circle 70 60 10
-
-(* Graphics.moveto 170 120; Graphics.curveto (170, 90) (220, 30) (270,
-   90) *)
-
-(* Graphics.draw_circle 100 120 50; Graphics.fill_circle 100 120 50 *)
+  caml_body color;
+  back_leg ();
+  front_leg ()
 
 let draw_enemy_caml color =
   Graphics.set_color color;
