@@ -15,8 +15,7 @@ open State
   health, Random.float 10 would need to return a number less than 2.5).
   Requires [state] be a valid State.t*)
 
-let health_check state =
-  let x = Random.float 10.0 in
+let health_check x state =
   print_float x;
   match
     float_of_int state.ai.hp /. float_of_int ((state.ai.level * 10) + 10)
