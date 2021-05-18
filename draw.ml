@@ -17,7 +17,7 @@ let open_window =
   open_graph " 640x480";
   set_window_title "CamlBattle"
 
-(*Sets the background color of the window. Citation: *)
+(*Sets the background color of the window*)
 let clear_window color =
   let fg = foreground in
   set_color color;
@@ -407,10 +407,10 @@ let rec render_choose_biome (state : State.t) =
   Graphics.moveto 200 180;
   Graphics.draw_string "Press R for Cloud Kingdom!";
   let event = wait_next_event [ Key_pressed ] in
-  if event.key == 'q' then { state with stage = "volcano" }
-  else if event.key == 'w' then { state with stage = "ocean" }
-  else if event.key == 'e' then { state with stage = "jungle" }
-  else if event.key == 'r' then { state with stage = "cloud kingdom" }
+  if event.key == 'q' then "volcano"
+  else if event.key == 'w' then "ocean"
+  else if event.key == 'e' then "jungle"
+  else if event.key == 'r' then "cloud kingdom"
   else render_choose_biome state
 
 (*colors caml and renders on page*)
@@ -475,13 +475,10 @@ let rec render_closing (state : State.t) =
    CamlBattles! Please select from fire, water, air, or \ earth.";
    input_name () *)
 
-let render_background (state : State.t) =
-  let () = open_window in
-  let () = render_welcome state in
-  let type_state = render_choose_type state in
-  let chosen_state = render_choose_biome type_state in
-  let () = render_game chosen_state in
-  render_closing state
+(*let render_background (state : State.t) = let () = open_window in let
+  () = render_welcome state in let type_state = render_choose_type state
+  in let chosen_state = render_choose_biome type_state in let () =
+  render_game chosen_state in render_closing state*)
 
 (* let r, g, b = color_to_rgb background in Printf.printf "Background
    color: %d %d %d\n" r g b *)

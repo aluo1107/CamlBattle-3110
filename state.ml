@@ -1,6 +1,4 @@
 open Camltypes
-open Command
-
 type t = {
   player : Camltypes.t;
   ai : Camltypes.t;
