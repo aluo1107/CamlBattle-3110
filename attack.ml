@@ -34,7 +34,7 @@ let attack_move attacker victim state =
   let attack_multi_stage =
     get_multiplier (attack_stage_multi attacker.element_t state.stage)
   in
-  (attack_damage_type * int_of_float attack_multi_stage)
+  int_of_float (float_of_int attack_damage_type *. attack_multi_stage)
   - current_defense victim
 
 let change_victim_hp victim attack_dam =

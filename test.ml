@@ -39,6 +39,22 @@ let updated_hp_test
   name >:: fun _ ->
   assert_equal expected_output (updated_hp input_cam damage)
 
+let attack_move_test
+    (name : string)
+    (state : State.t)
+    (expected_output : int) : test =
+  name >:: fun _ ->
+  assert_equal expected_output
+    (move state state.player state.ai Attack true).ai.hp
+    ~printer:string_of_int
+
+let heal_test (name : string) (state : State.t) (expected_output : int)
+    : test =
+  name >:: fun _ ->
+  assert_equal expected_output
+    (move state state.player state.ai Heal true).player.hp
+    ~printer:string_of_int
+
 (* Example cases to play with in the test suites.*)
 
 let example_caml_el = "fire"
@@ -128,16 +144,6 @@ let camltypes_test =
     updated_hp_test "Basic caml damage" example_caml 1 post_damage_caml;
   ]
 
-let attack_move_test
-    (name : string)
-    (input_caml : Camltypes.t)
-    (input_wolf : Camltypes.t)
-    (state : State.t)
-    (expected_output : int) : test =
-  name >:: fun _ ->
-  assert_equal expected_output
-    (move state input_caml input_wolf Attack true).ai.hp
-
 let volcano_water_fire =
   (* Volcano biome, water player, fire ai*)
   { example_state with player = example_wolf; ai = example_caml }
@@ -183,12 +189,102 @@ let jungle_air_earth = { cloud_air_earth with stage = "jungle" }
 
 let jungle_earth_air = { cloud_earth_air with stage = "jungle" }
 
-let attack_test =
+let volcano_tests () =
   [
-    attack_move_test
-      "player attack ai fire vs water in volcano no defense"
-      example_caml example_wolf example_state 4;
+    (* Player fire, AI water*)
+    attack_move_test "player attack. fire v water volcano no defense"
+      example_state 4;
+    (* Player Water, AI fire*)
+    attack_move_test "player attack. water v fire volcano no defense"
+      volcano_water_fire 1;
+    (* Player air, ai earth*)
+    attack_move_test "player attack. air v earth volcano no defense"
+      volcano_air_earth 4;
+    (* player earth, ai air*)
+    attack_move_test "player attack. earth v air volcano no defense"
+      volcano_earth_air 6;
   ]
+
+let cloud_tests () =
+  [
+    (* Player fire, AI water*)
+    attack_move_test "player attack. fire v water cloud no defense"
+      cloud_fire_water 6;
+    (* Player Water, AI fire*)
+    attack_move_test "player attack. water v fire cloud no defense"
+      cloud_water_fire 1;
+    (* Player air, ai earth*)
+    attack_move_test "player attack. air v earth cloud no defense"
+      cloud_air_earth (-2);
+    (* player earth, ai air*)
+    attack_move_test "player attack. earth v air cloud no defense"
+      cloud_earth_air 7;
+  ]
+
+let ocean_tests () =
+  [
+    (* Player fire, AI water*)
+    attack_move_test "player attack. fire v water no defense"
+      ocean_fire_water 7;
+    (* Player Water, AI fire*)
+    attack_move_test "player attack. water v fire ocean no defense"
+      ocean_water_fire (-2);
+    (* Player air, ai earth*)
+    attack_move_test "player attack. air v earth ocean no defense"
+      ocean_air_earth 1;
+    (* player earth, ai air*)
+    attack_move_test "player attack. earth v air ocean no defense"
+      ocean_earth_air 6;
+  ]
+
+let jungle_tests () =
+  [
+    (* Player fire, AI water*)
+    attack_move_test "player attack. fire v water ocean no defense"
+      jungle_fire_water 6;
+    (* Player Water, AI fire*)
+    attack_move_test "player attack. water v fire jungle"
+      jungle_water_fire 4;
+    (* Player air, ai earth*)
+    attack_move_test "player attack. air v earth jungle"
+      jungle_air_earth 1;
+    (* player earth, ai air*)
+    attack_move_test "player attack. earth v air jungle "
+      jungle_earth_air 4;
+  ]
+
+let half_health_state =
+  {
+    example_state with
+    player = { example_caml with hp = 5 };
+    ai = { example_wolf with hp = 5 };
+  }
+
+let half_health_level_2 =
+  {
+    example_state with
+    player = { example_caml with hp = 10; level = 2 };
+    ai = { example_wolf with hp = 10; level = 2 };
+  }
+
+let heal_tests () =
+  [
+    heal_test "full health heal" example_state 10;
+    heal_test "half health heal level 1" half_health_state 6;
+    heal_test "half health heal level 2" half_health_level_2 12;
+  ]
+
+let defense_tests = []
+
+let attack_test =
+  List.flatten
+    [
+      volcano_tests ();
+      cloud_tests ();
+      ocean_tests ();
+      jungle_tests ();
+      heal_tests ();
+    ]
 
 let gui_test = []
 
