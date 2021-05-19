@@ -55,6 +55,12 @@ let heal_test (name : string) (state : State.t) (expected_output : int)
     (move state state.player state.ai Heal true).player.hp
     ~printer:string_of_int
 
+let defense_test
+    (name : string)
+    (state : State.t)
+    (expected_output : int) : test =
+  name >:: fun _ -> assert_equal expected_output state.player.defense
+
 (* Example cases to play with in the test suites.*)
 
 let example_caml_el = "fire"
@@ -267,6 +273,13 @@ let half_health_level_2 =
     ai = { example_wolf with hp = 10; level = 2 };
   }
 
+let defense_3_level_1 =
+  {
+    example_state with
+    player = { example_caml with defense = 3 };
+    ai = { example_wolf with defense = 3 };
+  }
+
 let heal_tests () =
   [
     heal_test "full health heal" example_state 10;
@@ -274,7 +287,16 @@ let heal_tests () =
     heal_test "half health heal level 2" half_health_level_2 12;
   ]
 
-let defense_tests = []
+let defense_tests () =
+  [
+    defense_test "level 1 caml defense"
+      (move example_state example_caml example_wolf Defense true)
+      2;
+    defense_test "after attack defense = 0"
+      (move defense_3_level_1 defense_3_level_1.ai
+         defense_3_level_1.player Attack false)
+      0;
+  ]
 
 let attack_test =
   List.flatten
@@ -284,6 +306,7 @@ let attack_test =
       ocean_tests ();
       jungle_tests ();
       heal_tests ();
+      defense_tests ();
     ]
 
 let gui_test = []
