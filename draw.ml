@@ -437,8 +437,6 @@ let rec true_close final_state =
     ^ string_of_int final_state.player.level
     ^ " Nice Job!");
   Graphics.moveto 250 200;
-  Graphics.set_color Graphics.black;
-  Graphics.set_text_size 100;
   Graphics.draw_string "Press q again to exit";
 
   let event = wait_next_event [ Key_pressed ] in
@@ -449,7 +447,6 @@ let player_lost () =
   Graphics.clear_graph ();
   Graphics.moveto 100 200;
   Graphics.set_color Graphics.black;
-  Graphics.set_text_size 100;
   Graphics.draw_string
     "Game Over. Press s to start another game. Press q to quit."
 
@@ -458,17 +455,131 @@ let player_won () =
   Graphics.clear_graph ();
   Graphics.moveto 100 200;
   Graphics.set_color Graphics.black;
-  Graphics.set_text_size 100;
   Graphics.draw_string
     "You won! Press s to to start another game. Press q to quit"
+
+(* [draw_boxes] Draws the boxes and dialogue in the gotcha game*)
+let draw_boxes () =
+  Graphics.clear_graph ();
+  Graphics.moveto 100 400;
+  Graphics.set_color Graphics.black;
+  Graphics.set_text_size 100;
+  Graphics.draw_string
+    "Please pick from the three boxes below for a prize in your efforts";
+  Graphics.moveto 100 300;
+  Graphics.draw_string
+    "Please press the key denoted by the letter above the box";
+  Graphics.moveto 125 250;
+  Graphics.draw_string "c";
+  Graphics.fill_rect 100 200 50 50;
+  Graphics.moveto 225 250;
+  Graphics.draw_string "v";
+  Graphics.fill_rect 200 200 50 50;
+  Graphics.moveto 325 250;
+  Graphics.draw_string "b";
+  Graphics.fill_rect 300 200 50 50
+
+let correcting_state state good_result =
+  match good_result with
+  | true ->
+      {
+        state with
+        player =
+          {
+            state.player with
+            hp = state.player.hp - (1 * (state.player.hp / 10));
+          };
+      }
+  | false ->
+      {
+        state with
+        player =
+          {
+            state.player with
+            hp = state.player.hp + (1 * (state.player.hp / 10));
+          };
+      }
+
+let rec player_gotcha_msgs result =
+  Graphics.clear_graph ();
+  Graphics.moveto 200 300;
+  Graphics.set_color Graphics.black;
+  match result with
+  | 0 ->
+      Graphics.draw_string
+        "You've chosen wisely. Take this extra boost to help you in \
+         battle. Please press s to start";
+      let event = wait_next_event [ Key_pressed ] in
+      if event.key == 's' then () else player_gotcha_msgs result
+  | 1 ->
+      Graphics.draw_string
+        "A Bomb explodes. You suffer a hit to your HP. Please press s \
+         to start";
+      let event = wait_next_event [ Key_pressed ] in
+      if event.key == 's' then () else player_gotcha_msgs result
+  | 2 ->
+      Graphics.draw_string
+        "You avoided the bomb. Prepare for battle! Please press s to \
+         start";
+      let event = wait_next_event [ Key_pressed ] in
+      if event.key == 's' then () else player_gotcha_msgs result
+
+let winning_box chosen_char state =
+  let random_int = Random.int 3 in
+  match chosen_char with
+  | 'c' ->
+      if random_int == 0 || random_int == 1 then
+        let () = player_gotcha_msgs 0 in
+        correcting_state state false
+      else
+        let () = player_gotcha_msgs 2 in
+        state
+  | 'v' ->
+      if random_int == 1 || random_int == 2 then
+        let () = player_gotcha_msgs 1 in
+        correcting_state state true
+      else
+        let () = player_gotcha_msgs 2 in
+        state
+  | 'b' ->
+      if random_int == 2 || random_int == 0 then
+        let () = player_gotcha_msgs 2 in
+        state
+      else
+        let () = player_gotcha_msgs 0 in
+        correcting_state state true
+
+let rec blind_box state : State.t =
+  let () = draw_boxes () in
+  let event = wait_next_event [ Key_pressed ] in
+  if event.key == 'c' then winning_box 'c' state
+  else if event.key == 'v' then winning_box 'v' state
+  else if event.key == 'b' then winning_box 'b' state
+  else blind_box state
+
+(*[acceptance_state state] Draws the screen when the player has won the
+  round and considers the blind box gifts *)
+let rec acceptance_state state : State.t =
+  Graphics.clear_graph ();
+  Graphics.moveto 100 200;
+  Graphics.set_color Graphics.black;
+  Graphics.set_text_size 100;
+  Graphics.draw_string "Congratulations on making it to the next level!";
+  Graphics.moveto 100 100;
+  Graphics.draw_string
+    "A strange approaches with three gifts. Do you accept? y/n";
+  let event = wait_next_event [ Key_pressed ] in
+  if event.key == 'y' then blind_box state
+  else if event.key == 'n' then state
+  else acceptance_state state
 
 (*[render_game]colors caml and renders on page*)
 let rec render_game (state : State.t) : State.t =
   Graphics.clear_graph ();
-  Graphics.set_color Graphics.black;
-  match_environment state.stage;
-  let check_player_hp = Camltypes.current_hp state.player in
-  let check_ai_hp = Camltypes.current_hp state.ai in
+  let () = match_environment state.stage in
+  let check_player_hp, check_ai_hp =
+    (Camltypes.current_hp state.player, Camltypes.current_hp state.ai)
+  in
   if check_player_hp <= 0 then
     let () = player_lost () in
     let event = wait_next_event [ Key_pressed ] in
@@ -479,14 +590,18 @@ let rec render_game (state : State.t) : State.t =
   else if check_ai_hp <= 0 then
     let () = player_won () in
     let event = wait_next_event [ Key_pressed ] in
-    if event.key == 's' then render_game (update_won_state state)
+    if event.key == 's' then
+      let new_state = state |> update_won_state |> acceptance_state in
+      render_game new_state
     else if event.key == 'q' then
       { state with ai = { state.ai with hp = 0 } }
     else render_game state
-  else (
-    user_board white state;
-    enemy_board white state;
-    draw_user_caml (camel_type state.player.element_t);
-    draw_enemy (camel_type state.ai.element_t);
+  else
+    let (), (), (), () =
+      ( user_board white state,
+        enemy_board white state,
+        draw_user_caml (camel_type state.player.element_t),
+        draw_enemy (camel_type state.ai.element_t) )
+    in
     let new_state = moves_state state in
-    render_game new_state)
+    render_game new_state
