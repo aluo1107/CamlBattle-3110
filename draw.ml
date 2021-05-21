@@ -213,25 +213,23 @@ let fourth_cloud () =
 (* Draws the fifth cloud in the cloud_kingdom biome*)
 let fifth_cloud () =
   Graphics.moveto 50 280;
-  Graphics.draw_circle 55 280 12;
-  Graphics.fill_circle 55 280 12;
-  Graphics.draw_circle 62 298 13;
-  Graphics.fill_circle 62 298 13;
-  Graphics.draw_circle 82 310 13;
-  Graphics.fill_circle 82 310 13;
-  Graphics.draw_circle 102 300 12;
-  Graphics.fill_circle 102 300 12;
-  Graphics.draw_circle 102 275 13;
-  Graphics.fill_circle 102 275 13;
-  Graphics.draw_circle 79 268 18;
-  Graphics.fill_circle 79 268 18;
-  Graphics.draw_circle 82 285 16;
-  Graphics.fill_circle 82 285 16
+  Graphics.draw_circle 50 280 12;
+  Graphics.fill_circle 50 280 12;
+  Graphics.draw_circle 57 298 13;
+  Graphics.fill_circle 57 298 13;
+  Graphics.draw_circle 77 310 13;
+  Graphics.fill_circle 77 310 13;
+  Graphics.draw_circle 97 300 12;
+  Graphics.fill_circle 97 300 12;
+  Graphics.draw_circle 97 275 13;
+  Graphics.fill_circle 97 275 13;
+  Graphics.draw_circle 74 268 18;
+  Graphics.fill_circle 74 268 18;
+  Graphics.draw_circle 77 285 16;
+  Graphics.fill_circle 77 285 16
 
-(* Draws the background of the cloud_kingdom biome *)
-let cloud_kingdom_background () =
-  color_background (rgb 255 255 0);
-  Graphics.set_color (rgb 0 247 255);
+(* Draws the sixth cloud in the cloud_kingdom biome*)
+let sixth_cloud () =
   Graphics.moveto 420 220;
   Graphics.draw_circle 425 220 18;
   Graphics.fill_circle 425 220 18;
@@ -246,12 +244,18 @@ let cloud_kingdom_background () =
   Graphics.draw_circle 453 207 22;
   Graphics.fill_circle 453 207 22;
   Graphics.draw_circle 453 225 17;
-  Graphics.fill_circle 453 225 17;
+  Graphics.fill_circle 453 225 17
+
+(* Draws the background of the cloud_kingdom biome *)
+let cloud_kingdom_background () =
+  color_background (rgb 255 255 0);
+  Graphics.set_color (rgb 0 247 255);
   first_cloud ();
   second_cloud ();
   third_cloud ();
   fourth_cloud ();
-  fifth_cloud ()
+  fifth_cloud ();
+  sixth_cloud ()
 
 (*Matches the background with the corresponding stage biome*)
 let match_environment stage =
@@ -412,7 +416,7 @@ let drawing_menu state =
 (* [render_welcome] draws the welcome message on the screen *)
 let rec render_welcome () =
   Graphics.clear_graph ();
-  Graphics.moveto 200 200;
+  Graphics.moveto 200 250;
   Graphics.set_color Graphics.black;
   Graphics.set_text_size 100;
   Graphics.draw_string "Welcome to CamlBattles! Press s to start";

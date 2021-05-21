@@ -10,18 +10,19 @@ let turn = true
 (*Displays the messages for choosing the cameltypes*)
 let rec render_choose_type () =
   Graphics.clear_graph ();
-  Graphics.moveto 200 300;
-  Graphics.set_color Graphics.black;
-  Graphics.set_text_size 150;
+  Graphics.moveto 220 320;
+  Graphics.set_color Graphics.blue;
+  Graphics.set_text_size 500;
   Graphics.draw_string "Please choose your CamlType!";
-  Graphics.set_text_size 100;
-  Graphics.moveto 200 270;
+  Graphics.set_text_size 300;
+  Graphics.set_color Graphics.black;
+  Graphics.moveto 240 270;
   Graphics.draw_string "Press Q for Fire!";
-  Graphics.moveto 200 240;
+  Graphics.moveto 240 240;
   Graphics.draw_string "Press W for Water!";
-  Graphics.moveto 200 210;
+  Graphics.moveto 240 210;
   Graphics.draw_string "Press E for Earth!";
-  Graphics.moveto 200 180;
+  Graphics.moveto 240 180;
   Graphics.draw_string "Press R for Air!";
   let event = wait_next_event [ Key_pressed ] in
   if event.key == 'q' then "fire"
@@ -33,18 +34,19 @@ let rec render_choose_type () =
 (* Displays the messages for choosing the biome*)
 let rec render_choose_biome () =
   Graphics.clear_graph ();
-  Graphics.moveto 200 300;
-  Graphics.set_color Graphics.black;
-  Graphics.set_text_size 150;
+  Graphics.moveto 220 320;
+  Graphics.set_color Graphics.blue;
+  Graphics.set_text_size 500;
   Graphics.draw_string "Please choose your Biome!";
-  Graphics.set_text_size 100;
-  Graphics.moveto 200 270;
+  Graphics.set_text_size 300;
+  Graphics.set_color Graphics.black;
+  Graphics.moveto 240 270;
   Graphics.draw_string "Press Q for Volcano!";
-  Graphics.moveto 200 240;
+  Graphics.moveto 240 240;
   Graphics.draw_string "Press W for Ocean!";
-  Graphics.moveto 200 210;
+  Graphics.moveto 240 210;
   Graphics.draw_string "Press E for Jungle!";
-  Graphics.moveto 200 180;
+  Graphics.moveto 240 180;
   Graphics.draw_string "Press R for Cloud Kingdom!";
   let event = wait_next_event [ Key_pressed ] in
   if event.key == 'q' then "volcano"
