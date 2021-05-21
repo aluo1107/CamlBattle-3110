@@ -111,6 +111,17 @@ let ocean_background () =
   ocean_squiggle_one ();
   ocean_squiggle_two ()
 
+(*[draw_apple] draws the apple of the tree in the jungle biome *)
+let draw_apple () =
+  Graphics.set_color (rgb 255 19 12);
+  Graphics.draw_circle 520 210 15;
+  Graphics.set_color (rgb 120 48 48);
+  Graphics.set_line_width 2;
+  Graphics.moveto 513 214;
+  Graphics.curveto (513, 214) (520, 207) (527, 214);
+  Graphics.moveto 520 210;
+  Graphics.curveto (520, 210) (516, 217) (526, 226)
+
 (* Draws the background of the jungle biome *)
 let jungle_background () =
   color_background (rgb 46 139 87);
@@ -130,7 +141,8 @@ let jungle_background () =
   Graphics.moveto 550 280;
   Graphics.curveto (550, 280) (590, 300) (580, 260);
   Graphics.moveto 580 260;
-  Graphics.curveto (580, 260) (625, 230) (580, 195)
+  Graphics.curveto (580, 260) (625, 230) (580, 195);
+  draw_apple ()
 
 (* Draws the first cloud in the cloud_kingdom biome*)
 let first_cloud () =
@@ -275,7 +287,7 @@ let back_leg () =
   Graphics.lineto 74 10;
   Graphics.moveto 101 40;
   Graphics.lineto 92 10;
-  Graphics.set_color (rgb 77 40 31);
+  Graphics.set_color (rgb 93 49 48);
   Graphics.draw_ellipse 74 9 4 2;
   Graphics.draw_ellipse 92 9 4 2
 
@@ -289,7 +301,7 @@ let front_leg color =
   Graphics.moveto 110 65;
   Graphics.draw_circle 70 60 10;
   Graphics.fill_circle 70 60 10;
-  Graphics.set_color (rgb 77 40 31);
+  Graphics.set_color (rgb 93 49 48);
   Graphics.draw_ellipse 190 9 4 2;
   Graphics.draw_ellipse 170 9 4 2
 
@@ -308,7 +320,7 @@ let caml_body color =
 
 (*Draws the caml hat.*)
 let caml_hat () =
-  Graphics.set_color (rgb 13 25 255);
+  Graphics.set_color (rgb 117 220 253);
   Graphics.draw_rect 275 160 13 13;
   Graphics.fill_rect 275 160 13 13;
   Graphics.draw_rect 265 147 32 8;
@@ -410,9 +422,18 @@ let drawing_menu state =
 (* [render_welcome] draws the welcome message on the screen *)
 let rec render_welcome () =
   Graphics.clear_graph ();
-  Graphics.moveto 200 250;
-  Graphics.set_color Graphics.black;
+  Graphics.set_color (rgb 249 138 56);
+  Graphics.draw_rect 0 0 640 100;
+  Graphics.fill_rect 0 0 640 100;
+  Graphics.set_color (rgb 9 16 201);
+  Graphics.draw_rect 0 100 640 500;
+  Graphics.fill_rect 0 100 640 500;
+  draw_user_caml (rgb 254 226 100);
+  Graphics.set_color Graphics.white;
+  Graphics.draw_circle 100 300 0;
+  Graphics.fill_circle 100 300 0;
   Graphics.set_text_size 100;
+  Graphics.moveto 200 250;
   Graphics.draw_string "Welcome to CamlBattles! Press s to start";
   let event = wait_next_event [ Key_pressed ] in
   if event.key == 's' then () else render_welcome ()
@@ -435,22 +456,46 @@ let moves_state state =
       |> Ai.health_check (Random.float 10.0)
   | _ -> failwith "not right key"
 
+(* [background_design] draws the background of the type choosing screen. *)
+let background_design () =
+  Graphics.set_color (rgb 178 226 255);
+  Graphics.set_line_width 1;
+  Graphics.draw_rect 0 0 640 480;
+  Graphics.fill_rect 0 0 640 480;
+  Graphics.moveto 240 300;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_rect 220 160 200 170
+
 (*Displays the messages for choosing the cameltypes*)
 let rec render_choose_type () =
   Graphics.clear_graph ();
-  Graphics.moveto 200 300;
-  Graphics.set_color Graphics.black;
-  Graphics.set_text_size 150;
+  background_design ();
   Graphics.draw_string "Please choose your CamlType!";
   Graphics.set_text_size 100;
-  Graphics.moveto 200 270;
-  Graphics.draw_string "Press Q for Fire!";
-  Graphics.moveto 200 240;
-  Graphics.draw_string "Press W for Water!";
-  Graphics.moveto 200 210;
-  Graphics.draw_string "Press E for Earth!";
-  Graphics.moveto 200 180;
-  Graphics.draw_string "Press R for Air!";
+  Graphics.moveto 260 270;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_string "Press Q for ";
+  Graphics.moveto 330 270;
+  Graphics.set_color Graphics.red;
+  Graphics.draw_string "Fire!";
+  Graphics.moveto 260 240;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_string "Press W for ";
+  Graphics.moveto 330 240;
+  Graphics.set_color Graphics.blue;
+  Graphics.draw_string "Water!";
+  Graphics.set_color Graphics.black;
+  Graphics.moveto 260 210;
+  Graphics.draw_string "Press E for ";
+  Graphics.moveto 330 210;
+  Graphics.set_color Graphics.green;
+  Graphics.draw_string "Earth!";
+  Graphics.moveto 260 180;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_string "Press R for ";
+  Graphics.moveto 330 180;
+  Graphics.set_color Graphics.yellow;
+  Graphics.draw_string "Air!";
   let event = wait_next_event [ Key_pressed ] in
   if event.key == 'q' then "fire"
   else if event.key == 'w' then "water"
@@ -461,19 +506,33 @@ let rec render_choose_type () =
 (* Displays the messages for choosing the biome*)
 let rec render_choose_biome () =
   Graphics.clear_graph ();
-  Graphics.moveto 200 300;
-  Graphics.set_color Graphics.black;
-  Graphics.set_text_size 150;
+  background_design ();
   Graphics.draw_string "Please choose your Biome!";
   Graphics.set_text_size 100;
-  Graphics.moveto 200 270;
-  Graphics.draw_string "Press Q for Volcano!";
-  Graphics.moveto 200 240;
-  Graphics.draw_string "Press W for Ocean!";
-  Graphics.moveto 200 210;
-  Graphics.draw_string "Press E for Jungle!";
-  Graphics.moveto 200 180;
-  Graphics.draw_string "Press R for Cloud Kingdom!";
+  Graphics.moveto 260 270;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_string "Press Q for ";
+  Graphics.moveto 330 270;
+  Graphics.set_color Graphics.red;
+  Graphics.draw_string "Volcano!";
+  Graphics.moveto 260 240;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_string "Press W for ";
+  Graphics.moveto 330 240;
+  Graphics.set_color Graphics.blue;
+  Graphics.draw_string "Ocean!";
+  Graphics.set_color Graphics.black;
+  Graphics.moveto 260 210;
+  Graphics.draw_string "Press E for ";
+  Graphics.moveto 330 210;
+  Graphics.set_color Graphics.green;
+  Graphics.draw_string "Jungle!";
+  Graphics.moveto 260 180;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_string "Press R for ";
+  Graphics.moveto 330 180;
+  Graphics.set_color Graphics.yellow;
+  Graphics.draw_string "Cloud Kingdom!";
   let event = wait_next_event [ Key_pressed ] in
   if event.key == 'q' then "volcano"
   else if event.key == 'w' then "ocean"
