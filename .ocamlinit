@@ -1,7 +1,9 @@
-
 #require "ounit2";;
 #require "ANSITerminal";;
+#require "graphics";;
 #directory "_build";;
 #load "camltypes.cmo";;
 #use "camltypes.ml";;
 #load "attack.cmo";;
+#load "ai.cmo";;
+#load "main_func.cmo";;

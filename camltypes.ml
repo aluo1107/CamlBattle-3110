@@ -17,7 +17,7 @@ type effect =
   | Normal
   | SuperEffect
 
-(* hello *)
+(* The type for both camls and enemies *)
 type t = {
   hp : int;
   level : int;
@@ -34,23 +34,29 @@ exception UnknownStage of stage
 
 exception UnknownElement of element_t
 
+(*[exp_update caml] updates the camel level based on exp*)
 let exp_update caml =
-  if caml.exp > 100 || caml.exp = 100 then
-    { caml with hp = caml.hp + 10; level = caml.level + 1; exp = 0 }
-  else caml
+  {
+    caml with
+    hp = (caml.level + 1) * 10;
+    level = caml.level + 1;
+    exp = 0;
+  }
 
+(*[effect_multi effect] matches effect and returns the multiplier*)
 let effect_multi = function
-  | Weak -> 0.5
-  | Normal -> 1.0
-  | SuperEffect -> 1.5
+  | Weak -> 1.0
+  | Normal -> 1.5
+  | SuperEffect -> 2.0
 
+(*returns the type effect on the camel*)
 let attack_multi (caml : element_t) (enemy : element_t) =
   match (caml, enemy) with
   | "air", "air" -> Normal
   | "air", "earth" -> SuperEffect
   | "air", "water" -> Normal
   | "air", "fire" -> Weak
-  | "earth", "air" -> SuperEffect
+  | "earth", "air" -> Weak
   | "earth", "earth" -> Normal
   | "earth", "water" -> SuperEffect
   | "earth", "fire" -> Normal
@@ -58,7 +64,7 @@ let attack_multi (caml : element_t) (enemy : element_t) =
   | "water", "earth" -> Weak
   | "water", "water" -> Normal
   | "water", "fire" -> SuperEffect
-  | "fire", "air" -> Normal
+  | "fire", "air" -> SuperEffect
   | "fire", "earth" -> Normal
   | "fire", "water" -> Weak
   | "fire", "fire" -> Normal
@@ -76,8 +82,8 @@ let updated_defense t int = { t with defense = int }
 
 let current_defense t = t.defense
 
-(* Stuff for stage*)
-
+(* Stage*)
+(* matches the stage to the element*)
 let stage_effect t =
   match t with
   | "volcano" -> "fire"
@@ -86,5 +92,24 @@ let stage_effect t =
   | "cloud kingdom" -> "air"
   | x -> raise (UnknownStage x)
 
+(*Returns the effect of element match ups*)
 let attack_stage_multi caml stage =
-  attack_multi (caml_type caml) (stage_effect stage)
+  let biome_effec = stage_effect stage in
+  match (caml, biome_effec) with
+  | "air", "air" -> SuperEffect
+  | "air", "earth" -> Normal
+  | "air", "water" -> Normal
+  | "air", "fire" -> Weak
+  | "earth", "air" -> Weak
+  | "earth", "earth" -> SuperEffect
+  | "earth", "water" -> Normal
+  | "earth", "fire" -> Normal
+  | "water", "air" -> Normal
+  | "water", "earth" -> Weak
+  | "water", "water" -> SuperEffect
+  | "water", "fire" -> Normal
+  | "fire", "air" -> Normal
+  | "fire", "earth" -> Normal
+  | "fire", "water" -> Weak
+  | "fire", "fire" -> SuperEffect
+  | x, y -> raise (UnknownElement x)
