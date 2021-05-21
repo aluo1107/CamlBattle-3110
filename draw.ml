@@ -573,35 +573,37 @@ let rec acceptance_state state : State.t =
   else if event.key == 'n' then state
   else acceptance_state state
 
+let draw_game state =
+  user_board white state;
+  enemy_board white state;
+  draw_user_caml (camel_type state.player.element_t);
+  draw_enemy (camel_type state.ai.element_t)
+
+let updated_won_state state =
+  state |> update_won_state |> acceptance_state
+
+let bgin_state state = { state with ai = { state.ai with hp = 0 } }
+
 (*[render_game]colors caml and renders on page*)
 let rec render_game (state : State.t) : State.t =
   Graphics.clear_graph ();
   let () = match_environment state.stage in
-  let check_player_hp, check_ai_hp =
-    (Camltypes.current_hp state.player, Camltypes.current_hp state.ai)
+  let player_hp, ai_hp =
+    (current_hp state.player, current_hp state.ai)
   in
-  if check_player_hp <= 0 then
+  if player_hp <= 0 then
     let () = player_lost () in
     let event = wait_next_event [ Key_pressed ] in
     if event.key == 's' then render_game (update_lost_state state)
-    else if event.key == 'q' then
-      { state with player = { state.player with hp = 0 } }
+    else if event.key == 'q' then bgin_state state
     else render_game state
-  else if check_ai_hp <= 0 then
+  else if ai_hp <= 0 then
     let () = player_won () in
     let event = wait_next_event [ Key_pressed ] in
-    if event.key == 's' then
-      let new_state = state |> update_won_state |> acceptance_state in
-      render_game new_state
-    else if event.key == 'q' then
-      { state with ai = { state.ai with hp = 0 } }
+    if event.key == 's' then render_game (updated_won_state state)
+    else if event.key == 'q' then bgin_state state
     else render_game state
   else
-    let (), (), (), () =
-      ( user_board white state,
-        enemy_board white state,
-        draw_user_caml (camel_type state.player.element_t),
-        draw_enemy (camel_type state.ai.element_t) )
-    in
+    let () = draw_game state in
     let new_state = moves_state state in
     render_game new_state
