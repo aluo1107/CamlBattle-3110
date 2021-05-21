@@ -6,12 +6,6 @@ open Main_func
 open Ai
 open ANSITerminal
 
-(* The rgb color for white*)
-let white = rgb 255 255 255
-
-(*The rgb color for blue*)
-let blue = rgb 30 25 255
-
 (*Creates the window that the graphics take place in*)
 let open_window =
   open_graph " 640x480";
@@ -174,10 +168,62 @@ let second_cloud () =
   Graphics.draw_circle 560 65 14;
   Graphics.fill_circle 560 65 14
 
-(* Draws the background of the cloud_kingdom biome *)
-let cloud_kingdom_background () =
-  color_background (rgb 255 255 0);
-  Graphics.set_color (rgb 0 247 255);
+(* Draws the third cloud in the cloud_kingdom biome*)
+let third_cloud () =
+  Graphics.moveto 520 150;
+  Graphics.draw_circle 533 150 12;
+  Graphics.fill_circle 533 150 12;
+  Graphics.draw_circle 540 168 13;
+  Graphics.fill_circle 540 168 13;
+  Graphics.draw_circle 560 180 13;
+  Graphics.fill_circle 560 180 13;
+  Graphics.draw_circle 580 170 12;
+  Graphics.fill_circle 580 170 12;
+  Graphics.draw_circle 580 145 13;
+  Graphics.fill_circle 580 145 13;
+  Graphics.draw_circle 557 138 18;
+  Graphics.fill_circle 557 138 18;
+  Graphics.draw_circle 560 155 16;
+  Graphics.fill_circle 560 155 16
+
+(* Draws the fourth cloud in the cloud_kingdom biome*)
+let fourth_cloud () =
+  Graphics.moveto 100 220;
+  Graphics.draw_circle 105 220 18;
+  Graphics.fill_circle 105 220 18;
+  Graphics.draw_circle 115 242 18;
+  Graphics.fill_circle 115 242 18;
+  Graphics.draw_circle 140 250 19;
+  Graphics.fill_circle 140 250 19;
+  Graphics.draw_circle 160 240 18;
+  Graphics.fill_circle 160 240 18;
+  Graphics.draw_circle 165 215 17;
+  Graphics.fill_circle 165 215 17;
+  Graphics.draw_circle 133 207 22;
+  Graphics.fill_circle 133 207 22;
+  Graphics.draw_circle 133 225 17;
+  Graphics.fill_circle 133 225 17
+
+(* Draws the fifth cloud in the cloud_kingdom biome*)
+let fifth_cloud () =
+  Graphics.moveto 50 280;
+  Graphics.draw_circle 50 280 12;
+  Graphics.fill_circle 50 280 12;
+  Graphics.draw_circle 57 298 13;
+  Graphics.fill_circle 57 298 13;
+  Graphics.draw_circle 77 310 13;
+  Graphics.fill_circle 77 310 13;
+  Graphics.draw_circle 97 300 12;
+  Graphics.fill_circle 97 300 12;
+  Graphics.draw_circle 97 275 13;
+  Graphics.fill_circle 97 275 13;
+  Graphics.draw_circle 74 268 18;
+  Graphics.fill_circle 74 268 18;
+  Graphics.draw_circle 77 285 16;
+  Graphics.fill_circle 77 285 16
+
+(* Draws the sixth cloud in the cloud_kingdom biome*)
+let sixth_cloud () =
   Graphics.moveto 420 220;
   Graphics.draw_circle 425 220 18;
   Graphics.fill_circle 425 220 18;
@@ -192,9 +238,18 @@ let cloud_kingdom_background () =
   Graphics.draw_circle 453 207 22;
   Graphics.fill_circle 453 207 22;
   Graphics.draw_circle 453 225 17;
-  Graphics.fill_circle 453 225 17;
+  Graphics.fill_circle 453 225 17
+
+(* Draws the background of the cloud_kingdom biome *)
+let cloud_kingdom_background () =
+  color_background (rgb 255 255 0);
+  Graphics.set_color (rgb 0 247 255);
   first_cloud ();
-  second_cloud ()
+  second_cloud ();
+  third_cloud ();
+  fourth_cloud ();
+  fifth_cloud ();
+  sixth_cloud ()
 
 (*Matches the background with the corresponding stage biome*)
 let match_environment stage =
@@ -219,17 +274,24 @@ let back_leg () =
   Graphics.moveto 87 55;
   Graphics.lineto 74 10;
   Graphics.moveto 101 40;
-  Graphics.lineto 92 10
+  Graphics.lineto 92 10;
+  Graphics.set_color (rgb 77 40 31);
+  Graphics.draw_ellipse 74 9 4 2;
+  Graphics.draw_ellipse 92 9 4 2
 
 (*Draws the front leg of the camel*)
-let front_leg () =
+let front_leg color =
+  Graphics.set_color color;
   Graphics.moveto 161 55;
   Graphics.lineto 170 10;
   Graphics.moveto 172 55;
   Graphics.lineto 190 10;
   Graphics.moveto 110 65;
   Graphics.draw_circle 70 60 10;
-  Graphics.fill_circle 70 60 10
+  Graphics.fill_circle 70 60 10;
+  Graphics.set_color (rgb 77 40 31);
+  Graphics.draw_ellipse 190 9 4 2;
+  Graphics.draw_ellipse 170 9 4 2
 
 (*Draws the caml body*)
 let caml_body color =
@@ -243,6 +305,14 @@ let caml_body color =
   Graphics.fill_ellipse 290 107 7 2;
   Graphics.set_color color;
   Graphics.set_line_width 5
+
+(*Draws the caml hat.*)
+let caml_hat () =
+  Graphics.set_color (rgb 13 25 255);
+  Graphics.draw_rect 275 160 13 13;
+  Graphics.fill_rect 275 160 13 13;
+  Graphics.draw_rect 265 147 32 8;
+  Graphics.fill_rect 265 147 32 8
 
 (*Draws the camel onto the screen*)
 let draw_user_caml color =
@@ -260,7 +330,8 @@ let draw_user_caml color =
   Graphics.set_line_width 1;
   caml_body color;
   back_leg ();
-  front_leg ()
+  front_leg color;
+  caml_hat ()
 
 (* Draws the enemy element*)
 let draw_enemy color =
@@ -283,15 +354,15 @@ let draw_enemy color =
 (*Draws the current stats of the user*)
 let user_board color (state : State.t) =
   Graphics.set_color color;
-  Graphics.draw_rect 230 170 60 90;
-  Graphics.fill_rect 230 170 60 90;
-  Graphics.moveto 240 240;
+  Graphics.draw_rect 230 190 60 90;
+  Graphics.fill_rect 230 190 60 90;
+  Graphics.moveto 240 260;
   Graphics.set_color Graphics.black;
   Graphics.draw_string ("Exp: " ^ string_of_int state.player.exp);
-  Graphics.moveto 240 210;
+  Graphics.moveto 240 230;
   Graphics.set_color Graphics.black;
   Graphics.draw_string ("Lv: " ^ string_of_int state.player.level);
-  Graphics.moveto 240 180;
+  Graphics.moveto 240 200;
   Graphics.set_color Graphics.black;
   Graphics.draw_string
     ("HP: " ^ string_of_int (Camltypes.current_hp state.player))
@@ -339,7 +410,7 @@ let drawing_menu state =
 (* [render_welcome] draws the welcome message on the screen *)
 let rec render_welcome () =
   Graphics.clear_graph ();
-  Graphics.moveto 200 200;
+  Graphics.moveto 200 250;
   Graphics.set_color Graphics.black;
   Graphics.set_text_size 100;
   Graphics.draw_string "Welcome to CamlBattles! Press s to start";
@@ -484,8 +555,8 @@ let rec render_game (state : State.t) : State.t =
       { state with ai = { state.ai with hp = 0 } }
     else render_game state
   else (
-    user_board white state;
-    enemy_board white state;
+    user_board Graphics.white state;
+    enemy_board Graphics.white state;
     draw_user_caml (camel_type state.player.element_t);
     draw_enemy (camel_type state.ai.element_t);
     let new_state = moves_state state in
