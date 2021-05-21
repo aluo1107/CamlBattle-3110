@@ -86,6 +86,7 @@ let ai_heal_test
     (expected_output : int) : test =
   name >:: fun _ ->
   assert_equal expected_output state.ai.hp ~printer:string_of_int
+
 (* Example cases to play with in the test suites.*)
 
 let example_caml_el = "fire"
@@ -164,17 +165,6 @@ let post_damage_caml =
   }
 
 (* Test suites for each Compilation Unit*)
-
-let camltypes_test =
-  [
-    attack_multi_test "Basic match up" example_caml.element_t
-      example_wolf.element_t 0.5;
-    current_hp_test "Basic health" example_caml 10;
-    caml_type_test "Basic caml type" example_caml "fire";
-    exp_update_test "Basic caml xp updated" max_xp_caml post_xp_caml;
-    updated_hp_test "Basic caml damage" example_caml 1 post_damage_caml;
-  ]
-
 let volcano_fire_water_def_6 =
   {
     example_state with
@@ -449,6 +439,21 @@ let attack_test () =
       heal_tests ();
       defense_tests ();
     ]
+
+let camltypes_test =
+  [
+    attack_multi_test "Water fire effect - weak" example_caml.element_t
+      example_wolf.element_t 1.0;
+    attack_multi_test "Air air effect normal"
+      jungle_earth_air.ai.element_t jungle_earth_air.ai.element_t 1.5;
+    attack_multi_test "Fire air effect supereffect"
+      jungle_water_fire.ai.element_t jungle_earth_air.ai.element_t 2.0;
+    current_hp_test "Basic health" example_caml 10;
+    caml_type_test "fire caml type" example_caml "fire";
+    caml_type_test "water caml state" ocean_air_earth.player "air";
+    exp_update_test "Basic caml xp updated" max_xp_caml post_xp_caml;
+    updated_hp_test "Basic caml damage" example_caml 1 post_damage_caml;
+  ]
 
 let debugging_tests () =
   [ (* ai_attack_test "ai attack. fire v water volcano 0 defense"
