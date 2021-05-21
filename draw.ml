@@ -174,6 +174,60 @@ let second_cloud () =
   Graphics.draw_circle 560 65 14;
   Graphics.fill_circle 560 65 14
 
+(* Draws the third cloud in the cloud_kingdom biome*)
+let third_cloud () =
+  Graphics.moveto 520 150;
+  Graphics.draw_circle 533 150 12;
+  Graphics.fill_circle 533 150 12;
+  Graphics.draw_circle 540 168 13;
+  Graphics.fill_circle 540 168 13;
+  Graphics.draw_circle 560 180 13;
+  Graphics.fill_circle 560 180 13;
+  Graphics.draw_circle 580 170 12;
+  Graphics.fill_circle 580 170 12;
+  Graphics.draw_circle 580 145 13;
+  Graphics.fill_circle 580 145 13;
+  Graphics.draw_circle 557 138 18;
+  Graphics.fill_circle 557 138 18;
+  Graphics.draw_circle 560 155 16;
+  Graphics.fill_circle 560 155 16
+
+(* Draws the fourth cloud in the cloud_kingdom biome*)
+let fourth_cloud () =
+  Graphics.moveto 100 220;
+  Graphics.draw_circle 105 220 18;
+  Graphics.fill_circle 105 220 18;
+  Graphics.draw_circle 115 242 18;
+  Graphics.fill_circle 115 242 18;
+  Graphics.draw_circle 140 250 19;
+  Graphics.fill_circle 140 250 19;
+  Graphics.draw_circle 160 240 18;
+  Graphics.fill_circle 160 240 18;
+  Graphics.draw_circle 165 215 17;
+  Graphics.fill_circle 165 215 17;
+  Graphics.draw_circle 133 207 22;
+  Graphics.fill_circle 133 207 22;
+  Graphics.draw_circle 133 225 17;
+  Graphics.fill_circle 133 225 17
+
+(* Draws the fifth cloud in the cloud_kingdom biome*)
+let fifth_cloud () =
+  Graphics.moveto 50 280;
+  Graphics.draw_circle 55 280 12;
+  Graphics.fill_circle 55 280 12;
+  Graphics.draw_circle 62 298 13;
+  Graphics.fill_circle 62 298 13;
+  Graphics.draw_circle 82 310 13;
+  Graphics.fill_circle 82 310 13;
+  Graphics.draw_circle 102 300 12;
+  Graphics.fill_circle 102 300 12;
+  Graphics.draw_circle 102 275 13;
+  Graphics.fill_circle 102 275 13;
+  Graphics.draw_circle 79 268 18;
+  Graphics.fill_circle 79 268 18;
+  Graphics.draw_circle 82 285 16;
+  Graphics.fill_circle 82 285 16
+
 (* Draws the background of the cloud_kingdom biome *)
 let cloud_kingdom_background () =
   color_background (rgb 255 255 0);
@@ -194,7 +248,10 @@ let cloud_kingdom_background () =
   Graphics.draw_circle 453 225 17;
   Graphics.fill_circle 453 225 17;
   first_cloud ();
-  second_cloud ()
+  second_cloud ();
+  third_cloud ();
+  fourth_cloud ();
+  fifth_cloud ()
 
 (*Matches the background with the corresponding stage biome*)
 let match_environment stage =
@@ -219,17 +276,24 @@ let back_leg () =
   Graphics.moveto 87 55;
   Graphics.lineto 74 10;
   Graphics.moveto 101 40;
-  Graphics.lineto 92 10
+  Graphics.lineto 92 10;
+  Graphics.set_color (rgb 77 40 31);
+  Graphics.draw_ellipse 74 9 4 2;
+  Graphics.draw_ellipse 92 9 4 2
 
 (*Draws the front leg of the camel*)
-let front_leg () =
+let front_leg color =
+  Graphics.set_color color;
   Graphics.moveto 161 55;
   Graphics.lineto 170 10;
   Graphics.moveto 172 55;
   Graphics.lineto 190 10;
   Graphics.moveto 110 65;
   Graphics.draw_circle 70 60 10;
-  Graphics.fill_circle 70 60 10
+  Graphics.fill_circle 70 60 10;
+  Graphics.set_color (rgb 77 40 31);
+  Graphics.draw_ellipse 190 9 4 2;
+  Graphics.draw_ellipse 170 9 4 2
 
 (*Draws the caml body*)
 let caml_body color =
@@ -243,6 +307,14 @@ let caml_body color =
   Graphics.fill_ellipse 290 107 7 2;
   Graphics.set_color color;
   Graphics.set_line_width 5
+
+(*Draws the caml hat.*)
+let caml_hat () =
+  Graphics.set_color (rgb 13 25 255);
+  Graphics.draw_rect 275 160 13 13;
+  Graphics.fill_rect 275 160 13 13;
+  Graphics.draw_rect 265 147 32 8;
+  Graphics.fill_rect 265 147 32 8
 
 (*Draws the camel onto the screen*)
 let draw_user_caml color =
@@ -260,7 +332,8 @@ let draw_user_caml color =
   Graphics.set_line_width 1;
   caml_body color;
   back_leg ();
-  front_leg ()
+  front_leg color;
+  caml_hat ()
 
 (* Draws the enemy element*)
 let draw_enemy color =
@@ -283,15 +356,15 @@ let draw_enemy color =
 (*Draws the current stats of the user*)
 let user_board color (state : State.t) =
   Graphics.set_color color;
-  Graphics.draw_rect 230 170 60 90;
-  Graphics.fill_rect 230 170 60 90;
-  Graphics.moveto 240 240;
+  Graphics.draw_rect 230 190 60 90;
+  Graphics.fill_rect 230 190 60 90;
+  Graphics.moveto 240 260;
   Graphics.set_color Graphics.black;
   Graphics.draw_string ("Exp: " ^ string_of_int state.player.exp);
-  Graphics.moveto 240 210;
+  Graphics.moveto 240 230;
   Graphics.set_color Graphics.black;
   Graphics.draw_string ("Lv: " ^ string_of_int state.player.level);
-  Graphics.moveto 240 180;
+  Graphics.moveto 240 200;
   Graphics.set_color Graphics.black;
   Graphics.draw_string
     ("HP: " ^ string_of_int (Camltypes.current_hp state.player))
