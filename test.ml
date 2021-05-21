@@ -276,6 +276,20 @@ let jungle_air_earth = { cloud_air_earth with stage = "jungle" }
 
 let jungle_earth_air = { cloud_earth_air with stage = "jungle" }
 
+let one_health_state =
+  {
+    example_state with
+    player = { example_caml with hp = 10 };
+    ai = { example_wolf with hp = 1 };
+  }
+
+let one_health_level_2 =
+  {
+    example_state with
+    player = { example_caml with hp = 10; level = 2 };
+    ai = { example_wolf with hp = 1; level = 2 };
+  }
+
 let volcano_tests () =
   [
     (* Player fire, AI water*)
@@ -285,6 +299,9 @@ let volcano_tests () =
       volcano_fire_water_def_6 10;
     ai_attack_test "ai attack. fire v water volcano 0 defense"
       example_state 1.0 1;
+    ai_attack_test
+      "ai attack. one health fire v water volcano 0 defense"
+      one_health_state 2.0 1;
     (* Player Water, AI fire*)
     attack_move_test "player attack. water v fire volcano no defense"
       volcano_water_fire 1;
