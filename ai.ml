@@ -7,32 +7,33 @@ open State
 let big_health x state =
   match x < 7.5 with
   | true ->
-      print_endline " ai attacking";
-      Attack.move state state.ai state.player Attack state.turn
+      (* print_endline (string_of_bool state.turn); *)
+      (* print_endline " ai attacking"; *)
+      Attack.move state state.ai state.player Attack false
   | false -> (
       match x < 8.75 with
       | true ->
-          print_endline " ai healing";
-          Attack.move state state.ai state.player Heal state.turn
+          (* print_endline " ai healing"; *)
+          Attack.move state state.ai state.player Heal false
       | false ->
-          print_endline " ai defense";
-          Attack.move state state.ai state.player Defense state.turn)
+          (* print_endline " ai defense"; *)
+          Attack.move state state.ai state.player Defense false)
 
 (** This is a helper function for health_check that handles when the
     user's health is less than 0.4*)
 let small_health x state =
   match x < 2.5 with
   | true ->
-      print_endline " ai attacking";
-      Attack.move state state.ai state.player Attack state.turn
+      (* print_endline " ai attacking"; *)
+      Attack.move state state.ai state.player Attack false
   | false -> (
       match x < 6.25 with
       | true ->
-          print_endline " ai healing";
-          Attack.move state state.ai state.player Heal state.turn
+          (* print_endline " ai healing"; *)
+          Attack.move state state.ai state.player Heal false
       | false ->
-          print_endline " ai defense";
-          Attack.move state state.ai state.player Defense state.turn)
+          (* print_endline " ai defense"; *)
+          Attack.move state state.ai state.player Defense false)
 (*[health_check state] is the function for the ai to choose what move to
   do next. Based on the health of the ai, there are different
   probabilities for the different moves. If the AI’s health is less than
@@ -49,8 +50,7 @@ let small_health x state =
 let health_check x state =
   print_float x;
   match
-    float_of_int state.ai.hp /. float_of_int ((state.ai.level * 10) + 10)
-    > 0.4
+    float_of_int state.ai.hp /. float_of_int (state.ai.level * 10) > 0.4
   with
   | true -> big_health x state
   | false -> small_health x state

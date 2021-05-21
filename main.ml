@@ -7,54 +7,6 @@ open Graphics
 
 let turn = true
 
-(*Displays the messages for choosing the cameltypes*)
-let rec render_choose_type () =
-  Graphics.clear_graph ();
-  Graphics.moveto 220 320;
-  Graphics.set_color Graphics.blue;
-  Graphics.set_text_size 500;
-  Graphics.draw_string "Please choose your CamlType!";
-  Graphics.set_text_size 300;
-  Graphics.set_color Graphics.black;
-  Graphics.moveto 240 270;
-  Graphics.draw_string "Press Q for Fire!";
-  Graphics.moveto 240 240;
-  Graphics.draw_string "Press W for Water!";
-  Graphics.moveto 240 210;
-  Graphics.draw_string "Press E for Earth!";
-  Graphics.moveto 240 180;
-  Graphics.draw_string "Press R for Air!";
-  let event = wait_next_event [ Key_pressed ] in
-  if event.key == 'q' then "fire"
-  else if event.key == 'w' then "water"
-  else if event.key == 'e' then "earth"
-  else if event.key == 'r' then "air"
-  else render_choose_type ()
-
-(* Displays the messages for choosing the biome*)
-let rec render_choose_biome () =
-  Graphics.clear_graph ();
-  Graphics.moveto 220 320;
-  Graphics.set_color Graphics.blue;
-  Graphics.set_text_size 500;
-  Graphics.draw_string "Please choose your Biome!";
-  Graphics.set_text_size 300;
-  Graphics.set_color Graphics.black;
-  Graphics.moveto 240 270;
-  Graphics.draw_string "Press Q for Volcano!";
-  Graphics.moveto 240 240;
-  Graphics.draw_string "Press W for Ocean!";
-  Graphics.moveto 240 210;
-  Graphics.draw_string "Press E for Jungle!";
-  Graphics.moveto 240 180;
-  Graphics.draw_string "Press R for Cloud Kingdom!";
-  let event = wait_next_event [ Key_pressed ] in
-  if event.key == 'q' then "volcano"
-  else if event.key == 'w' then "ocean"
-  else if event.key == 'e' then "jungle"
-  else if event.key == 'r' then "cloud kingdom"
-  else render_choose_biome ()
-
 (*Creates the window that the graphics take place in*)
 let open_window =
   open_graph " 640x480";
@@ -67,8 +19,8 @@ let open_window =
 let main () =
   let () = open_window in
   let () = render_welcome () in
-  let chosen_type = render_choose_type () in
-  let chosen_biome = render_choose_biome () in
+  let chosen_type = Draw.render_choose_type () in
+  let chosen_biome = Draw.render_choose_biome () in
   let player_caml = caml_init chosen_type in
   let enemy_caml = ai_caml player_caml in
   let game_state =

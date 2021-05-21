@@ -6,12 +6,6 @@ open Main_func
 open Ai
 open ANSITerminal
 
-(* The rgb color for white*)
-let white = rgb 255 255 255
-
-(*The rgb color for blue*)
-let blue = rgb 30 25 255
-
 (*Creates the window that the graphics take place in*)
 let open_window =
   open_graph " 640x480";
@@ -441,8 +435,8 @@ let moves_state state =
       |> Ai.health_check (Random.float 10.0)
   | _ -> failwith "not right key"
 
-(*[render_choose_type] displays the messages for choosing the cameltypes*)
-let rec render_choose_type (state : State.t) =
+(*Displays the messages for choosing the cameltypes*)
+let rec render_choose_type () =
   Graphics.clear_graph ();
   Graphics.moveto 200 300;
   Graphics.set_color Graphics.black;
@@ -458,18 +452,14 @@ let rec render_choose_type (state : State.t) =
   Graphics.moveto 200 180;
   Graphics.draw_string "Press R for Air!";
   let event = wait_next_event [ Key_pressed ] in
-  if event.key == 'q' then
-    { state with player = { state.player with element_t = "fire" } }
-  else if event.key == 'w' then
-    { state with player = { state.player with element_t = "water" } }
-  else if event.key == 'e' then
-    { state with player = { state.player with element_t = "earth" } }
-  else if event.key == 'r' then
-    { state with player = { state.player with element_t = "air" } }
-  else render_choose_type state
+  if event.key == 'q' then "fire"
+  else if event.key == 'w' then "water"
+  else if event.key == 'e' then "earth"
+  else if event.key == 'r' then "air"
+  else render_choose_type ()
 
-(* [render_choose_biome] displays the messages for choosing the biome*)
-let rec render_choose_biome (state : State.t) =
+(* Displays the messages for choosing the biome*)
+let rec render_choose_biome () =
   Graphics.clear_graph ();
   Graphics.moveto 200 300;
   Graphics.set_color Graphics.black;
@@ -489,7 +479,7 @@ let rec render_choose_biome (state : State.t) =
   else if event.key == 'w' then "ocean"
   else if event.key == 'e' then "jungle"
   else if event.key == 'r' then "cloud kingdom"
-  else render_choose_biome state
+  else render_choose_biome ()
 
 (* [update_lost_state] returns the state when the user has lost*)
 let update_lost_state state =
@@ -565,30 +555,9 @@ let rec render_game (state : State.t) : State.t =
       { state with ai = { state.ai with hp = 0 } }
     else render_game state
   else (
-    user_board white state;
-    enemy_board white state;
+    user_board Graphics.white state;
+    enemy_board Graphics.white state;
     draw_user_caml (camel_type state.player.element_t);
     draw_enemy (camel_type state.ai.element_t);
     let new_state = moves_state state in
     render_game new_state)
-
-(*[render_inter] renders the screen when the player or the ai's HP has
-  reached 0 and the player must decide if they want to quit or play
-  again*)
-let rec render_inter state : State.t =
-  Graphics.clear_graph ();
-  let check_player_hp = Camltypes.current_hp state.player in
-  let check_ai_hp = Camltypes.current_hp state.player in
-  if check_player_hp <= 0 then
-    let () = player_won () in
-    let event = wait_next_event [ Key_pressed ] in
-    if event.key == 's' then render_game (update_lost_state state)
-    else if event.key == 'q' then state
-    else render_inter state
-  else if check_ai_hp <= 0 then
-    let () = player_lost () in
-    let event = wait_next_event [ Key_pressed ] in
-    if event.key == 's' then render_game (update_won_state state)
-    else if event.key == 'q' then state
-    else render_inter state
-  else render_inter state
