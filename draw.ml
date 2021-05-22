@@ -71,12 +71,12 @@ let ocean_squiggle_one () =
   Graphics.moveto 538 50;
   Graphics.curveto (538, 50) (553, 70) (568, 50);
   Graphics.moveto 568 50;
-  Graphics.curveto (568, 50) (583, 70) (598, 50);
-  Graphics.moveto 598 50;
-  Graphics.curveto (598, 50) (613, 70) (628, 50)
+  Graphics.curveto (568, 50) (583, 70) (598, 50)
 
 (* Draws the second half of the ocean ripple. *)
 let ocean_squiggle_two () =
+  Graphics.moveto 598 50;
+  Graphics.curveto (598, 50) (613, 70) (628, 50);
   Graphics.moveto 628 50;
   Graphics.curveto (628, 50) (643, 70) (658, 50);
   Graphics.set_color (rgb 105 105 105);
@@ -89,11 +89,8 @@ let ocean_squiggle_two () =
   Graphics.moveto 544 208;
   Graphics.curveto (544, 208) (556, 228) (568, 218)
 
-(* Draws the background of the ocean biome *)
-let ocean_background () =
-  color_background (rgb 0 206 209);
-  Graphics.set_color (rgb 0 0 139);
-  Graphics.set_line_width 2;
+(* [ocean_squiggle_three] draws the third half of the ocean ripple. *)
+let ocean_squiggle_three () =
   Graphics.moveto 0 50;
   Graphics.curveto (0, 50) (15, 70) (30, 50);
   Graphics.moveto 30 50;
@@ -107,11 +104,42 @@ let ocean_background () =
   Graphics.moveto 268 50;
   Graphics.curveto (268, 50) (283, 70) (298, 50);
   Graphics.moveto 298 50;
-  Graphics.curveto (298, 50) (313, 70) (328, 50);
-  ocean_squiggle_one ();
-  ocean_squiggle_two ()
+  Graphics.curveto (298, 50) (313, 70) (328, 50)
 
-(* Draws the background of the jungle biome *)
+(*[ocean_fish] draws the fish in the ocean biome*)
+let ocean_fish () =
+  Graphics.set_color (rgb 4 29 225);
+  Graphics.draw_ellipse 450 25 20 10;
+  Graphics.fill_ellipse 450 25 20 10;
+  Graphics.moveto 470 25;
+  Graphics.lineto 490 35;
+  Graphics.moveto 470 25;
+  Graphics.lineto 490 15;
+  Graphics.moveto 490 35;
+  Graphics.lineto 490 15
+
+(* p[ocean_background] draws the background of the ocean biome *)
+let ocean_background () =
+  color_background (rgb 0 206 209);
+  Graphics.set_color (rgb 0 0 139);
+  Graphics.set_line_width 2;
+  ocean_squiggle_three ();
+  ocean_squiggle_one ();
+  ocean_squiggle_two ();
+  ocean_fish ()
+
+(*[draw_apple] draws the apple of the tree in the jungle biome *)
+let draw_apple () =
+  Graphics.set_color (rgb 255 19 12);
+  Graphics.draw_circle 520 210 15;
+  Graphics.set_color (rgb 120 48 48);
+  Graphics.set_line_width 2;
+  Graphics.moveto 513 214;
+  Graphics.curveto (513, 214) (520, 207) (527, 214);
+  Graphics.moveto 520 210;
+  Graphics.curveto (520, 210) (516, 217) (526, 226)
+
+(* [jungle_background] draws the background of the jungle biome *)
 let jungle_background () =
   color_background (rgb 46 139 87);
   Graphics.set_color (rgb 120 48 48);
@@ -130,11 +158,11 @@ let jungle_background () =
   Graphics.moveto 550 280;
   Graphics.curveto (550, 280) (590, 300) (580, 260);
   Graphics.moveto 580 260;
-  Graphics.curveto (580, 260) (625, 230) (580, 195)
+  Graphics.curveto (580, 260) (625, 230) (580, 195);
+  draw_apple ()
 
-(* Draws the first cloud in the cloud_kingdom biome*)
+(* [first_cloud] draws the first cloud in the cloud_kingdom biome*)
 let first_cloud () =
-  Graphics.moveto 350 60;
   Graphics.draw_circle 355 60 18;
   Graphics.fill_circle 355 60 18;
   Graphics.draw_circle 365 82 18;
@@ -150,9 +178,8 @@ let first_cloud () =
   Graphics.draw_circle 383 65 17;
   Graphics.fill_circle 383 65 17
 
-(* Draws the second cloud in the cloud_kingdom biome*)
+(* [second_cloud] draws the second cloud in the cloud_kingdom biome*)
 let second_cloud () =
-  Graphics.moveto 520 60;
   Graphics.draw_circle 528 60 15;
   Graphics.fill_circle 528 60 15;
   Graphics.draw_circle 540 82 16;
@@ -168,9 +195,8 @@ let second_cloud () =
   Graphics.draw_circle 560 65 14;
   Graphics.fill_circle 560 65 14
 
-(* Draws the third cloud in the cloud_kingdom biome*)
+(* [third_cloud] draws the third cloud in the cloud_kingdom biome*)
 let third_cloud () =
-  Graphics.moveto 520 150;
   Graphics.draw_circle 533 150 12;
   Graphics.fill_circle 533 150 12;
   Graphics.draw_circle 540 168 13;
@@ -186,9 +212,8 @@ let third_cloud () =
   Graphics.draw_circle 560 155 16;
   Graphics.fill_circle 560 155 16
 
-(* Draws the fourth cloud in the cloud_kingdom biome*)
+(* [fourth_cloud] draws the fourth cloud in the cloud_kingdom biome*)
 let fourth_cloud () =
-  Graphics.moveto 100 220;
   Graphics.draw_circle 105 220 18;
   Graphics.fill_circle 105 220 18;
   Graphics.draw_circle 115 242 18;
@@ -204,9 +229,8 @@ let fourth_cloud () =
   Graphics.draw_circle 133 225 17;
   Graphics.fill_circle 133 225 17
 
-(* Draws the fifth cloud in the cloud_kingdom biome*)
+(* [fifth_cloud] draws the fifth cloud in the cloud_kingdom biome*)
 let fifth_cloud () =
-  Graphics.moveto 50 280;
   Graphics.draw_circle 50 280 12;
   Graphics.fill_circle 50 280 12;
   Graphics.draw_circle 57 298 13;
@@ -222,9 +246,8 @@ let fifth_cloud () =
   Graphics.draw_circle 77 285 16;
   Graphics.fill_circle 77 285 16
 
-(* Draws the sixth cloud in the cloud_kingdom biome*)
+(* [sixth_cloud] draws the sixth cloud in the cloud_kingdom biome*)
 let sixth_cloud () =
-  Graphics.moveto 420 220;
   Graphics.draw_circle 425 220 18;
   Graphics.fill_circle 425 220 18;
   Graphics.draw_circle 435 242 18;
@@ -240,7 +263,8 @@ let sixth_cloud () =
   Graphics.draw_circle 453 225 17;
   Graphics.fill_circle 453 225 17
 
-(* Draws the background of the cloud_kingdom biome *)
+(* [cloud_kingdom_background] draws the background of the cloud_kingdom
+   biome *)
 let cloud_kingdom_background () =
   color_background (rgb 255 255 0);
   Graphics.set_color (rgb 0 247 255);
@@ -251,7 +275,8 @@ let cloud_kingdom_background () =
   fifth_cloud ();
   sixth_cloud ()
 
-(*Matches the background with the corresponding stage biome*)
+(*[match_environment] matches the background with the corresponding
+  stage biome*)
 let match_environment stage =
   match stage with
   | "volcano" -> volcano_background ()
@@ -260,7 +285,7 @@ let match_environment stage =
   | "cloud kingdom" -> cloud_kingdom_background ()
   | _ -> failwith "Not valid"
 
-(*Matches the camel color with the camel element*)
+(*[caml_type] matches the camel color with the camel element*)
 let camel_type caml =
   match caml with
   | "water" -> rgb 115 255 246
@@ -269,17 +294,17 @@ let camel_type caml =
   | "earth" -> rgb 120 255 179
   | _ -> failwith "Not valid"
 
-(*Draws the back_leg of the camel*)
+(*[back_leg] draws the back_leg of the camel*)
 let back_leg () =
   Graphics.moveto 87 55;
   Graphics.lineto 74 10;
   Graphics.moveto 101 40;
   Graphics.lineto 92 10;
-  Graphics.set_color (rgb 77 40 31);
+  Graphics.set_color (rgb 93 49 48);
   Graphics.draw_ellipse 74 9 4 2;
   Graphics.draw_ellipse 92 9 4 2
 
-(*Draws the front leg of the camel*)
+(*[front_leg] draws the front leg of the camel*)
 let front_leg color =
   Graphics.set_color color;
   Graphics.moveto 161 55;
@@ -289,11 +314,11 @@ let front_leg color =
   Graphics.moveto 110 65;
   Graphics.draw_circle 70 60 10;
   Graphics.fill_circle 70 60 10;
-  Graphics.set_color (rgb 77 40 31);
+  Graphics.set_color (rgb 93 49 48);
   Graphics.draw_ellipse 190 9 4 2;
   Graphics.draw_ellipse 170 9 4 2
 
-(*Draws the caml body*)
+(*[caml_body] draws the caml body*)
 let caml_body color =
   Graphics.moveto 283 124;
   Graphics.set_color (rgb 0 0 0);
@@ -306,15 +331,15 @@ let caml_body color =
   Graphics.set_color color;
   Graphics.set_line_width 5
 
-(*Draws the caml hat.*)
+(*[caml_hat] draws the caml hat.*)
 let caml_hat () =
-  Graphics.set_color (rgb 13 25 255);
+  Graphics.set_color (rgb 117 220 253);
   Graphics.draw_rect 275 160 13 13;
   Graphics.fill_rect 275 160 13 13;
   Graphics.draw_rect 265 147 32 8;
   Graphics.fill_rect 265 147 32 8
 
-(*Draws the camel onto the screen*)
+(*[draw_user_caml] draws the camel onto the screen*)
 let draw_user_caml color =
   Graphics.set_color color;
   Graphics.draw_ellipse 150 100 40 60;
@@ -333,7 +358,7 @@ let draw_user_caml color =
   front_leg color;
   caml_hat ()
 
-(* Draws the enemy element*)
+(* [draw_enemy] draws the enemy element*)
 let draw_enemy color =
   Graphics.set_color color;
   Graphics.draw_circle 500 400 50;
@@ -351,7 +376,7 @@ let draw_enemy color =
   Graphics.moveto 480 370;
   Graphics.curveto (480, 370) (495, 388) (514, 370)
 
-(*Draws the current stats of the user*)
+(*[user_board] draws the current stats of the user*)
 let user_board color (state : State.t) =
   Graphics.set_color color;
   Graphics.draw_rect 230 190 60 90;
@@ -367,7 +392,7 @@ let user_board color (state : State.t) =
   Graphics.draw_string
     ("HP: " ^ string_of_int (Camltypes.current_hp state.player))
 
-(*Draws the current stats of the enemy*)
+(*[enemy_board] draws the current stats of the enemy*)
 let enemy_board color (state : State.t) =
   Graphics.set_color color;
   Graphics.draw_rect 350 370 60 90;
@@ -410,9 +435,18 @@ let drawing_menu state =
 (* [render_welcome] draws the welcome message on the screen *)
 let rec render_welcome () =
   Graphics.clear_graph ();
-  Graphics.moveto 200 250;
-  Graphics.set_color Graphics.black;
+  Graphics.set_color (rgb 249 138 56);
+  Graphics.draw_rect 0 0 640 100;
+  Graphics.fill_rect 0 0 640 100;
+  Graphics.set_color (rgb 9 16 201);
+  Graphics.draw_rect 0 100 640 500;
+  Graphics.fill_rect 0 100 640 500;
+  draw_user_caml (rgb 254 226 100);
+  Graphics.set_color Graphics.white;
+  Graphics.draw_circle 100 300 0;
+  Graphics.fill_circle 100 300 0;
   Graphics.set_text_size 100;
+  Graphics.moveto 200 250;
   Graphics.draw_string "Welcome to CamlBattles! Press s to start";
   let event = wait_next_event [ Key_pressed ] in
   if event.key == 's' then () else render_welcome ()
@@ -435,22 +469,51 @@ let moves_state state =
       |> Ai.health_check (Random.float 10.0)
   | _ -> failwith "not right key"
 
+(* [background_design] draws the background of the type choosing screen. *)
+let background_design () =
+  Graphics.set_color (rgb 178 226 255);
+  Graphics.set_line_width 1;
+  Graphics.draw_rect 0 0 640 480;
+  Graphics.fill_rect 0 0 640 480;
+  Graphics.moveto 240 300;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_rect 220 160 200 170
+
+(*[instruction_messages_type] displays the instructions for key presses
+  for types water, earth, and air*)
+let instruction_messages_type () =
+  Graphics.moveto 260 240;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_string "Press W for ";
+  Graphics.moveto 330 240;
+  Graphics.set_color Graphics.blue;
+  Graphics.draw_string "Water!";
+  Graphics.set_color Graphics.black;
+  Graphics.moveto 260 210;
+  Graphics.draw_string "Press E for ";
+  Graphics.moveto 330 210;
+  Graphics.set_color Graphics.green;
+  Graphics.draw_string "Earth!";
+  Graphics.moveto 260 180;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_string "Press R for ";
+  Graphics.moveto 330 180;
+  Graphics.set_color Graphics.yellow;
+  Graphics.draw_string "Air!"
+
 (*Displays the messages for choosing the cameltypes*)
 let rec render_choose_type () =
   Graphics.clear_graph ();
-  Graphics.moveto 200 300;
-  Graphics.set_color Graphics.black;
-  Graphics.set_text_size 150;
+  background_design ();
   Graphics.draw_string "Please choose your CamlType!";
   Graphics.set_text_size 100;
-  Graphics.moveto 200 270;
-  Graphics.draw_string "Press Q for Fire!";
-  Graphics.moveto 200 240;
-  Graphics.draw_string "Press W for Water!";
-  Graphics.moveto 200 210;
-  Graphics.draw_string "Press E for Earth!";
-  Graphics.moveto 200 180;
-  Graphics.draw_string "Press R for Air!";
+  Graphics.moveto 260 270;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_string "Press Q for ";
+  Graphics.moveto 330 270;
+  Graphics.set_color Graphics.red;
+  Graphics.draw_string "Fire!";
+  instruction_messages_type ();
   let event = wait_next_event [ Key_pressed ] in
   if event.key == 'q' then "fire"
   else if event.key == 'w' then "water"
@@ -458,22 +521,41 @@ let rec render_choose_type () =
   else if event.key == 'r' then "air"
   else render_choose_type ()
 
+(*[instruction_messages_biome] displays the instructions for key presses
+  for biomes ocean, jungle, and cloud kingdom.*)
+let instruction_messages_biome () =
+  Graphics.moveto 260 240;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_string "Press W for ";
+  Graphics.moveto 330 240;
+  Graphics.set_color Graphics.blue;
+  Graphics.draw_string "Ocean!";
+  Graphics.set_color Graphics.black;
+  Graphics.moveto 260 210;
+  Graphics.draw_string "Press E for ";
+  Graphics.moveto 330 210;
+  Graphics.set_color Graphics.green;
+  Graphics.draw_string "Jungle!";
+  Graphics.moveto 260 180;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_string "Press R for ";
+  Graphics.moveto 330 180;
+  Graphics.set_color Graphics.yellow;
+  Graphics.draw_string "Cloud Kingdom!"
+
 (* Displays the messages for choosing the biome*)
 let rec render_choose_biome () =
   Graphics.clear_graph ();
-  Graphics.moveto 200 300;
-  Graphics.set_color Graphics.black;
-  Graphics.set_text_size 150;
+  background_design ();
   Graphics.draw_string "Please choose your Biome!";
   Graphics.set_text_size 100;
-  Graphics.moveto 200 270;
-  Graphics.draw_string "Press Q for Volcano!";
-  Graphics.moveto 200 240;
-  Graphics.draw_string "Press W for Ocean!";
-  Graphics.moveto 200 210;
-  Graphics.draw_string "Press E for Jungle!";
-  Graphics.moveto 200 180;
-  Graphics.draw_string "Press R for Cloud Kingdom!";
+  Graphics.moveto 260 270;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_string "Press Q for ";
+  Graphics.moveto 330 270;
+  Graphics.set_color Graphics.red;
+  Graphics.draw_string "Volcano!";
+  instruction_messages_biome ();
   let event = wait_next_event [ Key_pressed ] in
   if event.key == 'q' then "volcano"
   else if event.key == 'w' then "ocean"
@@ -508,56 +590,193 @@ let rec true_close final_state =
     ^ string_of_int final_state.player.level
     ^ " Nice Job!");
   Graphics.moveto 250 200;
-  Graphics.set_color Graphics.black;
-  Graphics.set_text_size 100;
   Graphics.draw_string "Press q again to exit";
-
   let event = wait_next_event [ Key_pressed ] in
   if event.key == 'q' then close_graph () else true_close final_state
 
-(* [player_lost]Draws the screen in the case that the player has lost*)
+(* [player_lost] draws the screen in the case that the player has lost*)
 let player_lost () =
   Graphics.clear_graph ();
-  Graphics.moveto 100 200;
+  Graphics.set_color (rgb 251 110 106);
+  Graphics.draw_rect 0 0 640 480;
+  Graphics.fill_rect 0 0 640 480;
+  Graphics.moveto 150 220;
   Graphics.set_color Graphics.black;
-  Graphics.set_text_size 100;
   Graphics.draw_string
-    "Game Over. Press s to start another game. Press q to quit."
+    "Game Over. Press s to START another game. Press q to QUIT."
 
-(* [player_won] Draws the screen in the case that the player has won*)
+(* [player_won] draws the screen in the case that the player has won*)
 let player_won () =
   Graphics.clear_graph ();
-  Graphics.moveto 100 200;
+  Graphics.set_color (rgb 178 226 255);
+  Graphics.draw_rect 0 0 640 480;
+  Graphics.fill_rect 0 0 640 480;
+  Graphics.moveto 150 220;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_string
+    "You WON! Press s to to START another game. Press q to QUIT"
+
+(* [blind_boxes] draws the blind_boxes on the screen *)
+let blind_boxes () =
+  Graphics.moveto 225 260;
+  Graphics.draw_string "c";
+  Graphics.set_color (rgb 253 82 255);
+  Graphics.fill_rect 200 200 50 50;
+  Graphics.set_color Graphics.black;
+  Graphics.moveto 323 260;
+  Graphics.draw_string "v";
+  Graphics.set_color (rgb 124 243 54);
+  Graphics.fill_rect 300 200 50 50;
+  Graphics.set_color Graphics.black;
+  Graphics.moveto 413 260;
+  Graphics.draw_string "b";
+  Graphics.set_color (rgb 138 38 236);
+  Graphics.fill_rect 390 200 50 50
+
+(* [draw_boxes] draws the boxes and dialogue in the gotcha game*)
+let draw_boxes () =
+  Graphics.clear_graph ();
+  Graphics.set_color (rgb 178 226 255);
+  Graphics.draw_rect 0 0 640 480;
+  Graphics.fill_rect 0 0 640 480;
+  Graphics.moveto 125 350;
   Graphics.set_color Graphics.black;
   Graphics.set_text_size 100;
   Graphics.draw_string
-    "You won! Press s to to start another game. Press q to quit"
+    "Please pick from the three boxes below for a prize in your efforts";
+  Graphics.moveto 155 300;
+  Graphics.draw_string
+    "Please press the key denoted by the letter above the box";
+  blind_boxes ()
 
-(*[render_game]colors caml and renders on page*)
+let correcting_state state good_result =
+  match good_result with
+  | true ->
+      {
+        state with
+        player =
+          {
+            state.player with
+            hp = state.player.hp - (1 * (state.player.hp / 10));
+          };
+      }
+  | false ->
+      {
+        state with
+        player =
+          {
+            state.player with
+            hp = state.player.hp + (1 * (state.player.hp / 10));
+          };
+      }
+
+let rec player_gotcha_msgs result =
+  Graphics.clear_graph ();
+  Graphics.moveto 200 300;
+  Graphics.set_color Graphics.black;
+  match result with
+  | 0 ->
+      Graphics.draw_string
+        "You've chosen wisely. Take this extra boost to help you in \
+         battle. Please press s to start";
+      let event = wait_next_event [ Key_pressed ] in
+      if event.key == 's' then () else player_gotcha_msgs result
+  | 1 ->
+      Graphics.draw_string
+        "A Bomb explodes. You suffer a hit to your HP. Please press s \
+         to start";
+      let event = wait_next_event [ Key_pressed ] in
+      if event.key == 's' then () else player_gotcha_msgs result
+  | 2 ->
+      Graphics.draw_string
+        "You avoided the bomb. Prepare for battle! Please press s to \
+         start";
+      let event = wait_next_event [ Key_pressed ] in
+      if event.key == 's' then () else player_gotcha_msgs result
+
+let winning_box chosen_char state =
+  let random_int = Random.int 3 in
+  match chosen_char with
+  | 'c' ->
+      if random_int == 0 || random_int == 1 then
+        let () = player_gotcha_msgs 0 in
+        correcting_state state false
+      else
+        let () = player_gotcha_msgs 2 in
+        state
+  | 'v' ->
+      if random_int == 1 || random_int == 2 then
+        let () = player_gotcha_msgs 1 in
+        correcting_state state true
+      else
+        let () = player_gotcha_msgs 2 in
+        state
+  | 'b' ->
+      if random_int == 2 || random_int == 0 then
+        let () = player_gotcha_msgs 2 in
+        state
+      else
+        let () = player_gotcha_msgs 0 in
+        correcting_state state true
+
+let rec blind_box state : State.t =
+  let () = draw_boxes () in
+  let event = wait_next_event [ Key_pressed ] in
+  if event.key == 'c' then winning_box 'c' state
+  else if event.key == 'v' then winning_box 'v' state
+  else if event.key == 'b' then winning_box 'b' state
+  else blind_box state
+
+(*[acceptance_state state] draws the screen when the player has won the
+  round and considers the blind box gifts *)
+let rec acceptance_state state : State.t =
+  Graphics.clear_graph ();
+  Graphics.set_color (rgb 178 226 255);
+  Graphics.draw_rect 0 0 640 480;
+  Graphics.fill_rect 0 0 640 480;
+  Graphics.moveto 170 230;
+  Graphics.set_color Graphics.black;
+  Graphics.set_text_size 100;
+  Graphics.draw_string "CONGRADULATIONS on making it to the next level!";
+  Graphics.moveto 145 180;
+  Graphics.draw_string
+    "A strange approaches with three gifts. Do you ACCEPT? y/n";
+  let event = wait_next_event [ Key_pressed ] in
+  if event.key == 'y' then blind_box state
+  else if event.key == 'n' then state
+  else acceptance_state state
+
+let draw_game state =
+  user_board Graphics.white state;
+  enemy_board Graphics.white state;
+  draw_user_caml (camel_type state.player.element_t);
+  draw_enemy (camel_type state.ai.element_t)
+
+let updated_won_state state =
+  state |> update_won_state |> acceptance_state
+
+let bgin_state state = { state with ai = { state.ai with hp = 0 } }
+
+(*[render_game] colors caml and renders on page*)
 let rec render_game (state : State.t) : State.t =
   Graphics.clear_graph ();
-  Graphics.set_color Graphics.black;
-  match_environment state.stage;
-  let check_player_hp = Camltypes.current_hp state.player in
-  let check_ai_hp = Camltypes.current_hp state.ai in
-  if check_player_hp <= 0 then
+  let () = match_environment state.stage in
+  let player_hp, ai_hp =
+    (current_hp state.player, current_hp state.ai)
+  in
+  if player_hp <= 0 then
     let () = player_lost () in
     let event = wait_next_event [ Key_pressed ] in
     if event.key == 's' then render_game (update_lost_state state)
-    else if event.key == 'q' then
-      { state with player = { state.player with hp = 0 } }
+    else if event.key == 'q' then bgin_state state
     else render_game state
-  else if check_ai_hp <= 0 then
+  else if ai_hp <= 0 then
     let () = player_won () in
     let event = wait_next_event [ Key_pressed ] in
-    if event.key == 's' then render_game (update_won_state state)
-    else if event.key == 'q' then
-      { state with ai = { state.ai with hp = 0 } }
+    if event.key == 's' then render_game (updated_won_state state)
+    else if event.key == 'q' then bgin_state state
     else render_game state
-  else (
-    user_board Graphics.white state;
-    enemy_board Graphics.white state;
-    draw_user_caml (camel_type state.player.element_t);
-    draw_enemy (camel_type state.ai.element_t);
+  else
+    let () = draw_game state in
     let new_state = moves_state state in
-    render_game new_state)
+    render_game new_state
