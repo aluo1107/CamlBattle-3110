@@ -9,6 +9,16 @@ type hp = int
 
 type moves = move_t list
 
+type blind_boxes =
+  | LeftBox
+  | MiddleBox
+  | RightBox
+
+type endings =
+  | GoodEnd
+  | BadEnd
+  | NeutralEnd
+
 (* Effect will be represented by an int where 0 represents weak, 1
    represents a normal attack and 2 represents super effective *)
 
@@ -70,16 +80,22 @@ let attack_multi (caml : element_t) (enemy : element_t) =
   | "fire", "fire" -> Normal
   | x, y -> raise (UnknownElement x)
 
+(*returns the camltype *)
 let caml_type t = t.element_t
 
-let effect_match t t = (t.element_t, t.element_t)
+(* returns a tuple of a player and AI matchup*)
+let effect_match (t : t) t = (t.element_t, t.element_t)
 
+(* returns the current hp of a type t*)
 let current_hp t = t.hp
 
+(* updates hp with given int*)
 let updated_hp t int = { t with hp = t.hp - int; defense = 0 }
 
+(* updates defense with given int*)
 let updated_defense t int = { t with defense = int }
 
+(* returns current defense*)
 let current_defense t = t.defense
 
 (* Stage*)
