@@ -72,9 +72,16 @@ val render_choose_biome : unit -> string
     user again to quit*)
 val true_close : State.t -> unit
 
-(** [render_game state] renders the game itself and takes care of the
-    main loop of the game by calling all of the helper functions. The
-    closing window is called when the ai or user's hp is zero or below*)
+(** [render_game] this function first matches to the environment of the
+    state and draws the background based on that biome. Next, it checks
+    whether the player or the AI's hp is less than or equal to zero. If
+    the player's HP is less than or equal to zero, the player is asked
+    whether they would like to quit or restart the game. If the AI's HP
+    is less than or equal to zero, then the player is prompted to either
+    choose to quit or they can choose to advance in levels. If neither
+    conditions are true, the function calls helper functions to draw the
+    game and calls the moves_state function to take care of the player's
+    moves and effects on the AI.*)
 val render_game : State.t -> State.t
 
 (** [update_lost_state state] returns the game state with the user's hp
@@ -85,3 +92,22 @@ val update_lost_state : State.t -> State.t
 (** [update_won_state state] returns the game state with the user and
     AI's hp increased by 10 with their levels also increased by 1*)
 val update_won_state : State.t -> State.t
+
+(** [correcting_state state good_result] returns a new state with either
+    the player's HP increased or decreased by their level*)
+val correcting_state : State.t -> bool -> State.t
+
+(** [winning_box chosen_box state] returns the new state with the result
+    of the player either choosing the left box, middle box, or right
+    box. At the beginning of the function, a random int is generate
+    between 0 and 3. For the first box, the player has a 2/3rds chance
+    of getting a boost and 1/3rd chance of recieving nothing. This is
+    true for the middle box as well where instead the player has 2/3rds
+    chance of getting a hit to their HP. In the last box, the player has
+    a 2/3rd chance of recieving nothing and a 1/3rd chance of recieving
+    a boost to their HP*)
+val winning_box : Camltypes.blind_boxes -> State.t -> State.t
+
+(** [blind_box state] is the main function for the blind box minigame
+    and calls the other functions within itself.*)
+val blind_box : State.t -> State.t
