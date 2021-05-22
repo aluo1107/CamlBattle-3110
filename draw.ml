@@ -649,6 +649,8 @@ let draw_boxes () =
     "Please press the key denoted by the letter above the box";
   blind_boxes ()
 
+(*[correcting_state state good_result] returns a new state with either
+  the hp increased or decreased by the player's current level*)
 let correcting_state state good_result =
   match good_result with
   | true ->
@@ -670,61 +672,75 @@ let correcting_state state good_result =
           };
       }
 
+(* [player_gotcha_msgs result] returns the message that the player will
+   recieve depending on the result of which box they chose. *)
 let rec player_gotcha_msgs result =
   Graphics.clear_graph ();
-  Graphics.moveto 200 300;
+  Graphics.moveto 150 300;
   Graphics.set_color Graphics.black;
   match result with
-  | 0 ->
+  | GoodEnd ->
       Graphics.draw_string
         "You've chosen wisely. Take this extra boost to help you in \
          battle. Please press s to start";
       let event = wait_next_event [ Key_pressed ] in
       if event.key == 's' then () else player_gotcha_msgs result
-  | 1 ->
+  | BadEnd ->
       Graphics.draw_string
         "A Bomb explodes. You suffer a hit to your HP. Please press s \
          to start";
       let event = wait_next_event [ Key_pressed ] in
       if event.key == 's' then () else player_gotcha_msgs result
-  | 2 ->
+  | NeutralEnd ->
       Graphics.draw_string
         "You avoided the bomb. Prepare for battle! Please press s to \
          start";
       let event = wait_next_event [ Key_pressed ] in
       if event.key == 's' then () else player_gotcha_msgs result
 
-let winning_box chosen_char state =
+(*[winning_box chosen_box state] returns the new state with the result
+  of the player either choosing the left box, middle box, or right box.
+  At the beginning of the function, a random int is generate between 0
+  and 3. For the first box, the player has a 2/3rds chance of getting a
+  boost and 1/3rd chance of recieving nothing. This is true for the
+  middle box as well where instead the player has 2/3rds chance of
+  getting a hit to their HP. In the last box, the player has a 2/3rd
+  chance of recieving nothing and a 1/3rd chance of recieving a boost to
+  their HP*)
+let winning_box (chosen_box : Camltypes.blind_boxes) state =
   let random_int = Random.int 3 in
-  match chosen_char with
-  | 'c' ->
+  match chosen_box with
+  | LeftBox ->
       if random_int == 0 || random_int == 1 then
-        let () = player_gotcha_msgs 0 in
+        let () = player_gotcha_msgs GoodEnd in
         correcting_state state false
       else
-        let () = player_gotcha_msgs 2 in
+        let () = player_gotcha_msgs NeutralEnd in
         state
-  | 'v' ->
+  | MiddleBox ->
       if random_int == 1 || random_int == 2 then
-        let () = player_gotcha_msgs 1 in
+        let () = player_gotcha_msgs BadEnd in
         correcting_state state true
       else
-        let () = player_gotcha_msgs 2 in
+        let () = player_gotcha_msgs NeutralEnd in
         state
-  | 'b' ->
+  | RightBox ->
       if random_int == 2 || random_int == 0 then
-        let () = player_gotcha_msgs 2 in
+        let () = player_gotcha_msgs NeutralEnd in
         state
       else
-        let () = player_gotcha_msgs 0 in
+        let () = player_gotcha_msgs GoodEnd in
         correcting_state state true
 
+(*[blind_box state] is the main function for the blind box mini game
+  that draws the boxes and calls the helper functions that take care of
+  the player's choice and results.*)
 let rec blind_box state : State.t =
   let () = draw_boxes () in
   let event = wait_next_event [ Key_pressed ] in
-  if event.key == 'c' then winning_box 'c' state
-  else if event.key == 'v' then winning_box 'v' state
-  else if event.key == 'b' then winning_box 'b' state
+  if event.key == 'c' then winning_box LeftBox state
+  else if event.key == 'v' then winning_box MiddleBox state
+  else if event.key == 'b' then winning_box RightBox state
   else blind_box state
 
 (*[acceptance_state state] draws the screen when the player has won the
@@ -746,18 +762,38 @@ let rec acceptance_state state : State.t =
   else if event.key == 'n' then state
   else acceptance_state state
 
+(*[draw_game state] draws the user and enemy boards as well as the
+  camel, representing the player, and the enemy*)
 let draw_game state =
   user_board Graphics.white state;
   enemy_board Graphics.white state;
   draw_user_caml (camel_type state.player.element_t);
   draw_enemy (camel_type state.ai.element_t)
 
+(* [updated_won_state state] returns the new state when the player has
+   won and has decided to continue to the next level.*)
 let updated_won_state state =
   state |> update_won_state |> acceptance_state
 
-let bgin_state state = { state with ai = { state.ai with hp = 0 } }
+(* [bgin_state state] returns a new state where both the player and AI's
+   HP are reset to zero*)
+let bgin_state state =
+  {
+    state with
+    player = { state.player with hp = 0 };
+    ai = { state.ai with hp = 0 };
+  }
 
-(*[render_game] colors caml and renders on page*)
+(*[render_game] this function first matches to the environment of the
+  state and draws the background based on that biome. Next, it checks
+  whether the player or the AI's hp is less than or equal to zero. If
+  the player's HP is less than or equal to zero, the player is asked
+  whether they would like to quit or restart the game. If the AI's HP is
+  less than or equal to zero, then the player is prompted to either
+  choose to quit or they can choose to advance in levels. If neither
+  conditions are true, the function calls helper functions to draw the
+  game and calls the moves_state function to take care of the player's
+  moves and effects on the AI.*)
 let rec render_game (state : State.t) : State.t =
   Graphics.clear_graph ();
   let () = match_environment state.stage in

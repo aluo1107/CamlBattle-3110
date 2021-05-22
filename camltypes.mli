@@ -15,8 +15,26 @@ type hp = int
 (** The type of move identifiers that a player has *)
 type moves = move_t list
 
+(** The abstract type of values that represents either the left, middle,
+    or right box in the blind box mini-game*)
+
+type blind_boxes =
+  | LeftBox
+  | MiddleBox
+  | RightBox
+
+(** The abstract type of values that represents either a good ending
+    where the player recieves a boost to their HP, a bad ending where a
+    player loses HP points, or a neutral end where nothing happens*)
+
+type endings =
+  | GoodEnd
+  | BadEnd
+  | NeutralEnd
+
 (** The abstract type of values representing the effectiveness of the
     power of one element against another *)
+
 type effect =
   | Weak
   | Normal
@@ -65,7 +83,7 @@ val current_hp : t -> hp
 (** [caml_type caml] returns the elemental type of the caml *)
 val caml_type : t -> element_t
 
-(** [battle_types t t] returns the elemental type of both the caml
+(** [effect_match t t] returns the elemental type of both the caml
     player and the enemy in a tuple *)
 val effect_match : t -> t -> element_t * element_t
 
