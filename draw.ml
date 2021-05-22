@@ -377,36 +377,75 @@ let draw_enemy color =
   Graphics.curveto (480, 370) (495, 388) (514, 370)
 
 (*[user_board] draws the current stats of the user*)
+
+let health_bar_user (state : State.t) =
+  Graphics.set_color Graphics.white;
+  Graphics.draw_rect 10 190 200 15;
+  Graphics.fill_rect 10 190 200 15;
+  Graphics.draw_rect 10 212 75 15;
+  Graphics.fill_rect 10 212 75 15;
+  let hp_ratio =
+    float_of_int (Camltypes.current_hp state.player)
+    /. float_of_int (10 * state.player.level)
+  in
+  let hp_pixels = int_of_float (hp_ratio *. 200.0) - 4 in
+  Graphics.draw_rect 12 192 hp_pixels 11;
+  Graphics.set_color Graphics.green;
+  Graphics.fill_rect 12 192 hp_pixels 11;
+  Graphics.moveto 15 212;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_string
+    ("HP: "
+    ^ string_of_int (Camltypes.current_hp state.player)
+    ^ " / "
+    ^ string_of_int (state.player.level * 10))
+
+let health_bar_ai (state : State.t) =
+  Graphics.set_color Graphics.white;
+  Graphics.draw_rect 430 300 200 15;
+  Graphics.fill_rect 430 300 200 15;
+  Graphics.draw_rect 555 322 75 15;
+  Graphics.fill_rect 555 322 75 15;
+  let hp_ratio =
+    float_of_int (Camltypes.current_hp state.ai)
+    /. float_of_int (10 * state.ai.level)
+  in
+  let hp_pixels = int_of_float (hp_ratio *. 200.0) - 4 in
+  Graphics.draw_rect 432 302 hp_pixels 11;
+  Graphics.set_color Graphics.green;
+  Graphics.fill_rect 432 302 hp_pixels 11;
+  Graphics.moveto 560 322;
+  Graphics.set_color Graphics.black;
+  Graphics.draw_string
+    ("HP: "
+    ^ string_of_int (Camltypes.current_hp state.ai)
+    ^ " / "
+    ^ string_of_int (state.ai.level * 10))
+
 let user_board color (state : State.t) =
   Graphics.set_color color;
-  Graphics.draw_rect 230 190 60 90;
-  Graphics.fill_rect 230 190 60 90;
+  Graphics.draw_rect 230 220 60 60;
+  Graphics.fill_rect 230 220 60 60;
   Graphics.moveto 240 260;
   Graphics.set_color Graphics.black;
   Graphics.draw_string ("Exp: " ^ string_of_int state.player.exp);
   Graphics.moveto 240 230;
   Graphics.set_color Graphics.black;
   Graphics.draw_string ("Lv: " ^ string_of_int state.player.level);
-  Graphics.moveto 240 200;
-  Graphics.set_color Graphics.black;
-  Graphics.draw_string
-    ("HP: " ^ string_of_int (Camltypes.current_hp state.player))
+  health_bar_user state
 
 (*[enemy_board] draws the current stats of the enemy*)
 let enemy_board color (state : State.t) =
   Graphics.set_color color;
-  Graphics.draw_rect 350 370 60 90;
-  Graphics.fill_rect 350 370 60 90;
+  Graphics.draw_rect 350 400 60 60;
+  Graphics.fill_rect 350 400 60 60;
   Graphics.moveto 360 440;
   Graphics.set_color Graphics.black;
   Graphics.draw_string ("Exp: " ^ string_of_int state.ai.exp);
   Graphics.moveto 360 410;
   Graphics.set_color Graphics.black;
   Graphics.draw_string ("Lv: " ^ string_of_int state.ai.level);
-  Graphics.moveto 360 380;
-  Graphics.set_color Graphics.black;
-  Graphics.draw_string
-    ("HP: " ^ string_of_int (Camltypes.current_hp state.ai))
+  health_bar_ai state
 
 (* [moves_update] updates the moves in terminal*)
 let move_update state =

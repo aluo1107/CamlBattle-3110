@@ -276,9 +276,66 @@ let one_health_state =
 let one_health_level_2 =
   {
     example_state with
-    player = { example_caml with hp = 10; level = 2 };
+    player = { example_caml with hp = 1; level = 2 };
     ai = { example_wolf with hp = 1; level = 2 };
   }
+
+let volcano_fire_water_level_2 =
+  {
+    example_state with
+    player = { example_caml with hp = 20; level = 2 };
+    ai = { example_caml with hp = 20; level = 2 };
+  }
+
+let volcano_water_fire_one_health =
+  {
+    volcano_water_fire with
+    player = { volcano_water_fire.player with hp = 1 };
+    ai = { volcano_water_fire.ai with hp = 1 };
+  }
+
+let volcano_air_earth_one_health =
+  {
+    volcano_air_earth with
+    player = { volcano_air_earth.player with hp = 1 };
+    ai = { volcano_air_earth.ai with hp = 1 };
+  }
+
+let volcano_earth_air_one_health =
+  {
+    volcano_earth_air with
+    player = { volcano_earth_air.player with hp = 1 };
+    ai = { volcano_earth_air.ai with hp = 1 };
+  }
+
+let cloud_fire_water_one_health =
+  {
+    cloud_fire_water with
+    player = { cloud_fire_water.player with hp = 1 };
+    ai = { cloud_fire_water.ai with hp = 1 };
+  }
+
+let cloud_water_fire_one_health =
+  {
+    cloud_water_fire with
+    player = { cloud_water_fire.player with hp = 1 };
+    ai = { cloud_water_fire.ai with hp = 1 };
+  }
+
+let cloud_air_earth_one_health =
+  {
+    cloud_air_earth with
+    player = { cloud_air_earth.player with hp = 1 };
+    ai = { cloud_air_earth.ai with hp = 1 };
+  }
+
+let cloud_earth_air_one_health =
+  {
+    cloud_earth_air with
+    player = { cloud_earth_air.player with hp = 1 };
+    ai = { cloud_earth_air.ai with hp = 1 };
+  }
+(* let volcano_water_fire *)
 
 let volcano_tests () =
   [
@@ -287,6 +344,8 @@ let volcano_tests () =
       example_state 4;
     attack_move_test "player attack. fire v water volcano 6 defense"
       volcano_fire_water_def_6 10;
+    attack_move_test "player attack. fire v water volcano 0 def level 2"
+      volcano_fire_water_level_2 14;
     ai_attack_test "ai attack. fire v water volcano 0 defense"
       example_state 1.0 1;
     ai_attack_test
@@ -299,6 +358,9 @@ let volcano_tests () =
       volcano_water_fire_def_6 7;
     ai_attack_test "ai attack. water v fire volcano no defense"
       volcano_water_fire 1.0 4;
+    ai_attack_test
+      "ai attack. one health water v fire volcano 0 defense"
+      volcano_water_fire_one_health 2.0 (-5);
     (* Player air, ai earth*)
     attack_move_test "player attack. air v earth volcano no defense"
       volcano_air_earth 4;
@@ -306,13 +368,18 @@ let volcano_tests () =
       volcano_air_earth_def_6 10;
     ai_attack_test "ai attack. air v earth volcano no defense"
       volcano_air_earth 1.0 6;
+    ai_attack_test
+      "ai attack. air v earth volcano one health no defense"
+      volcano_air_earth_one_health 2.0 (-3);
     (* player earth, ai air*)
     attack_move_test "player attack. earth v air volcano no defense"
       volcano_earth_air 6;
     attack_move_test "player attack. earth v air volcano 6 defense"
       volcano_earth_air_def_6 10;
-    ai_attack_test "ai attack. erath v air volcano no defense"
+    ai_attack_test "ai attack. earth v air volcano no defense"
       volcano_earth_air 1.0 4;
+    ai_attack_test "ai attack. erath v air volcano no defense"
+      volcano_earth_air_one_health 2.0 (-5);
   ]
 
 let cloud_tests () =
@@ -324,6 +391,8 @@ let cloud_tests () =
       cloud_fire_water_def_6 10;
     ai_attack_test "ai attack. fire v water cloud no defense"
       cloud_fire_water 1.0 1;
+    ai_attack_test "ai attack. fire v water cloud one health no defense"
+      cloud_fire_water_one_health 2.0 (-8);
     (* Player Water, AI fire*)
     attack_move_test "player attack. water v fire cloud no defense"
       cloud_water_fire 1;
@@ -331,6 +400,8 @@ let cloud_tests () =
       cloud_water_fire_def_6 7;
     ai_attack_test "ai attack. water v fire cloud no defense"
       cloud_water_fire 1.0 6;
+    ai_attack_test "ai attack. water v fire cloud one health no defense"
+      cloud_water_fire_one_health 2.0 (-3);
     (* Player air, ai earth*)
     attack_move_test "player attack. air v earth cloud no defense"
       cloud_air_earth (-2);
@@ -338,6 +409,8 @@ let cloud_tests () =
       cloud_air_earth_def_6 4;
     ai_attack_test "ai attack. air v earth cloud no defense"
       cloud_air_earth 1.0 7;
+    ai_attack_test "ai attack. air v earth cloud one health no defense"
+      cloud_air_earth_one_health 2.0 (-2);
     (* player earth, ai air*)
     attack_move_test "player attack. earth v air cloud no defense"
       cloud_earth_air 7;
@@ -345,6 +418,8 @@ let cloud_tests () =
       cloud_earth_air_def_6 10;
     ai_attack_test "ai attack. earth v air cloud no defense"
       cloud_earth_air 1.0 (-2);
+    ai_attack_test "ai attack. earth v air cloud one health no defense"
+      cloud_earth_air_one_health 2.0 (-11);
   ]
 
 let ocean_tests () =
@@ -421,6 +496,12 @@ let heal_tests () =
     ai_heal_test "ai half health heal level 2"
       (health_check 8.0 half_health_level_2)
       12;
+    ai_heal_test "ai one health heal level 1"
+      (health_check 5.0 one_health_state)
+      2;
+    ai_heal_test "ai one health heal level 2"
+      (health_check 5.0 one_health_level_2)
+      3;
   ]
 
 let defense_tests () =
@@ -440,9 +521,21 @@ let defense_tests () =
       (move defense_10_level_2 defense_10_level_2.ai
          defense_10_level_2.player Attack false)
       0;
-    ai_defense_test "level 1 enemy full health"
+    ai_defense_test "ai defense level 1 enemy full health"
       (health_check 9.0 example_state)
       2;
+    ai_defense_test "ai defense level 2 enemy full health"
+      (health_check 9.0 volcano_fire_water_level_2)
+      4;
+    ai_defense_test "ai defense half health"
+      (health_check 9.0 half_health_state)
+      2;
+    ai_defense_test "ai defense one health"
+      (health_check 9.0 one_health_state)
+      2;
+    ai_defense_test "ai defense one health level 2"
+      (health_check 9.0 one_health_level_2)
+      4;
   ]
 
 (* cloc --by-file --include-lang=OCaml . *)
