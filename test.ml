@@ -269,7 +269,7 @@ let jungle_earth_air = { cloud_earth_air with stage = "jungle" }
 let one_health_state =
   {
     example_state with
-    player = { example_caml with hp = 10 };
+    player = { example_caml with hp = 1 };
     ai = { example_wolf with hp = 1 };
   }
 
@@ -341,117 +341,117 @@ let volcano_tests () =
   [
     (* Player fire, AI water*)
     attack_move_test "player attack. fire v water volcano no defense"
-      example_state 4;
+      example_state 7;
     attack_move_test "player attack. fire v water volcano 6 defense"
       volcano_fire_water_def_6 10;
     attack_move_test "player attack. fire v water volcano 0 def level 2"
-      volcano_fire_water_level_2 14;
+      volcano_fire_water_level_2 17;
     ai_attack_test "ai attack. fire v water volcano 0 defense"
-      example_state 1.0 1;
+      example_state 1.0 5;
     ai_attack_test
       "ai attack. one health fire v water volcano 0 defense"
-      one_health_state 2.0 1;
+      one_health_state 2.0 (-4);
     (* Player Water, AI fire*)
     attack_move_test "player attack. water v fire volcano no defense"
-      volcano_water_fire 1;
+      volcano_water_fire 5;
     attack_move_test "player attack. water v fire volcano 6 defense"
-      volcano_water_fire_def_6 7;
+      volcano_water_fire_def_6 10;
     ai_attack_test "ai attack. water v fire volcano no defense"
-      volcano_water_fire 1.0 4;
+      volcano_water_fire 1.0 7;
     ai_attack_test
       "ai attack. one health water v fire volcano 0 defense"
-      volcano_water_fire_one_health 2.0 (-5);
+      volcano_water_fire_one_health 2.0 (-2);
     (* Player air, ai earth*)
     attack_move_test "player attack. air v earth volcano no defense"
-      volcano_air_earth 4;
+      volcano_air_earth 6;
     attack_move_test "player attack. air v earth volcano 6 defense"
       volcano_air_earth_def_6 10;
     ai_attack_test "ai attack. air v earth volcano no defense"
-      volcano_air_earth 1.0 6;
+      volcano_air_earth 1.0 8;
     ai_attack_test
       "ai attack. air v earth volcano one health no defense"
-      volcano_air_earth_one_health 2.0 (-3);
+      volcano_air_earth_one_health 2.0 (-1);
     (* player earth, ai air*)
     attack_move_test "player attack. earth v air volcano no defense"
-      volcano_earth_air 6;
+      volcano_earth_air 8;
     attack_move_test "player attack. earth v air volcano 6 defense"
       volcano_earth_air_def_6 10;
     ai_attack_test "ai attack. earth v air volcano no defense"
-      volcano_earth_air 1.0 4;
-    ai_attack_test "ai attack. erath v air volcano no defense"
-      volcano_earth_air_one_health 2.0 (-5);
+      volcano_earth_air 1.0 6;
+    ai_attack_test "ai attack. earth v air volcano no defense"
+      volcano_earth_air_one_health 2.0 (-3);
   ]
 
 let cloud_tests () =
   [
     (* Player fire, AI water*)
     attack_move_test "player attack. fire v water cloud no defense"
-      cloud_fire_water 6;
+      cloud_fire_water 8;
     attack_move_test "player attack. fire v water cloud 6 defense"
       cloud_fire_water_def_6 10;
     ai_attack_test "ai attack. fire v water cloud no defense"
-      cloud_fire_water 1.0 1;
+      cloud_fire_water 1.0 5;
     ai_attack_test "ai attack. fire v water cloud one health no defense"
-      cloud_fire_water_one_health 2.0 (-8);
+      cloud_fire_water_one_health 2.0 (-4);
     (* Player Water, AI fire*)
     attack_move_test "player attack. water v fire cloud no defense"
-      cloud_water_fire 1;
+      cloud_water_fire 5;
     attack_move_test "player attack. water v fire cloud 6 defense"
-      cloud_water_fire_def_6 7;
+      cloud_water_fire_def_6 10;
     ai_attack_test "ai attack. water v fire cloud no defense"
-      cloud_water_fire 1.0 6;
+      cloud_water_fire 1.0 8;
     ai_attack_test "ai attack. water v fire cloud one health no defense"
-      cloud_water_fire_one_health 2.0 (-3);
+      cloud_water_fire_one_health 2.0 (-1);
     (* Player air, ai earth*)
     attack_move_test "player attack. air v earth cloud no defense"
-      cloud_air_earth (-2);
+      cloud_air_earth 4;
     attack_move_test "player attack. air v earth cloud 6 defense"
-      cloud_air_earth_def_6 4;
+      cloud_air_earth_def_6 10;
     ai_attack_test "ai attack. air v earth cloud no defense"
-      cloud_air_earth 1.0 7;
+      cloud_air_earth 1.0 8;
     ai_attack_test "ai attack. air v earth cloud one health no defense"
-      cloud_air_earth_one_health 2.0 (-2);
+      cloud_air_earth_one_health 2.0 (-1);
     (* player earth, ai air*)
     attack_move_test "player attack. earth v air cloud no defense"
-      cloud_earth_air 7;
+      cloud_earth_air 8;
     attack_move_test "player attack. earth v air cloud 6 defense"
       cloud_earth_air_def_6 10;
     ai_attack_test "ai attack. earth v air cloud no defense"
-      cloud_earth_air 1.0 (-2);
+      cloud_earth_air 1.0 4;
     ai_attack_test "ai attack. earth v air cloud one health no defense"
-      cloud_earth_air_one_health 2.0 (-11);
+      cloud_earth_air_one_health 2.0 (-5);
   ]
 
 let ocean_tests () =
   [
     (* Player fire, AI water*)
     attack_move_test "player attack. fire v water no defense"
-      ocean_fire_water 7;
+      ocean_fire_water 8;
     (* Player Water, AI fire*)
     attack_move_test "player attack. water v fire ocean no defense"
-      ocean_water_fire (-2);
+      ocean_water_fire 4;
     (* Player air, ai earth*)
     attack_move_test "player attack. air v earth ocean no defense"
-      ocean_air_earth 1;
+      ocean_air_earth 5;
     (* player earth, ai air*)
     attack_move_test "player attack. earth v air ocean no defense"
-      ocean_earth_air 6;
+      ocean_earth_air 8;
   ]
 
 let jungle_tests () =
   [
     (* Player fire, AI water*)
     attack_move_test "player attack. fire v water ocean no defense"
-      jungle_fire_water 6;
+      jungle_fire_water 8;
     (* Player Water, AI fire*)
     attack_move_test "player attack. water v fire jungle"
-      jungle_water_fire 4;
+      jungle_water_fire 6;
     (* Player air, ai earth*)
     attack_move_test "player attack. air v earth jungle"
-      jungle_air_earth 1;
+      jungle_air_earth 5;
     (* player earth, ai air*)
     attack_move_test "player attack. earth v air jungle"
-      jungle_earth_air 4;
+      jungle_earth_air 7;
   ]
 
 let half_health_state =
