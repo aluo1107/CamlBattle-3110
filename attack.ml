@@ -36,7 +36,7 @@ let attack_move attacker victim state =
   (* print_endline ("attack_multiplier: " ^ string_of_float
      attack_multiplier); *)
   let attack_damage_type =
-    int_of_float attack_multiplier * attack_base
+    attack_multiplier *. float_of_int attack_base
   in
   (* print_endline ("attack_damage_type: " ^ string_of_int
      attack_damage_type); *)
@@ -46,7 +46,7 @@ let attack_move attacker victim state =
   in
   (* print_endline ("attack_multi_stage " ^ string_of_float
      attack_multi_stage); *)
-  int_of_float (float_of_int attack_damage_type *. attack_multi_stage)
+  int_of_float (attack_damage_type *. attack_multi_stage)
   - current_defense victim
 
 let change_victim_hp victim attack_dam =
