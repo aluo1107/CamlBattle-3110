@@ -40,6 +40,13 @@ type effect =
   | Normal
   | SuperEffect
 
+(** The abstract type of values representing the effectiveness of the
+    power of none element in a specific biome *)
+type stage_effect =
+  | WeakStage
+  | NormalStage
+  | SuperEffectStage
+
 (** The abstract type of values representing camels and enemies. current
     move is denoted by 0,1,2,3. 0 is at the beginning of the game. 1 is
     attack, 2 is heal, and 3 is defense*)
@@ -101,6 +108,10 @@ val updated_defense : t -> int -> t
     battle *)
 val current_defense : t -> int
 
+(** [stage_multi stage_effect] returns the multiplier of the result of
+    the match up between a caml and the biome*)
+val stage_multi : stage_effect -> float
+
 (** [attack_stage_multi caml stage] returns the attack multiplier of the
     caml according to what stage biome they are in. *)
-val attack_stage_multi : element_t -> stage -> effect
+val attack_stage_multi : element_t -> stage -> stage_effect

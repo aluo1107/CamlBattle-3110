@@ -19,13 +19,20 @@ type endings =
   | BadEnd
   | NeutralEnd
 
-(* Effect will be represented by an int where 0 represents weak, 1
-   represents a normal attack and 2 represents super effective *)
+(* Effect will be represented by an float where 1.0 represents weak, 1.5
+   represents a normal attack and 2.0 represents super effective *)
 
 type effect =
   | Weak
   | Normal
   | SuperEffect
+
+(* Effect will be represented by an float where 1.0 represents weak,
+   1.25 represents a normal attack and 1.5 represents super effective *)
+type stage_effect =
+  | WeakStage
+  | NormalStage
+  | SuperEffectStage
 
 (* The type for both camls and enemies *)
 type t = {
@@ -109,23 +116,29 @@ let stage_effect t =
   | x -> raise (UnknownStage x)
 
 (*Returns the effect of element match ups*)
+
+let stage_multi = function
+  | WeakStage -> 1.0
+  | NormalStage -> 1.25
+  | SuperEffectStage -> 1.5
+
 let attack_stage_multi caml stage =
   let biome_effec = stage_effect stage in
   match (caml, biome_effec) with
-  | "air", "air" -> SuperEffect
-  | "air", "earth" -> Normal
-  | "air", "water" -> Normal
-  | "air", "fire" -> Weak
-  | "earth", "air" -> Weak
-  | "earth", "earth" -> SuperEffect
-  | "earth", "water" -> Normal
-  | "earth", "fire" -> Normal
-  | "water", "air" -> Normal
-  | "water", "earth" -> Weak
-  | "water", "water" -> SuperEffect
-  | "water", "fire" -> Normal
-  | "fire", "air" -> Normal
-  | "fire", "earth" -> Normal
-  | "fire", "water" -> Weak
-  | "fire", "fire" -> SuperEffect
+  | "air", "air" -> SuperEffectStage
+  | "air", "earth" -> NormalStage
+  | "air", "water" -> NormalStage
+  | "air", "fire" -> WeakStage
+  | "earth", "air" -> WeakStage
+  | "earth", "earth" -> SuperEffectStage
+  | "earth", "water" -> NormalStage
+  | "earth", "fire" -> NormalStage
+  | "water", "air" -> NormalStage
+  | "water", "earth" -> WeakStage
+  | "water", "water" -> SuperEffectStage
+  | "water", "fire" -> NormalStage
+  | "fire", "air" -> NormalStage
+  | "fire", "earth" -> NormalStage
+  | "fire", "water" -> WeakStage
+  | "fire", "fire" -> SuperEffectStage
   | x, y -> raise (UnknownElement x)

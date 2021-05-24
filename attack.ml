@@ -1,7 +1,7 @@
 open Camltypes
 open State
 
-let attack_base = 3
+let attack_base = 2
 
 let heal_base = 1
 
@@ -18,6 +18,11 @@ let change_turn (turn : bool) =
 (** [get_multiplier effect] is a helper function that returns the effect
     multiplier. Requires: [effect] be a valid Camltypes.effect*)
 let get_multiplier effect = effect_multi effect
+
+(** [get_stage_multiplier stage_effect] is a helper function that
+    returns the stage multiplier. Requires: [stage_effect] be a valid
+    Camltypes.stage_effect*)
+let get_stage_multiplier stage_effect = stage_multi stage_effect
 
 (** [attack_move attacker victim stage move] is a helper function that
     returns how much damage is done to the victim. Requires: [attacker]
@@ -36,7 +41,8 @@ let attack_move attacker victim state =
   (* print_endline ("attack_damage_type: " ^ string_of_int
      attack_damage_type); *)
   let attack_multi_stage =
-    get_multiplier (attack_stage_multi attacker.element_t state.stage)
+    get_stage_multiplier
+      (attack_stage_multi attacker.element_t state.stage)
   in
   (* print_endline ("attack_multi_stage " ^ string_of_float
      attack_multi_stage); *)
