@@ -63,8 +63,8 @@ let exp_update caml =
 (*[effect_multi effect] matches effect and returns the multiplier*)
 let effect_multi = function
   | Weak -> 1.0
-  | Normal -> 1.5
-  | SuperEffect -> 2.0
+  | Normal -> 1.25
+  | SuperEffect -> 1.5
 
 (*returns the type effect on the camel*)
 let attack_multi (caml : element_t) (enemy : element_t) =
