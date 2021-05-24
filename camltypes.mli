@@ -71,11 +71,12 @@ exception UnknownElement of element_t
 
 (** [exp_update t] checks to see if experience is at or above 100 after
     battle. If it is, will return new caml object with level increased
-    by 1. *)
+    by 1. Requires t is a valid camltype t*)
 val exp_update : t -> t
 
 (** [effect_multi effect] returns the multiplier of the result of the
-    match up between enemy and player caml *)
+    match up between enemy and player caml. Requires: effect is a valid
+    type effect *)
 val effect_multi : effect -> float
 
 (** [attack_multi x] returns how effective the combination of the
@@ -84,7 +85,8 @@ val effect_multi : effect -> float
     valid element_t types.*)
 val attack_multi : element_t -> element_t -> effect
 
-(** [current_hp t] returns the current hp of the character in battle *)
+(** [current_hp t] returns the current hp of the character in battle.
+    Requires: valid type t *)
 val current_hp : t -> hp
 
 (** [caml_type caml] returns the elemental type of the caml *)

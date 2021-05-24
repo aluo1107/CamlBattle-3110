@@ -81,7 +81,7 @@ val true_close : State.t -> unit
     choose to quit or they can choose to advance in levels. If neither
     conditions are true, the function calls helper functions to draw the
     game and calls the moves_state function to take care of the player's
-    moves and effects on the AI.*)
+    moves and effects on the AI. Requires: valid state.t*)
 val render_game : State.t -> State.t
 
 (** [update_lost_state state] returns the game state with the user's hp

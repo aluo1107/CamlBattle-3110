@@ -45,6 +45,14 @@
 
 </div>
 </td></tr>
+<tr><td align="left"><div>B</div></td></tr>
+<tr><td><a href="Draw.html#VALblind_box">blind_box</a> [<a href="Draw.html">Draw</a>]</td>
+<td><div class="info">
+<p><code class="code">blind_box state</code> is the main function for the blind box minigame
+    and calls the other functions within itself.</p>
+
+</div>
+</td></tr>
 <tr><td align="left"><div>C</div></td></tr>
 <tr><td><a href="Draw.html#VALcamel_type">camel_type</a> [<a href="Draw.html">Draw</a>]</td>
 <td><div class="info">
@@ -80,6 +88,13 @@
 
 </div>
 </td></tr>
+<tr><td><a href="Draw.html#VALcorrecting_state">correcting_state</a> [<a href="Draw.html">Draw</a>]</td>
+<td><div class="info">
+<p><code class="code">correcting_state state good_result</code> returns a new state with either
+    the player's HP increased or decreased by their level</p>
+
+</div>
+</td></tr>
 <tr><td><a href="Camltypes.html#VALcurrent_defense">current_defense</a> [<a href="Camltypes.html">Camltypes</a>]</td>
 <td><div class="info">
 <p><code class="code">current_defense t</code> returns the current defense of the character in
@@ -89,7 +104,7 @@
 </td></tr>
 <tr><td><a href="Camltypes.html#VALcurrent_hp">current_hp</a> [<a href="Camltypes.html">Camltypes</a>]</td>
 <td><div class="info">
-<p><code class="code">current_hp t</code> returns the current hp of the character in battle</p>
+<p><code class="code">current_hp t</code> returns the current hp of the character in battle.</p>
 
 </div>
 </td></tr>
@@ -117,7 +132,7 @@
 <tr><td align="left"><div>E</div></td></tr>
 <tr><td><a href="Camltypes.html#VALeffect_match">effect_match</a> [<a href="Camltypes.html">Camltypes</a>]</td>
 <td><div class="info">
-<p><code class="code">battle_types t t</code> returns the elemental type of both the caml
+<p><code class="code">effect_match t t</code> returns the elemental type of both the caml
     player and the enemy in a tuple</p>
 
 </div>
@@ -125,7 +140,7 @@
 <tr><td><a href="Camltypes.html#VALeffect_multi">effect_multi</a> [<a href="Camltypes.html">Camltypes</a>]</td>
 <td><div class="info">
 <p><code class="code">effect_multi effect</code> returns the multiplier of the result of the
-    match up between enemy and player caml</p>
+    match up between enemy and player caml.</p>
 
 </div>
 </td></tr>
@@ -227,14 +242,8 @@
 </td></tr>
 <tr><td><a href="Draw.html#VALrender_game">render_game</a> [<a href="Draw.html">Draw</a>]</td>
 <td><div class="info">
-<p><code class="code">render_game state</code> renders the game itself and takes care of the
-    main loop of the game by calling all of the helper functions.</p>
-
-</div>
-</td></tr>
-<tr><td><a href="Draw.html#VALrender_inter">render_inter</a> [<a href="Draw.html">Draw</a>]</td>
-<td><div class="info">
-<p><code class="code">render_closing state</code> renders the closing screen on the window.</p>
+<p><code class="code">render_game</code> this function first matches to the environment of the
+    state and draws the background based on that biome.</p>
 
 </div>
 </td></tr>
@@ -245,6 +254,13 @@
 </div>
 </td></tr>
 <tr><td align="left"><div>S</div></td></tr>
+<tr><td><a href="Camltypes.html#VALstage_multi">stage_multi</a> [<a href="Camltypes.html">Camltypes</a>]</td>
+<td><div class="info">
+<p><code class="code">stage_multi stage_effect</code> returns the multiplier of the result of
+    the match up between a caml and the biome</p>
+
+</div>
+</td></tr>
 <tr><td><a href="Main_func.html#VALsummary_stats">summary_stats</a> [<a href="Main_func.html">Main_func</a>]</td>
 <td><div class="info">
 <p><code class="code">summary_stats camltypes.t</code> takes in a caml and returns the summary
@@ -316,6 +332,14 @@
 <td><div class="info">
 <p>welcome_game is the player's choice of move that they would like to
     use</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Draw.html#VALwinning_box">winning_box</a> [<a href="Draw.html">Draw</a>]</td>
+<td><div class="info">
+<p><code class="code">winning_box chosen_box state</code> returns the new state with the result
+    of the player either choosing the left box, middle box, or right
+    box.</p>
 
 </div>
 </td></tr>

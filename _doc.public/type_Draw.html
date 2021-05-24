@@ -33,11 +33,13 @@
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;drawing_menu&nbsp;:&nbsp;<span class="constructor">State</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;render_welcome&nbsp;:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;moves_state&nbsp;:&nbsp;<span class="constructor">State</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">State</span>.t<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;render_choose_type&nbsp;:&nbsp;<span class="constructor">State</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">State</span>.t<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;render_choose_biome&nbsp;:&nbsp;<span class="constructor">State</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;render_choose_type&nbsp;:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;render_choose_biome&nbsp;:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;true_close&nbsp;:&nbsp;<span class="constructor">State</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;render_game&nbsp;:&nbsp;<span class="constructor">State</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">State</span>.t<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;update_lost_state&nbsp;:&nbsp;<span class="constructor">State</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">State</span>.t<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;update_won_state&nbsp;:&nbsp;<span class="constructor">State</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">State</span>.t<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;render_inter&nbsp;:&nbsp;<span class="constructor">State</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">State</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;correcting_state&nbsp;:&nbsp;<span class="constructor">State</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">State</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;winning_box&nbsp;:&nbsp;<span class="constructor">Camltypes</span>.blind_boxes&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">State</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">State</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;blind_box&nbsp;:&nbsp;<span class="constructor">State</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">State</span>.t<br>
 <span class="keyword">end</span></code></body></html>

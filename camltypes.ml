@@ -1,3 +1,4 @@
+(* Type for the moves a player can make*)
 type move_t =
   | Attack
   | Defense
@@ -9,11 +10,13 @@ type hp = int
 
 type moves = move_t list
 
+(* Type for the blind boxes that appear on the screen*)
 type blind_boxes =
   | LeftBox
   | MiddleBox
   | RightBox
 
+(* Type for when a player chooses a blind box*)
 type endings =
   | GoodEnd
   | BadEnd

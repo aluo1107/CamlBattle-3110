@@ -23,6 +23,8 @@
 <h1>Index of values</h1>
 <table>
 <tr><td align="left"><div>A</div></td></tr>
+<tr><td><a href="Draw.html#VALacceptance_state">acceptance_state</a> [<a href="Draw.html">Draw</a>]</td>
+<td></td></tr>
 <tr><td><a href="Main_func.html#VALai_caml">ai_caml</a> [<a href="Main_func.html">Main_func</a>]</td>
 <td><div class="info">
 <p><code class="code">ai_caml t</code> takes in the player caml and returns a caml with the
@@ -59,6 +61,10 @@
 <tr><td align="left"><div>B</div></td></tr>
 <tr><td><a href="Draw.html#VALback_leg">back_leg</a> [<a href="Draw.html">Draw</a>]</td>
 <td></td></tr>
+<tr><td><a href="Draw.html#VALbackground_design">background_design</a> [<a href="Draw.html">Draw</a>]</td>
+<td></td></tr>
+<tr><td><a href="Draw.html#VALbgin_state">bgin_state</a> [<a href="Draw.html">Draw</a>]</td>
+<td></td></tr>
 <tr><td><a href="Ai.html#VALbig_health">big_health</a> [<a href="Ai.html">Ai</a>]</td>
 <td><div class="info">
 <p>This is a helper function for health_check that handles when the
@@ -66,7 +72,14 @@
 
 </div>
 </td></tr>
-<tr><td><a href="Draw.html#VALblue">blue</a> [<a href="Draw.html">Draw</a>]</td>
+<tr><td><a href="Draw.html#VALblind_box">blind_box</a> [<a href="Draw.html">Draw</a>]</td>
+<td><div class="info">
+<p><code class="code">blind_box state</code> is the main function for the blind box minigame
+    and calls the other functions within itself.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Draw.html#VALblind_boxes">blind_boxes</a> [<a href="Draw.html">Draw</a>]</td>
 <td></td></tr>
 <tr><td align="left"><div>C</div></td></tr>
 <tr><td><a href="Draw.html#VALcamel_type">camel_type</a> [<a href="Draw.html">Draw</a>]</td>
@@ -77,6 +90,8 @@
 </div>
 </td></tr>
 <tr><td><a href="Draw.html#VALcaml_body">caml_body</a> [<a href="Draw.html">Draw</a>]</td>
+<td></td></tr>
+<tr><td><a href="Draw.html#VALcaml_hat">caml_hat</a> [<a href="Draw.html">Draw</a>]</td>
 <td></td></tr>
 <tr><td><a href="Main_func.html#VALcaml_init">caml_init</a> [<a href="Main_func.html">Main_func</a>]</td>
 <td><div class="info">
@@ -109,6 +124,13 @@
 
 </div>
 </td></tr>
+<tr><td><a href="Draw.html#VALcorrecting_state">correcting_state</a> [<a href="Draw.html">Draw</a>]</td>
+<td><div class="info">
+<p><code class="code">correcting_state state good_result</code> returns a new state with either
+    the player's HP increased or decreased by their level</p>
+
+</div>
+</td></tr>
 <tr><td><a href="Camltypes.html#VALcurrent_defense">current_defense</a> [<a href="Camltypes.html">Camltypes</a>]</td>
 <td><div class="info">
 <p><code class="code">current_defense t</code> returns the current defense of the character in
@@ -118,7 +140,7 @@
 </td></tr>
 <tr><td><a href="Camltypes.html#VALcurrent_hp">current_hp</a> [<a href="Camltypes.html">Camltypes</a>]</td>
 <td><div class="info">
-<p><code class="code">current_hp t</code> returns the current hp of the character in battle</p>
+<p><code class="code">current_hp t</code> returns the current hp of the character in battle.</p>
 
 </div>
 </td></tr>
@@ -127,12 +149,18 @@
 <td></td></tr>
 <tr><td><a href="Attack.html#VALdefense_move">defense_move</a> [<a href="Attack.html">Attack</a>]</td>
 <td></td></tr>
+<tr><td><a href="Draw.html#VALdraw_apple">draw_apple</a> [<a href="Draw.html">Draw</a>]</td>
+<td></td></tr>
+<tr><td><a href="Draw.html#VALdraw_boxes">draw_boxes</a> [<a href="Draw.html">Draw</a>]</td>
+<td></td></tr>
 <tr><td><a href="Draw.html#VALdraw_enemy">draw_enemy</a> [<a href="Draw.html">Draw</a>]</td>
 <td><div class="info">
 <p><code class="code">draw_enemy color</code> draws the enemy of the user caml on the screen.</p>
 
 </div>
 </td></tr>
+<tr><td><a href="Draw.html#VALdraw_game">draw_game</a> [<a href="Draw.html">Draw</a>]</td>
+<td></td></tr>
 <tr><td><a href="Draw.html#VALdraw_user_caml">draw_user_caml</a> [<a href="Draw.html">Draw</a>]</td>
 <td><div class="info">
 <p><code class="code">draw_user_caml color</code> draws the user caml based on the element
@@ -150,7 +178,7 @@
 <tr><td align="left"><div>E</div></td></tr>
 <tr><td><a href="Camltypes.html#VALeffect_match">effect_match</a> [<a href="Camltypes.html">Camltypes</a>]</td>
 <td><div class="info">
-<p><code class="code">battle_types t t</code> returns the elemental type of both the caml
+<p><code class="code">effect_match t t</code> returns the elemental type of both the caml
     player and the enemy in a tuple</p>
 
 </div>
@@ -158,7 +186,7 @@
 <tr><td><a href="Camltypes.html#VALeffect_multi">effect_multi</a> [<a href="Camltypes.html">Camltypes</a>]</td>
 <td><div class="info">
 <p><code class="code">effect_multi effect</code> returns the multiplier of the result of the
-    match up between enemy and player caml</p>
+    match up between enemy and player caml.</p>
 
 </div>
 </td></tr>
@@ -183,6 +211,8 @@
 </div>
 </td></tr>
 <tr><td align="left"><div>F</div></td></tr>
+<tr><td><a href="Draw.html#VALfifth_cloud">fifth_cloud</a> [<a href="Draw.html">Draw</a>]</td>
+<td></td></tr>
 <tr><td><a href="Main_func.html#VALfind_ai_element">find_ai_element</a> [<a href="Main_func.html">Main_func</a>]</td>
 <td><div class="info">
 <p><code class="code">find_ai_element string</code> takes in the player's element and returns
@@ -191,6 +221,8 @@
 </div>
 </td></tr>
 <tr><td><a href="Draw.html#VALfirst_cloud">first_cloud</a> [<a href="Draw.html">Draw</a>]</td>
+<td></td></tr>
+<tr><td><a href="Draw.html#VALfourth_cloud">fourth_cloud</a> [<a href="Draw.html">Draw</a>]</td>
 <td></td></tr>
 <tr><td><a href="Draw.html#VALfront_leg">front_leg</a> [<a href="Draw.html">Draw</a>]</td>
 <td></td></tr>
@@ -202,10 +234,21 @@
 
 </div>
 </td></tr>
+<tr><td><a href="Attack.html#VALget_stage_multiplier">get_stage_multiplier</a> [<a href="Attack.html">Attack</a>]</td>
+<td><div class="info">
+<p><code class="code">get_stage_multiplier stage_effect</code> is a helper function that
+    returns the stage multiplier.</p>
+
+</div>
+</td></tr>
 <tr><td align="left"><div>H</div></td></tr>
 <tr><td><a href="Attack.html#VALheal_base">heal_base</a> [<a href="Attack.html">Attack</a>]</td>
 <td></td></tr>
 <tr><td><a href="Attack.html#VALheal_move">heal_move</a> [<a href="Attack.html">Attack</a>]</td>
+<td></td></tr>
+<tr><td><a href="Draw.html#VALhealth_bar_ai">health_bar_ai</a> [<a href="Draw.html">Draw</a>]</td>
+<td></td></tr>
+<tr><td><a href="Draw.html#VALhealth_bar_user">health_bar_user</a> [<a href="Draw.html">Draw</a>]</td>
 <td></td></tr>
 <tr><td><a href="Ai.html#VALhealth_check">health_check</a> [<a href="Ai.html">Ai</a>]</td>
 <td></td></tr>
@@ -215,6 +258,11 @@
 
 </div>
 </td></tr>
+<tr><td align="left"><div>I</div></td></tr>
+<tr><td><a href="Draw.html#VALinstruction_messages_biome">instruction_messages_biome</a> [<a href="Draw.html">Draw</a>]</td>
+<td></td></tr>
+<tr><td><a href="Draw.html#VALinstruction_messages_type">instruction_messages_type</a> [<a href="Draw.html">Draw</a>]</td>
+<td></td></tr>
 <tr><td align="left"><div>J</div></td></tr>
 <tr><td><a href="Draw.html#VALjungle_background">jungle_background</a> [<a href="Draw.html">Draw</a>]</td>
 <td><div class="info">
@@ -261,7 +309,11 @@
 
 </div>
 </td></tr>
+<tr><td><a href="Draw.html#VALocean_fish">ocean_fish</a> [<a href="Draw.html">Draw</a>]</td>
+<td></td></tr>
 <tr><td><a href="Draw.html#VALocean_squiggle_one">ocean_squiggle_one</a> [<a href="Draw.html">Draw</a>]</td>
+<td></td></tr>
+<tr><td><a href="Draw.html#VALocean_squiggle_three">ocean_squiggle_three</a> [<a href="Draw.html">Draw</a>]</td>
 <td></td></tr>
 <tr><td><a href="Draw.html#VALocean_squiggle_two">ocean_squiggle_two</a> [<a href="Draw.html">Draw</a>]</td>
 <td></td></tr>
@@ -270,6 +322,8 @@
 <tr><td><a href="Main.html#VALopen_window">open_window</a> [<a href="Main.html">Main</a>]</td>
 <td></td></tr>
 <tr><td align="left"><div>P</div></td></tr>
+<tr><td><a href="Draw.html#VALplayer_gotcha_msgs">player_gotcha_msgs</a> [<a href="Draw.html">Draw</a>]</td>
+<td></td></tr>
 <tr><td><a href="Draw.html#VALplayer_lost">player_lost</a> [<a href="Draw.html">Draw</a>]</td>
 <td></td></tr>
 <tr><td><a href="Draw.html#VALplayer_won">player_won</a> [<a href="Draw.html">Draw</a>]</td>
@@ -282,8 +336,6 @@
 
 </div>
 </td></tr>
-<tr><td><a href="Main.html#VALrender_choose_biome">render_choose_biome</a> [<a href="Main.html">Main</a>]</td>
-<td></td></tr>
 <tr><td><a href="Draw.html#VALrender_choose_type">render_choose_type</a> [<a href="Draw.html">Draw</a>]</td>
 <td><div class="info">
 <p><code class="code">render_choose_type state</code> asks and takes in the user's choice of
@@ -291,18 +343,10 @@
 
 </div>
 </td></tr>
-<tr><td><a href="Main.html#VALrender_choose_type">render_choose_type</a> [<a href="Main.html">Main</a>]</td>
-<td></td></tr>
 <tr><td><a href="Draw.html#VALrender_game">render_game</a> [<a href="Draw.html">Draw</a>]</td>
 <td><div class="info">
-<p><code class="code">render_game state</code> renders the game itself and takes care of the
-    main loop of the game by calling all of the helper functions.</p>
-
-</div>
-</td></tr>
-<tr><td><a href="Draw.html#VALrender_inter">render_inter</a> [<a href="Draw.html">Draw</a>]</td>
-<td><div class="info">
-<p><code class="code">render_closing state</code> renders the closing screen on the window.</p>
+<p><code class="code">render_game</code> this function first matches to the environment of the
+    state and draws the background based on that biome.</p>
 
 </div>
 </td></tr>
@@ -315,6 +359,8 @@
 <tr><td align="left"><div>S</div></td></tr>
 <tr><td><a href="Draw.html#VALsecond_cloud">second_cloud</a> [<a href="Draw.html">Draw</a>]</td>
 <td></td></tr>
+<tr><td><a href="Draw.html#VALsixth_cloud">sixth_cloud</a> [<a href="Draw.html">Draw</a>]</td>
+<td></td></tr>
 <tr><td><a href="Ai.html#VALsmall_health">small_health</a> [<a href="Ai.html">Ai</a>]</td>
 <td><div class="info">
 <p>This is a helper function for health_check that handles when the
@@ -324,6 +370,13 @@
 </td></tr>
 <tr><td><a href="Camltypes.html#VALstage_effect">stage_effect</a> [<a href="Camltypes.html">Camltypes</a>]</td>
 <td></td></tr>
+<tr><td><a href="Camltypes.html#VALstage_multi">stage_multi</a> [<a href="Camltypes.html">Camltypes</a>]</td>
+<td><div class="info">
+<p><code class="code">stage_multi stage_effect</code> returns the multiplier of the result of
+    the match up between a caml and the biome</p>
+
+</div>
+</td></tr>
 <tr><td><a href="Main_func.html#VALsummary_stats">summary_stats</a> [<a href="Main_func.html">Main_func</a>]</td>
 <td><div class="info">
 <p><code class="code">summary_stats camltypes.t</code> takes in a caml and returns the summary
@@ -332,6 +385,8 @@
 </div>
 </td></tr>
 <tr><td align="left"><div>T</div></td></tr>
+<tr><td><a href="Draw.html#VALthird_cloud">third_cloud</a> [<a href="Draw.html">Draw</a>]</td>
+<td></td></tr>
 <tr><td><a href="Draw.html#VALtrue_close">true_close</a> [<a href="Draw.html">Draw</a>]</td>
 <td><div class="info">
 <p><code class="code">true_close state</code> gives the user an ending messages and prompts the
@@ -372,6 +427,8 @@
 
 </div>
 </td></tr>
+<tr><td><a href="Draw.html#VALupdated_won_state">updated_won_state</a> [<a href="Draw.html">Draw</a>]</td>
+<td></td></tr>
 <tr><td><a href="Draw.html#VALuser_board">user_board</a> [<a href="Draw.html">Draw</a>]</td>
 <td><div class="info">
 <p><code class="code">user_board color</code> draws the player board that will keep track of
@@ -402,8 +459,14 @@
 
 </div>
 </td></tr>
-<tr><td><a href="Draw.html#VALwhite">white</a> [<a href="Draw.html">Draw</a>]</td>
-<td></td></tr>
+<tr><td><a href="Draw.html#VALwinning_box">winning_box</a> [<a href="Draw.html">Draw</a>]</td>
+<td><div class="info">
+<p><code class="code">winning_box chosen_box state</code> returns the new state with the result
+    of the player either choosing the left box, middle box, or right
+    box.</p>
+
+</div>
+</td></tr>
 </table>
 </body>
 </html>
