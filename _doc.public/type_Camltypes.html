@@ -25,6 +25,7 @@
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;blind_boxes&nbsp;=&nbsp;<span class="constructor">LeftBox</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">MiddleBox</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">RightBox</span><br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;endings&nbsp;=&nbsp;<span class="constructor">GoodEnd</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">BadEnd</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">NeutralEnd</span><br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;effect&nbsp;=&nbsp;<span class="constructor">Weak</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Normal</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">SuperEffect</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;stage_effect&nbsp;=&nbsp;<span class="constructor">WeakStage</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">NormalStage</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">SuperEffectStage</span><br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t&nbsp;=&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;hp&nbsp;:&nbsp;int;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;level&nbsp;:&nbsp;int;<br>
@@ -48,6 +49,7 @@
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;updated_hp&nbsp;:&nbsp;<span class="constructor">Camltypes</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Camltypes</span>.t<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;updated_defense&nbsp;:&nbsp;<span class="constructor">Camltypes</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Camltypes</span>.t<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;current_defense&nbsp;:&nbsp;<span class="constructor">Camltypes</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;stage_multi&nbsp;:&nbsp;<span class="constructor">Camltypes</span>.stage_effect&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;attack_stage_multi&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Camltypes</span>.element_t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Camltypes</span>.stage&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Camltypes</span>.effect<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Camltypes</span>.element_t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Camltypes</span>.stage&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Camltypes</span>.stage_effect<br>
 <span class="keyword">end</span></code></body></html>

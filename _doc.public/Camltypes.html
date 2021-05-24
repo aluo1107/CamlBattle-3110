@@ -169,6 +169,37 @@
 
 
 
+<pre><code><span id="TYPEstage_effect"><span class="keyword">type</span> <code class="type"></code>stage_effect</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstage_effect.WeakStage"><span class="constructor">WeakStage</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstage_effect.NormalStage"><span class="constructor">NormalStage</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstage_effect.SuperEffectStage"><span class="constructor">SuperEffectStage</span></span></code></td>
+
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>The abstract type of values representing the effectiveness of the
+    power of none element in a specific biome</p>
+</div>
+</div>
+
+
 <pre><code><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> = {</code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
@@ -318,7 +349,14 @@
 </div>
 </div>
 
-<pre><span id="VALattack_stage_multi"><span class="keyword">val</span> attack_stage_multi</span> : <code class="type"><a href="Camltypes.html#TYPEelement_t">element_t</a> -> <a href="Camltypes.html#TYPEstage">stage</a> -> <a href="Camltypes.html#TYPEeffect">effect</a></code></pre><div class="info ">
+<pre><span id="VALstage_multi"><span class="keyword">val</span> stage_multi</span> : <code class="type"><a href="Camltypes.html#TYPEstage_effect">stage_effect</a> -> float</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">stage_multi stage_effect</code> returns the multiplier of the result of
+    the match up between a caml and the biome</p>
+</div>
+</div>
+
+<pre><span id="VALattack_stage_multi"><span class="keyword">val</span> attack_stage_multi</span> : <code class="type"><a href="Camltypes.html#TYPEelement_t">element_t</a> -> <a href="Camltypes.html#TYPEstage">stage</a> -> <a href="Camltypes.html#TYPEstage_effect">stage_effect</a></code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">attack_stage_multi caml stage</code> returns the attack multiplier of the
     caml according to what stage biome they are in.</p>
