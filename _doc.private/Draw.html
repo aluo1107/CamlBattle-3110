@@ -34,8 +34,6 @@
 </div>
 <hr width="100%">
 
-<pre><span id="VALwhite"><span class="keyword">val</span> white</span> : <code class="type">Graphics.color</code></pre>
-<pre><span id="VALblue"><span class="keyword">val</span> blue</span> : <code class="type">Graphics.color</code></pre>
 <pre><span id="VALopen_window"><span class="keyword">val</span> open_window</span> : <code class="type">unit</code></pre>
 <pre><span id="VALcolor_background"><span class="keyword">val</span> color_background</span> : <code class="type">Graphics.color -> unit</code></pre><div class="info ">
 <div class="info-desc">
@@ -60,12 +58,15 @@
 
 <pre><span id="VALocean_squiggle_one"><span class="keyword">val</span> ocean_squiggle_one</span> : <code class="type">unit -> unit</code></pre>
 <pre><span id="VALocean_squiggle_two"><span class="keyword">val</span> ocean_squiggle_two</span> : <code class="type">unit -> unit</code></pre>
+<pre><span id="VALocean_squiggle_three"><span class="keyword">val</span> ocean_squiggle_three</span> : <code class="type">unit -> unit</code></pre>
+<pre><span id="VALocean_fish"><span class="keyword">val</span> ocean_fish</span> : <code class="type">unit -> unit</code></pre>
 <pre><span id="VALocean_background"><span class="keyword">val</span> ocean_background</span> : <code class="type">unit -> unit</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">ocean_background unit</code> draws the overall ocean background</p>
 </div>
 </div>
 
+<pre><span id="VALdraw_apple"><span class="keyword">val</span> draw_apple</span> : <code class="type">unit -> unit</code></pre>
 <pre><span id="VALjungle_background"><span class="keyword">val</span> jungle_background</span> : <code class="type">unit -> unit</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">jungle_background unit</code> draws the overall jungle background</p>
@@ -74,6 +75,10 @@
 
 <pre><span id="VALfirst_cloud"><span class="keyword">val</span> first_cloud</span> : <code class="type">unit -> unit</code></pre>
 <pre><span id="VALsecond_cloud"><span class="keyword">val</span> second_cloud</span> : <code class="type">unit -> unit</code></pre>
+<pre><span id="VALthird_cloud"><span class="keyword">val</span> third_cloud</span> : <code class="type">unit -> unit</code></pre>
+<pre><span id="VALfourth_cloud"><span class="keyword">val</span> fourth_cloud</span> : <code class="type">unit -> unit</code></pre>
+<pre><span id="VALfifth_cloud"><span class="keyword">val</span> fifth_cloud</span> : <code class="type">unit -> unit</code></pre>
+<pre><span id="VALsixth_cloud"><span class="keyword">val</span> sixth_cloud</span> : <code class="type">unit -> unit</code></pre>
 <pre><span id="VALcloud_kingdom_background"><span class="keyword">val</span> cloud_kingdom_background</span> : <code class="type">unit -> unit</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">cloud_kingdom_background unit</code> draws the overall cloud kingdom
@@ -96,8 +101,9 @@
 </div>
 
 <pre><span id="VALback_leg"><span class="keyword">val</span> back_leg</span> : <code class="type">unit -> unit</code></pre>
-<pre><span id="VALfront_leg"><span class="keyword">val</span> front_leg</span> : <code class="type">unit -> unit</code></pre>
+<pre><span id="VALfront_leg"><span class="keyword">val</span> front_leg</span> : <code class="type">Graphics.color -> unit</code></pre>
 <pre><span id="VALcaml_body"><span class="keyword">val</span> caml_body</span> : <code class="type">Graphics.color -> unit</code></pre>
+<pre><span id="VALcaml_hat"><span class="keyword">val</span> caml_hat</span> : <code class="type">unit -> unit</code></pre>
 <pre><span id="VALdraw_user_caml"><span class="keyword">val</span> draw_user_caml</span> : <code class="type">Graphics.color -> unit</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">draw_user_caml color</code> draws the user caml based on the element
@@ -113,6 +119,8 @@
 </div>
 </div>
 
+<pre><span id="VALhealth_bar_user"><span class="keyword">val</span> health_bar_user</span> : <code class="type"><a href="State.html#TYPEt">State.t</a> -> unit</code></pre>
+<pre><span id="VALhealth_bar_ai"><span class="keyword">val</span> health_bar_ai</span> : <code class="type"><a href="State.html#TYPEt">State.t</a> -> unit</code></pre>
 <pre><span id="VALuser_board"><span class="keyword">val</span> user_board</span> : <code class="type">Graphics.color -> <a href="State.html#TYPEt">State.t</a> -> unit</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">user_board color</code> draws the player board that will keep track of
@@ -149,14 +157,17 @@
 </div>
 </div>
 
-<pre><span id="VALrender_choose_type"><span class="keyword">val</span> render_choose_type</span> : <code class="type"><a href="State.html#TYPEt">State.t</a> -> <a href="State.html#TYPEt">State.t</a></code></pre><div class="info ">
+<pre><span id="VALbackground_design"><span class="keyword">val</span> background_design</span> : <code class="type">unit -> unit</code></pre>
+<pre><span id="VALinstruction_messages_type"><span class="keyword">val</span> instruction_messages_type</span> : <code class="type">unit -> unit</code></pre>
+<pre><span id="VALrender_choose_type"><span class="keyword">val</span> render_choose_type</span> : <code class="type">unit -> string</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">render_choose_type state</code> asks and takes in the user's choice of
     element that will be used in the game</p>
 </div>
 </div>
 
-<pre><span id="VALrender_choose_biome"><span class="keyword">val</span> render_choose_biome</span> : <code class="type"><a href="State.html#TYPEt">State.t</a> -> string</code></pre><div class="info ">
+<pre><span id="VALinstruction_messages_biome"><span class="keyword">val</span> instruction_messages_biome</span> : <code class="type">unit -> unit</code></pre>
+<pre><span id="VALrender_choose_biome"><span class="keyword">val</span> render_choose_biome</span> : <code class="type">unit -> string</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">render_choose_biome state</code> asks and takes in the user's choice of
     biome that will be used in the game</p>
@@ -187,20 +198,53 @@
 
 <pre><span id="VALplayer_lost"><span class="keyword">val</span> player_lost</span> : <code class="type">unit -> unit</code></pre>
 <pre><span id="VALplayer_won"><span class="keyword">val</span> player_won</span> : <code class="type">unit -> unit</code></pre>
-<pre><span id="VALrender_game"><span class="keyword">val</span> render_game</span> : <code class="type"><a href="State.html#TYPEt">State.t</a> -> <a href="State.html#TYPEt">State.t</a></code></pre><div class="info ">
+<pre><span id="VALblind_boxes"><span class="keyword">val</span> blind_boxes</span> : <code class="type">unit -> unit</code></pre>
+<pre><span id="VALdraw_boxes"><span class="keyword">val</span> draw_boxes</span> : <code class="type">unit -> unit</code></pre>
+<pre><span id="VALcorrecting_state"><span class="keyword">val</span> correcting_state</span> : <code class="type"><a href="State.html#TYPEt">State.t</a> -> bool -> <a href="State.html#TYPEt">State.t</a></code></pre><div class="info ">
 <div class="info-desc">
-<p><code class="code">render_game state</code> renders the game itself and takes care of the
-    main loop of the game by calling all of the helper functions. The
-    closing window is called when the ai or user's hp is zero or below</p>
+<p><code class="code">correcting_state state good_result</code> returns a new state with either
+    the player's HP increased or decreased by their level</p>
 </div>
 </div>
 
-<pre><span id="VALrender_inter"><span class="keyword">val</span> render_inter</span> : <code class="type"><a href="State.html#TYPEt">State.t</a> -> <a href="State.html#TYPEt">State.t</a></code></pre><div class="info ">
+<pre><span id="VALplayer_gotcha_msgs"><span class="keyword">val</span> player_gotcha_msgs</span> : <code class="type"><a href="Camltypes.html#TYPEendings">Camltypes.endings</a> -> unit</code></pre>
+<pre><span id="VALwinning_box"><span class="keyword">val</span> winning_box</span> : <code class="type"><a href="Camltypes.html#TYPEblind_boxes">Camltypes.blind_boxes</a> -> <a href="State.html#TYPEt">State.t</a> -> <a href="State.html#TYPEt">State.t</a></code></pre><div class="info ">
 <div class="info-desc">
-<p><code class="code">render_closing state</code> renders the closing screen on the window. It
-    gives the user the choice of clicking 'q' to quit the game or 's' to
-    start the game again. If the user won, the ai and the user's levels
-    and experience increase.</p>
+<p><code class="code">winning_box chosen_box state</code> returns the new state with the result
+    of the player either choosing the left box, middle box, or right
+    box. At the beginning of the function, a random int is generate
+    between 0 and 3. For the first box, the player has a 2/3rds chance
+    of getting a boost and 1/3rd chance of recieving nothing. This is
+    true for the middle box as well where instead the player has 2/3rds
+    chance of getting a hit to their HP. In the last box, the player has
+    a 2/3rd chance of recieving nothing and a 1/3rd chance of recieving
+    a boost to their HP</p>
+</div>
+</div>
+
+<pre><span id="VALblind_box"><span class="keyword">val</span> blind_box</span> : <code class="type"><a href="State.html#TYPEt">State.t</a> -> <a href="State.html#TYPEt">State.t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">blind_box state</code> is the main function for the blind box minigame
+    and calls the other functions within itself.</p>
+</div>
+</div>
+
+<pre><span id="VALacceptance_state"><span class="keyword">val</span> acceptance_state</span> : <code class="type"><a href="State.html#TYPEt">State.t</a> -> <a href="State.html#TYPEt">State.t</a></code></pre>
+<pre><span id="VALdraw_game"><span class="keyword">val</span> draw_game</span> : <code class="type"><a href="State.html#TYPEt">State.t</a> -> unit</code></pre>
+<pre><span id="VALupdated_won_state"><span class="keyword">val</span> updated_won_state</span> : <code class="type"><a href="State.html#TYPEt">State.t</a> -> <a href="State.html#TYPEt">State.t</a></code></pre>
+<pre><span id="VALbgin_state"><span class="keyword">val</span> bgin_state</span> : <code class="type"><a href="State.html#TYPEt">State.t</a> -> <a href="State.html#TYPEt">State.t</a></code></pre>
+<pre><span id="VALrender_game"><span class="keyword">val</span> render_game</span> : <code class="type"><a href="State.html#TYPEt">State.t</a> -> <a href="State.html#TYPEt">State.t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">render_game</code> this function first matches to the environment of the
+    state and draws the background based on that biome. Next, it checks
+    whether the player or the AI's hp is less than or equal to zero. If
+    the player's HP is less than or equal to zero, the player is asked
+    whether they would like to quit or restart the game. If the AI's HP
+    is less than or equal to zero, then the player is prompted to either
+    choose to quit or they can choose to advance in levels. If neither
+    conditions are true, the function calls helper functions to draw the
+    game and calls the moves_state function to take care of the player's
+    moves and effects on the AI. Requires: valid state.t</p>
 </div>
 </div>
 </body></html>

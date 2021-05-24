@@ -87,6 +87,56 @@
 </div>
 
 
+<pre><code><span id="TYPEblind_boxes"><span class="keyword">type</span> <code class="type"></code>blind_boxes</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTblind_boxes.LeftBox"><span class="constructor">LeftBox</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTblind_boxes.MiddleBox"><span class="constructor">MiddleBox</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTblind_boxes.RightBox"><span class="constructor">RightBox</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEendings"><span class="keyword">type</span> <code class="type"></code>endings</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTendings.GoodEnd"><span class="constructor">GoodEnd</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTendings.BadEnd"><span class="constructor">BadEnd</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTendings.NeutralEnd"><span class="constructor">NeutralEnd</span></span></code></td>
+
+</tr></table>
+
+
+
 <pre><code><span id="TYPEeffect"><span class="keyword">type</span> <code class="type"></code>effect</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
@@ -110,12 +160,6 @@
 
 </tr></table>
 
-<div class="info ">
-<div class="info-desc">
-<p>The abstract type of values representing the effectiveness of the
-    power of one element against another</p>
-</div>
-</div>
 
 
 <pre><code><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> = {</code></pre><table class="typetable">
@@ -205,14 +249,15 @@
 <div class="info-desc">
 <p><code class="code">exp_update t</code> checks to see if experience is at or above 100 after
     battle. If it is, will return new caml object with level increased
-    by 1.</p>
+    by 1. Requires t is a valid camltype t</p>
 </div>
 </div>
 
 <pre><span id="VALeffect_multi"><span class="keyword">val</span> effect_multi</span> : <code class="type"><a href="Camltypes.html#TYPEeffect">effect</a> -> float</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">effect_multi effect</code> returns the multiplier of the result of the
-    match up between enemy and player caml</p>
+    match up between enemy and player caml. Requires: effect is a valid
+    type effect</p>
 </div>
 </div>
 
@@ -231,16 +276,17 @@
 </div>
 </div>
 
-<pre><span id="VALeffect_match"><span class="keyword">val</span> effect_match</span> : <code class="type">'a -> <a href="Camltypes.html#TYPEt">t</a> -> <a href="Camltypes.html#TYPEelement_t">element_t</a> * <a href="Camltypes.html#TYPEelement_t">element_t</a></code></pre><div class="info ">
+<pre><span id="VALeffect_match"><span class="keyword">val</span> effect_match</span> : <code class="type"><a href="Camltypes.html#TYPEt">t</a> -> <a href="Camltypes.html#TYPEt">t</a> -> <a href="Camltypes.html#TYPEelement_t">element_t</a> * <a href="Camltypes.html#TYPEelement_t">element_t</a></code></pre><div class="info ">
 <div class="info-desc">
-<p><code class="code">battle_types t t</code> returns the elemental type of both the caml
+<p><code class="code">effect_match t t</code> returns the elemental type of both the caml
     player and the enemy in a tuple</p>
 </div>
 </div>
 
 <pre><span id="VALcurrent_hp"><span class="keyword">val</span> current_hp</span> : <code class="type"><a href="Camltypes.html#TYPEt">t</a> -> int</code></pre><div class="info ">
 <div class="info-desc">
-<p><code class="code">current_hp t</code> returns the current hp of the character in battle</p>
+<p><code class="code">current_hp t</code> returns the current hp of the character in battle.
+    Requires: valid type t</p>
 </div>
 </div>
 
