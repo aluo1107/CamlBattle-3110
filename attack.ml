@@ -68,7 +68,6 @@ let change_victim_hp victim attack_dam =
 let attacking_move state attacker victim player_attacker =
   let attack_dam = attack_move attacker victim state in
 
-  (* print_endline ("attack_dam " ^ string_of_int attack_dam); *)
   if player_attacker then
     {
       state with

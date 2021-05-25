@@ -6,19 +6,19 @@ open Main_func
 open Ai
 open ANSITerminal
 
-(*Creates the window that the graphics take place in*)
+(*[open_window ] creates the window that the graphics take place in*)
 let open_window =
   open_graph " 640x480";
   set_window_title "CamlBattle"
 
-(*Sets the background color of the window by drawing a rectangle the
-  size of the window*)
+(*[color_background] sets the background color of the window by drawing
+  a rectangle the size of the window*)
 let color_background color =
   let () = Graphics.set_color color in
   let () = Graphics.fill_rect 0 0 640 480 in
   Graphics.set_color foreground
 
-(*Draws the volcano ashes*)
+(*[volcano_ashes] draws the volcano ashes*)
 let volcano_ashes () =
   Graphics.moveto 490 190;
   Graphics.draw_circle 495 215 18;
@@ -34,7 +34,7 @@ let volcano_ashes () =
   Graphics.draw_circle 535 243 10;
   Graphics.fill_circle 535 243 10
 
-(* Draws the background of the volcano biome *)
+(* [volcano_background] draws the background of the volcano biome *)
 let volcano_background () =
   color_background (rgb 255 70 36);
   Graphics.set_color (rgb 82 39 2);
@@ -52,7 +52,7 @@ let volcano_background () =
   Graphics.fill_circle 480 190 18;
   volcano_ashes ()
 
-(* Draws the first half of the ocean ripple. *)
+(* [ocean_squiggle_one] draws the first half of the ocean ripple. *)
 let ocean_squiggle_one () =
   Graphics.moveto 328 50;
   Graphics.curveto (328, 50) (343, 70) (358, 50);
@@ -73,7 +73,7 @@ let ocean_squiggle_one () =
   Graphics.moveto 568 50;
   Graphics.curveto (568, 50) (583, 70) (598, 50)
 
-(* Draws the second half of the ocean ripple. *)
+(* [ocean_squiggle_two] draws the second half of the ocean ripple. *)
 let ocean_squiggle_two () =
   Graphics.moveto 598 50;
   Graphics.curveto (598, 50) (613, 70) (628, 50);
@@ -118,7 +118,7 @@ let ocean_fish () =
   Graphics.moveto 490 35;
   Graphics.lineto 490 15
 
-(* p[ocean_background] draws the background of the ocean biome *)
+(* [ocean_background] draws the background of the ocean biome *)
 let ocean_background () =
   color_background (rgb 0 206 209);
   Graphics.set_color (rgb 0 0 139);
@@ -376,7 +376,7 @@ let draw_enemy color =
   Graphics.moveto 480 370;
   Graphics.curveto (480, 370) (495, 388) (514, 370)
 
-(** [health_bar_user state] draws the health bar of the user.*)
+(*[health_bar_user] displays the health bar for the user *)
 let health_bar_user (state : State.t) =
   Graphics.set_color Graphics.white;
   Graphics.draw_rect 10 190 200 15;
@@ -399,7 +399,7 @@ let health_bar_user (state : State.t) =
     ^ " / "
     ^ string_of_int (state.player.level * 10))
 
-(** [health_bar_ai state] draws the health bar of the ai.*)
+(* [health_bar_ai] displays the health bar for the ai*)
 let health_bar_ai (state : State.t) =
   Graphics.set_color Graphics.white;
   Graphics.draw_rect 430 300 200 15;
@@ -482,6 +482,7 @@ let rec render_welcome () =
   Graphics.draw_rect 0 100 640 500;
   Graphics.fill_rect 0 100 640 500;
   draw_user_caml (rgb 254 226 100);
+  draw_enemy (rgb 251 255 0);
   Graphics.set_color Graphics.white;
   Graphics.draw_circle 100 300 0;
   Graphics.fill_circle 100 300 0;
@@ -541,7 +542,7 @@ let instruction_messages_type () =
   Graphics.set_color Graphics.yellow;
   Graphics.draw_string "Air!"
 
-(*Displays the messages for choosing the cameltypes*)
+(*[render_choose_type] displays the messages for choosing the cameltypes*)
 let rec render_choose_type () =
   Graphics.clear_graph ();
   background_design ();
@@ -583,7 +584,7 @@ let instruction_messages_biome () =
   Graphics.set_color Graphics.yellow;
   Graphics.draw_string "Cloud Kingdom!"
 
-(* Displays the messages for choosing the biome*)
+(* [render_choose_biome] displays the messages for choosing the biome*)
 let rec render_choose_biome () =
   Graphics.clear_graph ();
   background_design ();
