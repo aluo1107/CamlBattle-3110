@@ -1,4 +1,10 @@
-(** Keeps track and controls the AI's moves*)
+(** This is a helper function for health_check that handles when the
+    user's health is greater than 0.4*)
+val big_health : float -> State.t -> State.t
+
+(** This is a helper function for health_check that handles when the
+    user's health is less than 0.4*)
+val small_health : float -> State.t -> State.t
 
 (** [health_check state] is the function for the ai to choose what move
     to do next. Based on the health of the ai, there are different
@@ -12,5 +18,4 @@
     partitioned to reflect the percentages (e.g, to attack the player
     when the AI has less than 40% health, Random.float 10 would need to
     return a number less than 2.5). Requires [state] be a valid State.t*)
-
 val health_check : float -> State.t -> State.t

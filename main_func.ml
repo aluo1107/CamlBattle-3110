@@ -50,8 +50,8 @@ let caml_init element =
 let find_ai_element player_element =
   match player_element with
   | "fire" -> "water"
-  | "water" -> "earth"
-  | "air" -> "fire"
+  | "water" -> "fire"
+  | "air" -> "earth"
   | "earth" -> "air"
   | _ -> raise (UnknownElement player_element)
 

@@ -21,8 +21,8 @@ let main () =
   let () = render_welcome () in
   let chosen_type = Draw.render_choose_type () in
   let chosen_biome = Draw.render_choose_biome () in
-  let player_caml = caml_init chosen_type in
-  let enemy_caml = ai_caml player_caml in
+  let player_caml = Main_func.caml_init chosen_type in
+  let enemy_caml = Main_func.ai_caml player_caml in
   let game_state =
     {
       player = player_caml;
