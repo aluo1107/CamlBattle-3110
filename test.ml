@@ -342,117 +342,117 @@ let volcano_tests () =
   [
     (* Player fire, AI water*)
     attack_move_test "player attack. fire v water volcano no defense"
-      example_state 9;
+      example_state 8;
     attack_move_test "player attack. fire v water volcano 6 defense"
       volcano_fire_water_def_6 10;
     attack_move_test "player attack. fire v water volcano 0 def level 2"
-      volcano_fire_water_level_2 19;
+      volcano_fire_water_level_2 18;
     ai_attack_test "ai attack. fire v water volcano 0 defense"
-      example_state 1.0 9;
+      example_state 1.0 8;
     ai_attack_test
       "ai attack. one health fire v water volcano 0 defense"
-      one_health_state 2.0 0;
+      one_health_state 2.0 (-1);
     (* Player Water, AI fire*)
     attack_move_test "player attack. water v fire volcano no defense"
-      volcano_water_fire 9;
+      volcano_water_fire 8;
     attack_move_test "player attack. water v fire volcano 6 defense"
       volcano_water_fire_def_6 10;
     ai_attack_test "ai attack. water v fire volcano no defense"
-      volcano_water_fire 1.0 9;
+      volcano_water_fire 1.0 8;
     ai_attack_test
       "ai attack. one health water v fire volcano 0 defense"
-      volcano_water_fire_one_health 2.0 0;
+      volcano_water_fire_one_health 2.0 (-1);
     (* Player air, ai earth*)
     attack_move_test "player attack. air v earth volcano no defense"
-      volcano_air_earth 9;
+      volcano_air_earth 8;
     attack_move_test "player attack. air v earth volcano 6 defense"
       volcano_air_earth_def_6 10;
     ai_attack_test "ai attack. air v earth volcano no defense"
-      volcano_air_earth 1.0 9;
+      volcano_air_earth 1.0 8;
     ai_attack_test
       "ai attack. air v earth volcano one health no defense"
-      volcano_air_earth_one_health 2.0 0;
+      volcano_air_earth_one_health 2.0 (-1);
     (* player earth, ai air*)
     attack_move_test "player attack. earth v air volcano no defense"
-      volcano_earth_air 9;
+      volcano_earth_air 8;
     attack_move_test "player attack. earth v air volcano 6 defense"
       volcano_earth_air_def_6 10;
     ai_attack_test "ai attack. earth v air volcano no defense"
-      volcano_earth_air 1.0 9;
+      volcano_earth_air 1.0 8;
     ai_attack_test "ai attack. earth v air volcano no defense"
-      volcano_earth_air_one_health 2.0 0;
+      volcano_earth_air_one_health 2.0 (-1);
   ]
 
 let cloud_tests () =
   [
     (* Player fire, AI water*)
     attack_move_test "player attack. fire v water cloud no defense"
-      cloud_fire_water 9;
+      cloud_fire_water 8;
     attack_move_test "player attack. fire v water cloud 6 defense"
       cloud_fire_water_def_6 10;
     ai_attack_test "ai attack. fire v water cloud no defense"
-      cloud_fire_water 1.0 9;
+      cloud_fire_water 1.0 8;
     ai_attack_test "ai attack. fire v water cloud one health no defense"
-      cloud_fire_water_one_health 2.0 0;
+      cloud_fire_water_one_health 2.0 (-1);
     (* Player Water, AI fire*)
     attack_move_test "player attack. water v fire cloud no defense"
-      cloud_water_fire 9;
+      cloud_water_fire 8;
     attack_move_test "player attack. water v fire cloud 6 defense"
       cloud_water_fire_def_6 10;
     ai_attack_test "ai attack. water v fire cloud no defense"
-      cloud_water_fire 1.0 9;
+      cloud_water_fire 1.0 8;
     ai_attack_test "ai attack. water v fire cloud one health no defense"
-      cloud_water_fire_one_health 2.0 0;
+      cloud_water_fire_one_health 2.0 (-1);
     (* Player air, ai earth*)
     attack_move_test "player attack. air v earth cloud no defense"
-      cloud_air_earth 8;
+      cloud_air_earth 7;
     attack_move_test "player attack. air v earth cloud 6 defense"
       cloud_air_earth_def_6 10;
     ai_attack_test "ai attack. air v earth cloud no defense"
-      cloud_air_earth 1.0 9;
+      cloud_air_earth 1.0 8;
     ai_attack_test "ai attack. air v earth cloud one health no defense"
-      cloud_air_earth_one_health 2.0 0;
+      cloud_air_earth_one_health 2.0 (-1);
     (* player earth, ai air*)
     attack_move_test "player attack. earth v air cloud no defense"
-      cloud_earth_air 9;
+      cloud_earth_air 8;
     attack_move_test "player attack. earth v air cloud 6 defense"
       cloud_earth_air_def_6 10;
     ai_attack_test "ai attack. earth v air cloud no defense"
-      cloud_earth_air 1.0 8;
+      cloud_earth_air 1.0 7;
     ai_attack_test "ai attack. earth v air cloud one health no defense"
-      cloud_earth_air_one_health 2.0 (-1);
+      cloud_earth_air_one_health 2.0 (-2);
   ]
 
 let ocean_tests () =
   [
     (* Player fire, AI water*)
     attack_move_test "player attack. fire v water no defense"
-      ocean_fire_water 9;
+      ocean_fire_water 8;
     (* Player Water, AI fire*)
     attack_move_test "player attack. water v fire ocean no defense"
-      ocean_water_fire 8;
+      ocean_water_fire 7;
     (* Player air, ai earth*)
     attack_move_test "player attack. air v earth ocean no defense"
-      ocean_air_earth 9;
+      ocean_air_earth 8;
     (* player earth, ai air*)
     attack_move_test "player attack. earth v air ocean no defense"
-      ocean_earth_air 9;
+      ocean_earth_air 8;
   ]
 
 let jungle_tests () =
   [
     (* Player fire, AI water*)
     attack_move_test "player attack. fire v water ocean no defense"
-      jungle_fire_water 9;
+      jungle_fire_water 8;
     (* Player Water, AI fire*)
     attack_move_test "player attack. water v fire jungle"
-      jungle_water_fire 9;
+      jungle_water_fire 8;
     (* Player air, ai earth*)
     attack_move_test "player attack. air v earth jungle"
-      jungle_air_earth 9;
+      jungle_air_earth 8;
     (* player earth, ai air*)
     attack_move_test "player attack. earth v air jungle"
-      jungle_earth_air 9;
+      jungle_earth_air 8;
   ]
 
 let half_health_state =

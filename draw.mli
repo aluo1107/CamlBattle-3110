@@ -40,12 +40,18 @@ val draw_user_caml : Graphics.color -> unit
     chosen element*)
 val draw_enemy : Graphics.color -> unit
 
+(** [health_bar_user state] draws the health bar of the user.*)
+val health_bar_user : State.t -> unit
+
+(** [health_bar_ai state] draws the health bar of the ai.*)
+val health_bar_ai : State.t -> unit
+
 (** [user_board color] draws the player board that will keep track of
-    the player stats including the hp, exp, and level*)
+    the player stats including the exp and level*)
 val user_board : Graphics.color -> State.t -> unit
 
 (** [enemy_board color] draws the enemy board that will keep track of
-    the enemy stats including the enemy's hp, exp, and level*)
+    the enemy stats including the enemy's exp and level*)
 val enemy_board : Graphics.color -> State.t -> unit
 
 (** [drawing_menu state] draws the menu which reminds the user the moves

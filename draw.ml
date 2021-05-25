@@ -376,8 +376,7 @@ let draw_enemy color =
   Graphics.moveto 480 370;
   Graphics.curveto (480, 370) (495, 388) (514, 370)
 
-(*[user_board] draws the current stats of the user*)
-
+(** [health_bar_user state] draws the health bar of the user.*)
 let health_bar_user (state : State.t) =
   Graphics.set_color Graphics.white;
   Graphics.draw_rect 10 190 200 15;
@@ -400,6 +399,7 @@ let health_bar_user (state : State.t) =
     ^ " / "
     ^ string_of_int (state.player.level * 10))
 
+(** [health_bar_ai state] draws the health bar of the ai.*)
 let health_bar_ai (state : State.t) =
   Graphics.set_color Graphics.white;
   Graphics.draw_rect 430 300 200 15;
@@ -422,6 +422,7 @@ let health_bar_ai (state : State.t) =
     ^ " / "
     ^ string_of_int (state.ai.level * 10))
 
+(** [user_board] draws the current stats of the user*)
 let user_board color (state : State.t) =
   Graphics.set_color color;
   Graphics.draw_rect 230 220 60 60;
@@ -434,7 +435,7 @@ let user_board color (state : State.t) =
   Graphics.draw_string ("Lv: " ^ string_of_int state.player.level);
   health_bar_user state
 
-(*[enemy_board] draws the current stats of the enemy*)
+(** [enemy_board] draws the current stats of the enemy*)
 let enemy_board color (state : State.t) =
   Graphics.set_color color;
   Graphics.draw_rect 350 400 60 60;

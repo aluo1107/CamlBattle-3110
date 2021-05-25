@@ -108,8 +108,7 @@ let updated_defense t int = { t with defense = int }
 (* returns current defense*)
 let current_defense t = t.defense
 
-(* Stage*)
-(* matches the stage to the element*)
+(* [stage_effect t] matches the stage to the element it represents.*)
 let stage_effect t =
   match t with
   | "volcano" -> "fire"
@@ -118,8 +117,7 @@ let stage_effect t =
   | "cloud kingdom" -> "air"
   | x -> raise (UnknownStage x)
 
-(*Returns the effect of element match ups*)
-
+(*[stage_multi] returns the effect of element match ups*)
 let stage_multi = function
   | WeakStage -> 1.0
   | NormalStage -> 1.25
