@@ -69,7 +69,7 @@ let effect_multi = function
   | Normal -> 1.25
   | SuperEffect -> 1.5
 
-(*returns the type effect on the camel*)
+(*[attack_multi] returns the type effect on the camel*)
 let attack_multi (caml : element_t) (enemy : element_t) =
   match (caml, enemy) with
   | "air", "air" -> Normal
@@ -90,26 +90,26 @@ let attack_multi (caml : element_t) (enemy : element_t) =
   | "fire", "fire" -> Normal
   | x, y -> raise (UnknownElement x)
 
-(*returns the camltype *)
+(*[caml_type] returns the camltype *)
 let caml_type t = t.element_t
 
-(* returns a tuple of a player and AI matchup*)
+(* [effect_match] returns a tuple of a player and AI matchup*)
 let effect_match (t : t) t = (t.element_t, t.element_t)
 
-(* returns the current hp of a type t*)
+(* [current_hp] returns the current hp of a type t*)
 let current_hp t = t.hp
 
-(* updates hp with given int*)
+(* [updated_hp] updates hp with given int*)
 let updated_hp t int = { t with hp = t.hp - int; defense = 0 }
 
-(* updates defense with given int*)
+(* [updated_defense] updates defense with given int*)
 let updated_defense t int = { t with defense = int }
 
-(* returns current defense*)
+(* [current_defense] returns current defense*)
 let current_defense t = t.defense
 
 (* Stage*)
-(* matches the stage to the element*)
+(* [stage_effect] matches the stage to the element*)
 let stage_effect t =
   match t with
   | "volcano" -> "fire"
@@ -118,13 +118,14 @@ let stage_effect t =
   | "cloud kingdom" -> "air"
   | x -> raise (UnknownStage x)
 
-(*Returns the effect of element match ups*)
+(*[stage_multi] returns the effect of element match ups*)
 
 let stage_multi = function
   | WeakStage -> 1.0
   | NormalStage -> 1.25
   | SuperEffectStage -> 1.5
 
+(*[attack_stage_multi] matches the stage effect *)
 let attack_stage_multi caml stage =
   let biome_effec = stage_effect stage in
   match (caml, biome_effec) with

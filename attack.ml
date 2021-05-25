@@ -33,19 +33,13 @@ let attack_move attacker victim state =
     get_multiplier
       (attack_multi (caml_type attacker) (caml_type victim))
   in
-  (* print_endline ("attack_multiplier: " ^ string_of_float
-     attack_multiplier); *)
   let attack_damage_type =
     attack_multiplier *. float_of_int attack_base
   in
-  (* print_endline ("attack_damage_type: " ^ string_of_int
-     attack_damage_type); *)
   let attack_multi_stage =
     get_stage_multiplier
       (attack_stage_multi attacker.element_t state.stage)
   in
-  (* print_endline ("attack_multi_stage " ^ string_of_float
-     attack_multi_stage); *)
   int_of_float (attack_damage_type *. attack_multi_stage)
   - current_defense victim
 
@@ -54,7 +48,6 @@ let change_victim_hp victim attack_dam =
     victim with
     hp =
       (let new_hp = victim.hp - attack_dam in
-       (* print_endline ("new hp " ^ string_of_int new_hp); *)
        if new_hp > victim.hp then victim.hp else new_hp);
     defense = 0;
   }
@@ -62,7 +55,6 @@ let change_victim_hp victim attack_dam =
 let attacking_move state attacker victim player_attacker =
   let attack_dam = attack_move attacker victim state in
 
-  (* print_endline ("attack_dam " ^ string_of_int attack_dam); *)
   if player_attacker then
     {
       state with
@@ -116,6 +108,13 @@ let heal_move state attacker victim player_attacker =
       turn = change_turn player_attacker;
     }
 
+(* [move state attacker victim move player_attacker] applies the move
+   made by the attacker either on themself or the victim, depending on
+   if the move was Attack, Defense, or Heal. Requires [state] to be a
+   valid State.t, [attacker] and [victim] be a valid Camltype.t, [move]
+   be a valid Camltypes.move_t, [player_attacker] to be a valid bool
+   that is true if the player is the attacker or false if the player is
+   not the attacker.*)
 let move (state : State.t) attacker victim move player_attacker =
   match move with
   | Attack -> attacking_move state attacker victim player_attacker
