@@ -4,6 +4,39 @@ open Attack
 open State
 open Ai
 
+(* Parts of the system that were automatically tested by OUnit were the
+   functions in attack.ml, ai.ml, and caml instantiation in
+   camltypes.ml. The attack.ml functions are tested by checking the hp
+   and defense of the camls to make sure the right amount of damage was
+   dealt. We also tested to make sure the right amount of health was
+   healed, and the right amount of defense was given and taken away.
+   These tests were developed using glass-box testing because function
+   implementation was required to know the expected output due to
+   specific multipliers and base values in calculation. The testing
+   approach demonstrates the correctness of the system because it
+   ensures that the three moves that a player makes will return the
+   expected value. Moreover, this also ensures that the underlying
+   calculations are performed correctly, the right multipliers are
+   returned, and the right amount of damage/health/defense is dealt.
+   Camltypes was tested by ensuring that caml instantiation happened
+   correctly and that the right values were being returned. These three
+   modules were tested by OUnit since they could be automatically tested
+   because they do not involve the graphics end of the project. *)
+
+(* The functions in draw.ml, main.ml, state.ml were tested manually by
+   playing the game. Parts of the system that are tested manually have
+   to do with the graphics library, so testing manually is the only way
+   to ensure they are drawn and displayed correctly. By testing main.ml,
+   draw.ml and state.ml were tested by extension since both draw and
+   state are utilized within the main game loop. In testing, we checked
+   to ensure that the game starts, new rounds are made, screen
+   transitions are smooth, and that the right game screen is shown at
+   the right. We also checked to make sure the right damage is dealt and
+   that the game screens reflect this damage. This demonstrates
+   correctness because it shows that our state is being parsed
+   correctly, drawn correctly on the screen, and taken care of by the
+   main game loop. *)
+
 (* The helper test functions*)
 let attack_multi_test
     (name : string)
